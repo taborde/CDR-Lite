@@ -1,6 +1,6 @@
 package nci.bbrb.cdr.datarecords
 
-import nci.bbrb.cdr.staticmembers
+import nci.bbrb.cdr.staticmembers.*
 
 class SpecimenRecord extends DataRecordBaseClass{
     
@@ -9,6 +9,8 @@ class SpecimenRecord extends DataRecordBaseClass{
     String specimenId
     Fixative fixative
     ContainerType containerType
+    TissueType tissueType
+    TissueLocation tissueLocation
 
     static constraints = {
     }

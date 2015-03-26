@@ -11,7 +11,7 @@ class CollectionType extends StaticMemberBaseClass{
     
       static mapping = {
       table 'st_collection_type'
-      id generator:'sequence', params:[sequence:'st_collection_type_pk']
+      id generator:'identity', params:[sequence:'st_collection_type_pk']
     }
 
 }

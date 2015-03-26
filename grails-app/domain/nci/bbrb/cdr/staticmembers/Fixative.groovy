@@ -7,7 +7,7 @@ class Fixative extends StaticMemberBaseClass{
     
      static mapping = {
       table 'st_fixative'
-      id generator:'sequence', params:[sequence:'Fixative_pk']
+      id generator:'identity', params:[sequence:'Fixative_pk']
     }
 
 }

@@ -2,8 +2,6 @@ dataSource {
     pooled = true
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"
-    username = "cdr"
-    password = "admin"
     dialect = org.hibernate.dialect.MySQL5InnoDBDialect
     properties {
         maxActive = 50
@@ -29,9 +27,11 @@ hibernate {
 environments {
     development {
         dataSource {
+            username = "cdr"
+            password = "admin"
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://localhost/mydb?useOldAliasMetadataBehavior=true"
-            url = "jdbc:mysql://localhost/mydb"
+            // url = "jdbc:mysql://localhost/mydb?useOldAliasMetadataBehavior=true"
+            url = "jdbc:mysql://localhost/cdrlite"
         }
     }
     test {

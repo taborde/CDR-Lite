@@ -1,6 +1,6 @@
 package nci.bbrb.cdr.datarecords
 
-import nci.bbrb.cdr.staticmembers
+import nci.bbrb.cdr.staticmembers.*
 
 class CandidateRecord extends DataRecordBaseClass{
     
@@ -12,8 +12,6 @@ class CandidateRecord extends DataRecordBaseClass{
     boolean isConsented = false
     boolean isEligible = false
 
-    static hasOne = [CandidateRecord]
-    
     static constraints = {
     }
 }

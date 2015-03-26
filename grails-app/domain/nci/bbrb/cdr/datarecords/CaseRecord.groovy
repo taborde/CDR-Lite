@@ -1,6 +1,6 @@
 package nci.bbrb.cdr.datarecords
 
-import nci.bbrb.cdr.staticmembers
+import nci.bbrb.cdr.staticmembers.*
 
 class CaseRecord extends DataRecordBaseClass {
     

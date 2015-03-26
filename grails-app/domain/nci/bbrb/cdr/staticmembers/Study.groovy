@@ -3,7 +3,7 @@ package nci.bbrb.cdr.staticmembers
 class Study extends StaticMemberBaseClass{
     static mapping = {
       table 'st_study'
-      id generator:'sequence', params:[sequence:'st_study_pk']
+      id generator:'identity', params:[sequence:'st_study_pk']
     }
     
      static searchable ={

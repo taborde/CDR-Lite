@@ -1,5 +1,9 @@
 package nci.bbrb.cdr.staticmembers
 
+/*
+ * BSS = Biospecimen Source Site
+ *
+ */
 class BSS extends StaticMemberBaseClass{
 
     BSS parentBss
@@ -58,6 +62,6 @@ class BSS extends StaticMemberBaseClass{
     }
       static mapping = {
       table 'st_bss'
-      id generator:'sequence', params:[sequence:'st_bss_pk']
+      id generator:'identity', params:[sequence:'st_bss_pk']
     }
 }
