@@ -95,6 +95,70 @@ environments {
     }
 }
 
+
+// Added by the Spring Security Core plugin:
+//grails.plugin.springsecurity.userLookup.userDomainClassName = 'nci.bbrb.cdr.authService.User'
+//grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'nci.bbrb.cdr.authService.UserRole'
+//grails.plugin.springsecurity.authority.className = 'nci.bbrb.cdr.authService.Role'
+//grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+//	'/':                              ['permitAll'],
+//	'/index':                         ['permitAll'],
+//	'/index.gsp':                     ['permitAll'],
+//	'/assets/**':                     ['permitAll'],
+//	'/**/js/**':                      ['permitAll'],
+//	'/**/css/**':                     ['permitAll'],
+//	'/**/images/**':                  ['permitAll'],
+//	'/**/favicon.ico':                ['permitAll']
+//]
+
+//pmh adding this for testing 
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'nci.bbrb.cdr.authService.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'nci.bbrb.cdr.authService.UserRole'
+grails.plugin.springsecurity.authority.className = 'nci.bbrb.cdr.authService.Role'
+
+
+//pmh testing added more here . will remove later
+
+grails.plugin.springsecurity.ui.register.emailFrom = 'pushpa.hariharan@nih.gov'
+grails.plugin.springsecurity.ui.register.emailSubject = 'caHUB CDR-DS Password Reset'
+
+grails.plugin.springsecurity.ui.forgotPassword.emailBody = 'Dear $user.username,<br/><br/>You recently requested that your caHUB CDR account password be reset.<br/><br/>Please click <a href="$url">here</a> to reset your password, if you did request a password change. Otherwise, ignore this email and no change will be applied to your account.<br/><br/>caHUB CDR Administrator'
+grails.plugin.springsecurity.ui.forgotPassword.emailFrom = 'pushpa.hariharan@nih.gov'
+grails.plugin.springsecurity.ui.forgotPassword.emailSubject = 'caHUB CDR Account Password Reset'
+
+grails.plugin.springsecurity.ui.expiredPassword.emailBody = 'Dear $username,<br/><br/>Your caHUB CDR account password is expired.<br/><br/>Please click <a href="$url">here</a> to change your password.<br/><br/>caHUB CDR Administrator'
+grails.plugin.springsecurity.ui.expiredPassword.emailFrom = 'pushpa.hariharan@nih.gov'
+grails.plugin.springsecurity.ui.expiredPassword.emailSubject = 'caHUB CDR Account Password Expired'
+
+grails.plugin.springsecurity.ui.expiredPassword.reminder.emailBody = 'Dear $username,<br/><br/>Your caHUB CDR account password expires on $expireDate, which is $daysRemain from today.<br/><br/>Please click <a href="$url">here</a> to change your password before it expires.<br/><br/>caHUB CDR Administrator'
+grails.plugin.springsecurity.ui.expiredPassword.reminder.emailFrom = 'pushpa.hariharan@nih.gov'
+grails.plugin.springsecurity.ui.expiredPassword.reminder.emailSubject = 'Reminder: caHUB CDR Account Password Expiration'
+
+//pessimistic lockdown setting, so you need to ALLOW all roles on URLs
+grails.plugin.springsecurity.rejectIfNoRule = true
+
+//pmh 04/02/15 testing the @secured annotations 
+grails.plugin.springsecurity.securityConfigType = "Annotation"
+
+grails.assets.bundle=true
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+
+ //leave these alone.  these rules are needed for everyting to work properly
+    '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/logout/**': ['IS_AUTHENTICATED_FULLY'],
+    '/register/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/plugins/**': ['IS_AUTHENTICATED_ANONYMOUSLY', 'IS_AUTHENTICATED_FULLY'],
+    '/images/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/css/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/js/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+	//webapp controllers
+    '/home/**': ['IS_AUTHENTICATED_FULLY']
+]
+
+//grails.plugin.springsecurity.useSecurityEventListener = true
+grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/home'
 // log4j configuration
 log4j.main = {
     // Example of changing the log pattern for the default console appender:
