@@ -1,18 +1,13 @@
 dataSource {
     pooled = true
     jmxExport = true
-    driverClassName = "com.mysql.jdbc.Driver"
-    dialect = org.hibernate.dialect.MySQL5InnoDBDialect
-    properties {
-        maxActive = 50
-        maxIdle = 25
-        minIdle = 5
-        initialSize = 5
-        minEvictableIdleTimeMillis = 1800000
-        timeBetweenEvictionRunsMillis = 1800000
-        maxWait = 10000
-        ValidationQuery = 'select 1'
-    } 
+//    driverClassName = "org.h2.Driver"
+//    driverClassName = "com.mysql.jdbc.Driver"
+    driverClassName = "org.postgresql.Driver"
+    dialect = "org.hibernate.dialect.PostgreSQLDialect"
+//    dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+//    username = "sa"
+//    password = ""
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -29,9 +24,10 @@ environments {
         dataSource {
             username = "cdr"
             password = "admin"
-            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            // url = "jdbc:mysql://localhost/mydb?useOldAliasMetadataBehavior=true"
-            url = "jdbc:mysql://localhost/cdrlite"
+            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+//            url = "jdbc:mysql://localhost/mydb?useOldAliasMetadataBehavior=true"
+//            url = "jdbc:mysql://localhost/cdrlite"
+            url = "jdbc:postgresql://localhost:5432/cdr"
         }
     }
     test {
@@ -40,6 +36,7 @@ environments {
             url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
         }
     }
+    /*
     production {
         dataSource {
             dbCreate = "update"
@@ -66,4 +63,5 @@ environments {
             }
         }
     }
+    */
 }
