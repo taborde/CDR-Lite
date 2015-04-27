@@ -1,6 +1,6 @@
-package nci.bbrb.cdr.authService
+package nci.bbrb.cdr.authservice
 
-class Role {
+class SecAppRole {
 
 	String authority
 

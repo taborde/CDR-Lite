@@ -1,6 +1,6 @@
-package nci.bbrb.cdr.authService
+package nci.bbrb.cdr.authservice
 
-class User {
+class SecAppUser {
 
 	transient springSecurityService
 
@@ -22,8 +22,8 @@ class User {
 		password column: '`password`'
 	}
 
-	Set<Role> getAuthorities() {
-		UserRole.findAllByUser(this).collect { it.role }
+	Set<SecAppRole> getAuthorities() {
+		SecAppUserSecAppRole.findAllBySecAppUser(this).collect { it.secAppRole }
 	}
 
 	def beforeInsert() {

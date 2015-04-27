@@ -17,7 +17,7 @@ class HomeController {
               
         else if(!session.chosenHome || session.serviceAccount != true){
                 //redirect(action: "home", params: params)     
-                 println "session service account is false"
+                 //println "pmh test session service account is false"
                 redirect(action: "choosehome", params: params)                
             }
         }
