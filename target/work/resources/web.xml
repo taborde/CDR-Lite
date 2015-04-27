@@ -15,6 +15,11 @@
     <param-name>sample</param-name>
     <param-value>Sample Value</param-value>
   </context-param>
+  <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    <async-supported>true</async-supported>
+  </filter>
 
     <filter>
         <filter-name>charEncodingFilter</filter-name>
@@ -31,7 +36,7 @@
     </filter>
   <filter>
     <filter-name>AssetPipelineFilter</filter-name>
-    <filter-class>asset.pipeline.AssetPipelineFilter</filter-class>
+    <filter-class>asset.pipeline.grails.AssetPipelineFilter</filter-class>
     <async-supported>true</async-supported>
   </filter>
   <filter>
@@ -80,6 +85,12 @@
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
   </filter-mapping>
   <filter-mapping>
     <filter-name>urlMapping</filter-name>
@@ -170,6 +181,18 @@
     </welcome-file-list>
   <error-page>
     <error-code>500</error-code>
+    <location>/grails-errorhandler</location>
+  </error-page>
+  <error-page>
+    <error-code>403</error-code>
+    <location>/grails-errorhandler</location>
+  </error-page>
+  <error-page>
+    <error-code>401</error-code>
+    <location>/grails-errorhandler</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
     <location>/grails-errorhandler</location>
   </error-page>
 

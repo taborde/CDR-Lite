@@ -1,37 +1,30 @@
 dataSource {
     pooled = true
     jmxExport = true
-    driverClassName = "com.mysql.jdbc.Driver"
-    dialect = org.hibernate.dialect.MySQL5InnoDBDialect
-    properties {
-        maxActive = 50
-        maxIdle = 25
-        minIdle = 5
-        initialSize = 5
-        minEvictableIdleTimeMillis = 1800000
-        timeBetweenEvictionRunsMillis = 1800000
-        maxWait = 10000
-        ValidationQuery = 'select 1'
-    } 
+   // driverClassName = "com.mysql.jdbc.Driver"
+    //dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+    
+    driverClassName = "org.postgresql.Driver"
+    dialect = "org.hibernate.dialect.PostgreSQLDialect"
+    
+   
 }
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = false
-//    cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory' // Hibernate 3
-    cache.region.factory_class = 'org.hibernate.cache.ehcache.EhCacheRegionFactory' // Hibernate 4
-    singleSession = true // configure OSIV singleSession mode
-    flush.mode = 'manual' // OSIV session flush mode outside of transactional context
+    cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory' // Hibernate 
+   
 }
 
 // environment specific settings
 environments {
     development {
         dataSource {
-            username = "cdr"
-            password = "admin"
-            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            // url = "jdbc:mysql://localhost/mydb?useOldAliasMetadataBehavior=true"
-            url = "jdbc:mysql://localhost/cdrlite"
+                    dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+                     url = "jdbc:postgresql://localhost:5432/cdrlite"
+                     username = "postgres"
+                     password = "pmhadmin"
+
         }
     }
     test {

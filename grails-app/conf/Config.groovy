@@ -1,16 +1,3 @@
-// locations to search for config files that get merged into the main config;
-// config files can be ConfigSlurper scripts, Java properties files, or classes
-// in the classpath in ConfigSlurper format
-
-// grails.config.locations = [ "classpath:${appName}-config.properties",
-//                             "classpath:${appName}-config.groovy",
-//                             "file:${userHome}/.grails/${appName}-config.properties",
-//                             "file:${userHome}/.grails/${appName}-config.groovy"]
-
-// if (System.properties["${appName}.config.location"]) {
-//    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
-// }
-
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
@@ -96,26 +83,6 @@ environments {
 }
 
 
-// Added by the Spring Security Core plugin:
-//grails.plugin.springsecurity.userLookup.userDomainClassName = 'nci.bbrb.cdr.authService.User'
-//grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'nci.bbrb.cdr.authService.UserRole'
-//grails.plugin.springsecurity.authority.className = 'nci.bbrb.cdr.authService.Role'
-//grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-//	'/':                              ['permitAll'],
-//	'/index':                         ['permitAll'],
-//	'/index.gsp':                     ['permitAll'],
-//	'/assets/**':                     ['permitAll'],
-//	'/**/js/**':                      ['permitAll'],
-//	'/**/css/**':                     ['permitAll'],
-//	'/**/images/**':                  ['permitAll'],
-//	'/**/favicon.ico':                ['permitAll']
-//]
-
-//pmh adding this for testing 
-// Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'nci.bbrb.cdr.authService.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'nci.bbrb.cdr.authService.UserRole'
-grails.plugin.springsecurity.authority.className = 'nci.bbrb.cdr.authService.Role'
 
 
 //pmh testing added more here . will remove later
@@ -156,6 +123,21 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/home/**': ['IS_AUTHENTICATED_FULLY']
 ]
 
+
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'nci.bbrb.cdr.authservice.SecAppUser'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'nci.bbrb.cdr.authservice.SecAppUserSecAppRole'
+grails.plugin.springsecurity.authority.className = 'nci.bbrb.cdr.authservice.SecAppRole'
+
+//grails.plugin.springsecurity.userLookup.userDomainClassName = 'nci.bbrb.cdr.authservice.User'
+//grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'nci.bbrb.cdr.authservice.UserRole'
+//grails.plugin.springsecurity.authority.className = 'nci.bbrb.cdr.authservice.Role'
+
+
+grails.plugin.springsecurity.fii.rejectPublicInvocations = false
+
+
 //grails.plugin.springsecurity.useSecurityEventListener = true
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
 grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/home'
@@ -179,3 +161,7 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+
+
+

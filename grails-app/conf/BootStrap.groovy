@@ -1,23 +1,21 @@
 import nci.bbrb.cdr.staticmembers.*
-import nci.bbrb.cdr.authService.*
+import nci.bbrb.cdr.authservice.*
 
 class BootStrap {
 
     def init = { servletContext ->
-        
-        def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
-    def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
+         def adminRole = new SecAppRole(authority: 'ROLE_ADMIN').save(flush: true)
+    def userRole = new SecAppRole(authority: 'ROLE_USER').save(flush: true)
 
-    def testUser = new User(username: 'admin', enabled: true, password: 'admin')
+    def testUser = new SecAppUser(username: 'admin', enabled: true, password: 'admin')
     testUser.save(flush: true)
 
-    UserRole.create testUser, adminRole, true
+    SecAppUserSecAppRole.create testUser, adminRole, true
 
-    assert User.count() == 1
-    assert Role.count() == 2
-    assert UserRole.count() == 1
+    assert SecAppUser.count() == 1
+    assert SecAppRole.count() == 2
+    assert SecAppUserSecAppRole.count() == 1
         
-        new BSS(code:"UNM", study:2,name: "University of Mexico").save(failOnError: false, flush: true)
     }
     def destroy = {
     }
