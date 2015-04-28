@@ -4,17 +4,17 @@ import nci.bbrb.cdr.authservice.*
 class BootStrap {
 
     def init = { servletContext ->
-         def adminRole = new SecAppRole(authority: 'ROLE_ADMIN').save(flush: true)
-    def userRole = new SecAppRole(authority: 'ROLE_USER').save(flush: true)
+    def adminRole = new nci.bbrb.cdr.authservice.CdrRole(authority: 'ROLE_ADMIN').save(failOnError: false, flush: true)
+    def userRole  = new nci.bbrb.cdr.authservice.CdrRole(authority: 'ROLE_USER').save(failOnError: false, flush: true)
 
-    def testUser = new SecAppUser(username: 'admin', enabled: true, password: 'admin')
-    testUser.save(flush: true)
+    def testUser = new nci.bbrb.cdr.authservice.CdrUser(username: 'admin', enabled: true, password: 'admin')
+    testUser.save(failOnError: false, flush: true)
 
-    SecAppUserSecAppRole.create testUser, adminRole, true
+    CdrUserRole.create(testUser, adminRole, true)
 
-    assert SecAppUser.count() == 1
-    assert SecAppRole.count() == 2
-    assert SecAppUserSecAppRole.count() == 1
+    assert CdrUser.count() == 1
+    assert CdrRole.count() == 2
+    assert CdrUserRole.count() == 1
         
     }
     def destroy = {

@@ -126,9 +126,9 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 
 
 // Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'nci.bbrb.cdr.authservice.SecAppUser'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'nci.bbrb.cdr.authservice.SecAppUserSecAppRole'
-grails.plugin.springsecurity.authority.className = 'nci.bbrb.cdr.authservice.SecAppRole'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'nci.bbrb.cdr.authservice.CdrUser'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'nci.bbrb.cdr.authservice.CdrUserRole'
+grails.plugin.springsecurity.authority.className = 'nci.bbrb.cdr.authservice.CdrRole'
 
 //grails.plugin.springsecurity.userLookup.userDomainClassName = 'nci.bbrb.cdr.authservice.User'
 //grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'nci.bbrb.cdr.authservice.UserRole'
