@@ -1,32 +1,34 @@
+ /* the main container in the choosehome page*/
 .containerDiv {
   border: 1px solid #3697f6;
    display:table;
-      height: 200px;
-  width: 200px;
+      height: 300px;
+  width: 500px;
   margin: 0 auto;
   background-color: #b0c4de;
-      
+    font-size: 16px;  
 }
 .rowDivHeader {
   border: 1px solid #668db6;
-  background-color: #336799;
-  color: white;
-  font-weight: bold; display:table-row
+  background-color: #b0c4de;
+  color: black;
+  margin: 30px;
+  font-weight: normal; display:table-row
 }
 .rowDiv {
   border: 1px solid #668db6;
-  background-color: #cee6fe;
-  display:table-row
-}
+  background-color: #b0c4de;
+  display:table-row;
+   }
 .cellDivHeader {
-  border-right: 1px solid white;
-  display: table-cell;
-  width:12%;
-  padding: 1px;
+ 
+  display: table-cell;  
+    padding-top: 15px;
   text-align: center; 
+ 
 }
 .cellDiv {
-  border-right: 2px solid white;
+  
   display: table-cell;
   width:10%;
   padding-right: 4px;
@@ -34,9 +36,44 @@
   border-bottom: none;
 }
 
-.lastCell {
-  border-right: none;
+.rowspanned {
+ 
+  display: table-cell;   
+  padding-top: 15px;
+  text-align: center; 
 }
+.homeimg {
+ 
+  width:100px;height:100px;border:2
+}
+/* the main container holding the nav bar and the container div*/
+.navbarcontainer {
+  background: transparent url("../images/fade_withborder.jpg") repeat-x; 
+   display:table;
+      height: 450px;
+  width:70%;
+  margin: 0 auto;
+ 
+      
+}
+/* PMH footer */
+#vers { color:#666; margin-top: 30px; font-size: 10px;}
+#vers #verstext {text-align: center; height:20px;}
+ 
+#footer {text-align: center;font-size: 10px; }
+#footer .footerlogos { width: 565px; height: 50px; margin: 0 auto; padding:0 0 20px 0;border-top: 1px solid #eeeeee;list-style: none;}
+#footer .footer_cahub a{ background: url(../images/cahub-logo-c.gif) no-repeat; width:110px;  height: 50px; text-indent:-9999px; float: left;}
+#footer .footer_nci a{ background: url(../images/nci-logo-c.gif) no-repeat; width:60px; height: 50px; text-indent:-9999px; float: left;}
+#footer .footer_leidos a{ background: url(../images/leidos-logo-c.jpg) no-repeat; width:110px; height: 50px; text-indent:-9999px; float: left;}
+#footer .footer_dop a{ background: url(../images/hhs-logo-c.gif) no-repeat; width:50px; height: 50px; text-indent:-9999px; float: left;}
+#footer .footer_nih a{ background: url(../images/nih-logo-c.gif) no-repeat; width:56px; height: 50px; text-indent:-9999px; float: left;}
+#footer .footer_usagov a{ background: url(../images/usagov-logo-c.gif) no-repeat; width:112px; height: 50px; text-indent:-9999px; float: left;}
+
+/* PMH navbar related */
+#nav {font-size: 14px; height:20px;line-height:16px; margin-bottom:10px; padding-left: 150px;}
+#nav #navlist {float:left;}
+#nav #navlist a, #nav #navlist span { padding: 4px 10px 4px 20px; font-weight:bold;color: #336699; }
+#nav #navlist span:hover, #nav #navlist a:hover {cursor:pointer; color:#1a2674;}
 
 
 .headerDiv {
@@ -52,8 +89,84 @@
 .clear {clear: both;display: block;overflow: hidden;visibility: hidden;width: 0;height: 0;}
 .clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
 .clearfix { display: inline-block; } 
-html[xmlns] .clearfix { display: block; }
-* html .clearfix { height: 1%; }
 
 
+/* PMH these are used in the auth login page. will organize them later*/
+#login {
+		margin: 15px 0px;
+		padding: 0px;
+		text-align: center;
+	}
 
+	#login .inner {
+		width: 340px;
+		padding-bottom: 6px;
+		margin: 60px auto;
+		text-align: left;
+		border: 1px solid #aab;
+		background-color: #f0f0fa;
+		-moz-box-shadow: 2px 2px 2px #eee;
+		-webkit-box-shadow: 2px 2px 2px #eee;
+		-khtml-box-shadow: 2px 2px 2px #eee;
+		box-shadow: 2px 2px 2px #eee;
+	}
+
+	#login .inner .fheader {
+		padding: 18px 26px 14px 26px;
+		background-color: #f7f7ff;
+		margin: 0px 0 14px 0;
+		color: #2e3741;
+		font-size: 18px;
+		font-weight: bold;
+	}
+
+	#login .inner .cssform p {
+		clear: left;
+		margin: 0;
+		padding: 4px 0 3px 0;
+		padding-left: 105px;
+		margin-bottom: 20px;
+		height: 1%;
+	}
+
+	#login .inner .cssform input[type='text'] {
+		width: 120px;
+	}
+
+	#login .inner .cssform label {
+		font-weight: bold;
+		float: left;
+		text-align: right;
+		margin-left: -105px;
+		width: 110px;
+		padding-top: 3px;
+		padding-right: 10px;
+	}
+
+	#login #remember_me_holder {
+		padding-left: 120px;
+	}
+
+	#login #submit {
+		margin-left: 15px;
+	}
+
+	#login #remember_me_holder label {
+		float: none;
+		margin-left: 0;
+		text-align: left;
+		width: 200px
+	}
+
+	#login .inner .login_message {
+		padding: 6px 25px 20px 25px;
+		color: #c33;
+	}
+
+	#login .inner .text_ {
+		width: 120px;
+	}
+
+	#login .inner .chk {
+		height: 12px;
+	}

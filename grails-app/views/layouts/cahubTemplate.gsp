@@ -8,11 +8,7 @@
     <html>
         <head>
             <title><g:layoutTitle default="CDR-Lite"/></title>
-        <style>
-            #navbar {background-color:#ffe0e0;text-align: center;}
-            #footer {background-color:#e0e0ff;text-align: center;}
-
-        </style>
+       
         <script> function redirectToLogin(){
             window.location = '/cdrlite/logout';
             }
@@ -22,6 +18,6 @@
     <body>
 
         <g:layoutBody/>
-        <div id="footer">FOOTER</div>
+       
     </body>
 </html>
