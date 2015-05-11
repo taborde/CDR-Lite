@@ -6,14 +6,12 @@ class AppSettingController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-    def scaffold = AppSetting
+    static scaffold = AppSetting
     
-    def index = {
-        redirect(action: "list", params: params)
-    }
-
+    
     def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        //params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        println "pmh test"
         [appSettingInstanceList: AppSetting.list(params), appSettingInstanceTotal: AppSetting.count()]
     }
 
@@ -91,7 +89,7 @@ class AppSettingController {
             try {
                 appSettingInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'appSetting.label', default: 'AppSetting'), params.id])}"
-                redirect(action: "list")
+                redirect(action: "index")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'appSetting.label', default: 'AppSetting'), params.id])}"
@@ -100,7 +98,7 @@ class AppSettingController {
         }
         else {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'appSetting.label', default: 'AppSetting'), params.id])}"
-            redirect(action: "list")
+            redirect(action: "index")
         }
     }
 }

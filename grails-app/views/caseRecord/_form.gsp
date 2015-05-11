@@ -1,7 +1,7 @@
 <%@ page import="nci.bbrb.cdr.datarecords.CaseRecord" %>
 
 
-
+<%--
 <div class="fieldcontain ${hasErrors(bean: caseRecordInstance, field: 'internalComments', 'error')} ">
 	<label for="internalComments">
 		<g:message code="caseRecord.internalComments.label" default="Internal Comments" />
@@ -20,6 +20,24 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: caseRecordInstance, field: 'internalGUID', 'error')} required">
+	<label for="internalGUID">
+		<g:message code="caseRecord.internalGUID.label" default="Internal GUID" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="internalGUID" required="" value="${caseRecordInstance?.internalGUID}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: caseRecordInstance, field: 'publicVersion', 'error')} required">
+	<label for="publicVersion">
+		<g:message code="caseRecord.publicVersion.label" default="Public Version" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field name="publicVersion" value="${fieldValue(bean: caseRecordInstance, field: 'publicVersion')}" required=""/>
+
+</div>
+--%>
 <div class="fieldcontain ${hasErrors(bean: caseRecordInstance, field: 'bss', 'error')} required">
 	<label for="bss">
 		<g:message code="caseRecord.bss.label" default="Bss" />
@@ -65,23 +83,7 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: caseRecordInstance, field: 'internalGUID', 'error')} required">
-	<label for="internalGUID">
-		<g:message code="caseRecord.internalGUID.label" default="Internal GUID" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:textField name="internalGUID" required="" value="${caseRecordInstance?.internalGUID}"/>
 
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: caseRecordInstance, field: 'publicVersion', 'error')} required">
-	<label for="publicVersion">
-		<g:message code="caseRecord.publicVersion.label" default="Public Version" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:field name="publicVersion" value="${fieldValue(bean: caseRecordInstance, field: 'publicVersion')}" required=""/>
-
-</div>
 
 <div class="fieldcontain ${hasErrors(bean: caseRecordInstance, field: 'specimens', 'error')} ">
 	<label for="specimens">

@@ -55,6 +55,10 @@ grails.project.dependency.resolution = {
         runtime "postgresql:postgresql:9.1-901.jdbc4"
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
         
+        //pmh 05/07/15: as per grails 2.4.4 release notes, this is required for auto timestamping to work
+       // compile "javax.validation:validation-api:1.1.0.Final"
+    //runtime "org.hibernate:hibernate-validator:5.0.3.Final"
+        
     }
 
     plugins {

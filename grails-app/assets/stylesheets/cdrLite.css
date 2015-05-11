@@ -1,61 +1,54 @@
- /* the main container in the choosehome page*/
+ /* -- global -- */
+html, body {font-family: verdana, arial, helvetica, sans-serif;}
+body {font-size: 11px; color:#444444;  background: transparent url("../images/fade_withborder.jpg") repeat-x; background-position: 0 113px; }
+a:link, a:visited, a:active { color: #336699; text-decoration: none; font-weight:bold;font-size:11px;}
+.body_wrapper { 
+   margin: 10px 10px 10px 500px;
+    width:780px;
+    
+}
+
+/* the main container in the choosehome page*/
 .containerDiv {
   border: 1px solid #3697f6;
    display:table;
       height: 300px;
   width: 500px;
-  margin: 0 auto;
+  margin: 50px 100px 50px 700px;
   background-color: #b0c4de;
     font-size: 16px;  
 }
-.rowDivHeader {
-  border: 1px solid #668db6;
+.rowDiv {
+  
   background-color: #b0c4de;
   color: black;
-  margin: 30px;
-  font-weight: normal; display:table-row
+    font-weight: normal; display:table-row ; 
+        margin-bottom: 10px;
 }
-.rowDiv {
-  border: 1px solid #668db6;
-  background-color: #b0c4de;
-  display:table-row;
-   }
-.cellDivHeader {
- 
-  display: table-cell;  
-    padding-top: 15px;
-  text-align: center; 
- 
-}
+
+
 .cellDiv {
-  
+   
   display: table-cell;
   width:10%;
   padding-right: 4px;
   text-align: center;
-  border-bottom: none;
+  
 }
 
 .rowspanned {
  
   display: table-cell;   
-  padding-top: 15px;
-  text-align: center; 
+    text-align: center; 
+    font-size: 20px;
 }
 .homeimg {
  
-  width:100px;height:100px;border:2
+  width:150px;height:100px;padding-left: 4px;
 }
-/* the main container holding the nav bar and the container div*/
-.navbarcontainer {
-  background: transparent url("../images/fade_withborder.jpg") repeat-x; 
-   display:table;
-      height: 450px;
-  width:70%;
-  margin: 0 auto;
- 
-      
-}
+
+.textAlignCenter {  text-align:center; }
+
 /* PMH footer */
 #vers { color:#666; margin-top: 30px; font-size: 10px;}
 #vers #verstext {text-align: center; height:20px;}
@@ -63,10 +56,10 @@
 #footer {text-align: center;font-size: 10px; }
 #footer .footerlogos { width: 565px; height: 50px; margin: 0 auto; padding:0 0 20px 0;border-top: 1px solid #eeeeee;list-style: none;}
 #footer .footer_cahub a{ background: url(../images/cahub-logo-c.gif) no-repeat; width:110px;  height: 50px; text-indent:-9999px; float: left;}
-#footer .footer_nci a{ background: url(../images/nci-logo-c.gif) no-repeat; width:60px; height: 50px; text-indent:-9999px; float: left;}
-#footer .footer_leidos a{ background: url(../images/leidos-logo-c.jpg) no-repeat; width:110px; height: 50px; text-indent:-9999px; float: left;}
-#footer .footer_dop a{ background: url(../images/hhs-logo-c.gif) no-repeat; width:50px; height: 50px; text-indent:-9999px; float: left;}
-#footer .footer_nih a{ background: url(../images/nih-logo-c.gif) no-repeat; width:56px; height: 50px; text-indent:-9999px; float: left;}
+#footer .footer_nci a{ background: url(../images/nci-logo-c.gif) no-repeat; width:60px; height: 50px; text-indent:-9999px; float: left;margin-left:5px;}
+#footer .footer_leidos a{ background: url(../images/leidos-logo-c.jpg) no-repeat; width:110px; height: 50px; text-indent:-9999px; float: left;margin-left:5px;}
+#footer .footer_dop a{ background: url(../images/hhs-logo-c.gif) no-repeat; width:50px; height: 50px; text-indent:-9999px; float: left;margin-left:5px;}
+#footer .footer_nih a{ background: url(../images/nih-logo-c.gif) no-repeat; width:56px; height: 50px; text-indent:-9999px; float: left;margin-left:5px;}
 #footer .footer_usagov a{ background: url(../images/usagov-logo-c.gif) no-repeat; width:112px; height: 50px; text-indent:-9999px; float: left;}
 
 /* PMH navbar related */
@@ -76,15 +69,24 @@
 #nav #navlist span:hover, #nav #navlist a:hover {cursor:pointer; color:#1a2674;}
 
 
-.headerDiv {
-  float:right;
-	padding-top:20px;
-        width:24%;
-        color: #336699;
-        font-weight: normal;
-        font-size: 12px;
-      
-}
+#header {padding-top:0;height:100px; font-size:11px; width: 70%;}
+
+#header #grailsLogoLink {float:left; background: url('../images/logo_caHUB_cdr.jpg') no-repeat 0 20px; width:335px; font-weight:bold; height:60px; padding-top:15px; padding-right:100px;padding-left:100px;margin-top:4px; margin-left:300px;}
+#header #grailsLogoLink a{ text-indent:-9999px;  width:335px; height:60px; float: left; }
+/*#header #activityEvent {float:right; margin-top:11px;padding-left:5px; color: #336699; height:77px; padding-right:5px; border:solid 1px #eeefff; border-right:solid 1px #eeeeee; padding-top:5px; display:none;}
+#header #activityEvent.display {display: block;}
+.activityTime {font-size: 11px; color: #999999; padding-left:5px;}
+#header #activityEvent .activityTime {font-size: 10px;}
+#header li.activeSession a { font-weight:bold; color:#336699;}
+#header .welcome { border-right: solid 1px #8f8f8f; padding-right: 4px; }
+*/
+#header #userInfo { float:right; color: #336699; font-weight: normal; margin-top:11px; margin-left:15px;height:77px; padding-top:15px; padding-right:5px; padding-left:5px; border:solid 0px #eeefff;}
+#header #userInfo .small h6 { font-weight:normal; float:left;}
+#header #userInfo .small ul { float:left; padding-left: 5px;}
+#header #userInfo #searchhelp.small ul { padding-left:0; }
+#header #userInfo .small ul li { float:left; padding-right: 4px; margin-right: 4px; border-right: solid 1px #8f8f8f; }
+#header #userInfo .small ul li.last { border-right:none; }
+
 
 .clear {clear: both;display: block;overflow: hidden;visibility: hidden;width: 0;height: 0;}
 .clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
@@ -93,18 +95,17 @@
 
 /* PMH these are used in the auth login page. will organize them later*/
 #login {
-		margin: 15px 0px;
-		padding: 0px;
+		margin: 1px 1px 1px 150px;
 		text-align: center;
 	}
 
 	#login .inner {
 		width: 340px;
 		padding-bottom: 6px;
-		margin: 60px auto;
+		margin: 50px 50px 50px 100px;
 		text-align: left;
 		border: 1px solid #aab;
-		background-color: #f0f0fa;
+		background-color: #b2d1ff;
 		-moz-box-shadow: 2px 2px 2px #eee;
 		-webkit-box-shadow: 2px 2px 2px #eee;
 		-khtml-box-shadow: 2px 2px 2px #eee;
@@ -113,10 +114,11 @@
 
 	#login .inner .fheader {
 		padding: 18px 26px 14px 26px;
-		background-color: #f7f7ff;
+		background-color: #b2d1ff;
 		margin: 0px 0 14px 0;
 		color: #2e3741;
-		font-size: 18px;
+		font-size: 16px;
+                border-bottom: 1px dashed gray;
 		font-weight: bold;
 	}
 
@@ -127,6 +129,8 @@
 		padding-left: 105px;
 		margin-bottom: 20px;
 		height: 1%;
+               
+               
 	}
 
 	#login .inner .cssform input[type='text'] {
@@ -145,10 +149,21 @@
 
 	#login #remember_me_holder {
 		padding-left: 120px;
+               
 	}
 
 	#login #submit {
+               
 		margin-left: 15px;
+	}
+        
+        
+        #login .inner #important_link {
+               border-top: 1px dashed gray; 
+               padding-left: 20px;
+		
+                h3{text-align:center; margin-bottom:5px; } ;
+                
 	}
 
 	#login #remember_me_holder label {

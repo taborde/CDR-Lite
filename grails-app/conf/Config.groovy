@@ -7,7 +7,9 @@ grails.mime.types = [ // the first one is the default format
     atom:          'application/atom+xml',
     css:           'text/css',
     csv:           'text/csv',
-    form:          'application/x-www-form-urlencoded',
+    //form:          'application/x-www-form-urlencoded',
+    //pmh 05/07/15: use this to make dynamic scaffold work. comment out the above line
+    form:          ['application/x-www-form-urlencoded','multipart/form-data'],
     html:          ['text/html','application/xhtml+xml'],
     js:            'text/javascript',
     json:          ['application/json', 'text/json'],
@@ -120,7 +122,9 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/css/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
     '/js/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
 	//webapp controllers
-    '/home/**': ['IS_AUTHENTICATED_FULLY']
+    '/home/**': ['IS_AUTHENTICATED_FULLY'],
+    '/appSetting/**': ['IS_AUTHENTICATED_FULLY'],
+    '/caseRecord/**': ['IS_AUTHENTICATED_FULLY'],
 ]
 
 

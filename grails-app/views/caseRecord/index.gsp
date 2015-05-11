@@ -23,36 +23,34 @@
 			<table>
 			<thead>
 					<tr>
-					
+					<%--
 						<g:sortableColumn property="internalComments" title="${message(code: 'caseRecord.internalComments.label', default: 'Internal Comments')}" />
 					
 						<g:sortableColumn property="publicComments" title="${message(code: 'caseRecord.publicComments.label', default: 'Public Comments')}" />
-					
+					--%>
 						<th><g:message code="caseRecord.bss.label" default="Bss" /></th>
-					
-						<th><g:message code="caseRecord.candidateRecord.label" default="Candidate Record" /></th>
 					
 						<g:sortableColumn property="caseId" title="${message(code: 'caseRecord.caseId.label', default: 'Case Id')}" />
 					
 						<th><g:message code="caseRecord.caseStatus.label" default="Case Status" /></th>
+                                                <th><g:message code="caseRecord.candidateRecord.label" default="Candidate Record" /></th>
 					
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${caseRecordInstanceList}" status="i" var="caseRecordInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
+					<%--
 						<td><g:link action="show" id="${caseRecordInstance.id}">${fieldValue(bean: caseRecordInstance, field: "internalComments")}</g:link></td>
 					
 						<td>${fieldValue(bean: caseRecordInstance, field: "publicComments")}</td>
-					
+					--%>
 						<td>${fieldValue(bean: caseRecordInstance, field: "bss")}</td>
-					
-						<td>${fieldValue(bean: caseRecordInstance, field: "candidateRecord")}</td>
-					
+																
 						<td>${fieldValue(bean: caseRecordInstance, field: "caseId")}</td>
 					
 						<td>${fieldValue(bean: caseRecordInstance, field: "caseStatus")}</td>
+                                                <td>${fieldValue(bean: caseRecordInstance, field: "candidateRecord")}</td>
 					
 					</tr>
 				</g:each>
