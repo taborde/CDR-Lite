@@ -20,16 +20,10 @@ hibernate {
 environments {
     development {
         dataSource {
-                     dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-                     url = "jdbc:postgresql://localhost:5432/cdrlite"  
-                     username = "cdr"
-                     password = "admin"
-                     
-                     //dbCreate = "create" // one of 'create', 'create-drop', 'update', 'validate', ''
-		     //url = "jdbc:postgresql://nci-01870559-l.nci.nih.gov:5432/cdrlite2"  
-		     //url = "jdbc:postgresql://137.187.205.56:5432/cdrlite2"  
-		     //username = "postgres"
-                     //password = "uks69956"
+                    dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+                     url = "jdbc:postgresql://localhost:5432/cdrlite"
+                     username = "postgres"
+                     password = "pmhadmin"
 
         }
     }

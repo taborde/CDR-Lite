@@ -9,9 +9,13 @@ class AppSettingController {
     static scaffold = AppSetting
     
     
+    def index = {
+        redirect(action: "list", params: params)
+    }
+    
+    
     def list = {
-        //params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        println "pmh test"
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [appSettingInstanceList: AppSetting.list(params), appSettingInstanceTotal: AppSetting.count()]
     }
 

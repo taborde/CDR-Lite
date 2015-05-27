@@ -7,7 +7,7 @@ class CaseRecord extends DataRecordBaseClass {
     String caseId 
     CandidateRecord candidateRecord
     CaseStatus caseStatus
-    CollectionType collectionType
+    BiospecimenType biospecimenType
     BSS bss
     String tissueBankId
     

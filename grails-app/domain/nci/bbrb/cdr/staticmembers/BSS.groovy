@@ -1,5 +1,5 @@
 package nci.bbrb.cdr.staticmembers
-
+import nci.bbrb.cdr.study.Study
 /*
  * BSS = Biospecimen Source Site
  *

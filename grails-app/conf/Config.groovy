@@ -125,6 +125,9 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/home/**': ['IS_AUTHENTICATED_FULLY'],
     '/appSetting/**': ['IS_AUTHENTICATED_FULLY'],
     '/caseRecord/**': ['IS_AUTHENTICATED_FULLY'],
+    '/study/**': ['IS_AUTHENTICATED_FULLY'],
+    '/user/**': ['IS_AUTHENTICATED_FULLY'],
+    '/role/**': ['IS_AUTHENTICATED_FULLY']
 ]
 
 
@@ -137,6 +140,7 @@ grails.plugin.springsecurity.authority.className = 'nci.bbrb.cdr.authservice.Cdr
 //grails.plugin.springsecurity.userLookup.userDomainClassName = 'nci.bbrb.cdr.authservice.User'
 //grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'nci.bbrb.cdr.authservice.UserRole'
 //grails.plugin.springsecurity.authority.className = 'nci.bbrb.cdr.authservice.Role'
+
 
 
 grails.plugin.springsecurity.fii.rejectPublicInvocations = false

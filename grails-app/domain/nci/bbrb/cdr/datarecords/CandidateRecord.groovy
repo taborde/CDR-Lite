@@ -1,6 +1,7 @@
 package nci.bbrb.cdr.datarecords
 
 import nci.bbrb.cdr.staticmembers.*
+import nci.bbrb.cdr.study.Study
 
 class CandidateRecord extends DataRecordBaseClass{
     
@@ -8,7 +9,7 @@ class CandidateRecord extends DataRecordBaseClass{
     CaseRecord caseRecord
     BSS bss 
     Study study
-    CollectionType collectionType
+    BiospecimenType biospecimenType
     boolean isConsented = false
     boolean isEligible = false
 
