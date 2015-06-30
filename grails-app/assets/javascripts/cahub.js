@@ -2,6 +2,7 @@
  
 var activityFeedJob;
 var recentActivityTimeInt = 1800000;
+var timeOutMilliSecs = 1801000; //pmh added this for cdrLite proj  on 06/30/15
 var deidentified = false;
 var vocabObj = {};
 var codVocabObj = {};
@@ -183,6 +184,7 @@ function rundependencies() {
 
 function activateTimedLogout() {
     if(!$("body.loginpage").length > 0 && $("#countdown").length > 0) {
+       
         //logout dialog
         $( "#login-dialog" ).dialog({
             autoOpen: false,
@@ -207,6 +209,7 @@ function activateTimedLogout() {
 }
 
 function updateTimeToLogout() {
+    
     if (localStorage.getItem("timetologout") == timeOutMilliSecs || localStorage.getItem("timetologout") > timeOutMilliSecs){
         localStorage.setItem("timetologout", localStorage.getItem("timetologout")-1000);
     }

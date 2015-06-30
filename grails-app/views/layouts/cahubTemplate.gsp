@@ -9,16 +9,21 @@
      <title>CDR-Lite</title>
       <g:if test="${bodyclass?.indexOf('tissuerecoverygtex') > -1}"><meta http-equiv="X-UA-Compatible" content="IE=8" /></g:if>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <g:if test="${extjs ?: false == true}"><script type="text/javascript" src="${resource(dir:'js',file:'ext/ext-all.js')}"></script>
-      <link rel="stylesheet" href="${resource(dir:'css',file:'ext/resources/css/ext-all.css')}" /></g:if>
-      <script type="text/javascript" src="${resource(dir:'js',file:'jquery-1.10.2.min.js')}" ></script>
-      <script type="text/javascript" src="${resource(dir:'js',file:'jquery-migrate-1.2.1.min.js')}" ></script>      
-      <script type="text/javascript" src="${resource(dir:'js',file:'jquery-ui-1.8.23.custom.js')}" ></script>
-      <g:javascript library="jquery-ui-timepicker-addon"/><g:javascript library="timeentry/jquery.timeentry.min"/><g:javascript library="countdown/jquery.countdown.min"/><g:javascript library="application" /><g:javascript library="cdrcustom"/>
-      <link href="${resource(dir:'css',file:'theme/jquery-ui-1.8.23.custom.css')}?v<g:meta name='app.version'/>-${ts ?: ''}" type="text/css" rel="stylesheet" media="screen, projection" id="jquery-ui-theme" /> 
-      <link rel="stylesheet" href="${resource(dir:'css',file:'cahub.css')}?v<g:meta name='app.version'/>-${ts ?: ''}" />
-      <link rel="shortcut icon" type="image/ico" href="/cdrlite/images/favicon.ico"/>
-      <script type="text/javascript" src="${resource(dir:'js',file:'cahub.js')}?v<g:meta name='app.version'/>-${ts ?: ''}"></script>  
+      <g:if test="${extjs ?: false == true}"><asset:javascript src="ext/ext-all.js"/>
+    <asset:stylesheet href="ext/resources/css/ext-all.css"/>
+      </g:if>
+    
+      <asset:javascript src="jquery-1.10.2.min.js"/>
+      <asset:javascript src="jquery-migrate-1.2.1.min.js"/>
+      <asset:javascript src="jquery-ui-1.8.23.custom.js"/>
+      
+      <asset:javascript src="jquery-ui-timepicker-addon"/><asset:javascript src="timeentry/jquery.timeentry.min"/><asset:javascript src="countdown/jquery.countdown.min"/><asset:javascript src="application" /><asset:javascript src="cdrcustom"/>
+      
+     <asset:stylesheet href="theme/jquery-ui-1.8.23.custom.css">?v<g:meta name='app.version'/>-${ts ?: ''}"</asset:stylesheet>
+      <asset:stylesheet href="cahub.css">?v<g:meta name='app.version'/>-${ts ?: ''}"</asset:stylesheet>
+     <link rel="apple-touch-icon" type="image/ico" href="${assetPath(src: 'favicon.ico')}">
+       <asset:javascript src="cahub.js"> ?v<g:meta name='app.version'/>-${ts ?: ''}"></asset:javascript>
+     
       <%--
       <script type="text/javascript">
         var vocabJsnLoc = "${nci.obbr.cahub.util.AppSetting.findByCode('VOCAB_SOLR_LOC')?.bigValue}";
@@ -39,6 +44,9 @@
 --%>
       <g:layoutHead />  
   </head>
+  
+  
+  
   <body class="${bodyclass ?: ''}">
     <div id="body_wrapper">    
       <div id="sitemessage">

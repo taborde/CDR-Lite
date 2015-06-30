@@ -1,19 +1,27 @@
 target
 
+
 grails-app/conf/
 DataSource.groovy
+
 
 tmp
 /web-app
 /WEB-INF/classes
 
+
 #/plugins
+
 
 #/web-app/plugins
  
+
 stacktrace.log
+
 
 *Db.properties
 
+
 *Db.script 
+
 src/templates
