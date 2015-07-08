@@ -25,3 +25,4 @@ stacktrace.log
 *Db.script 
 
 #src/templates
+/grails-app/conf/DataSource.groovy
