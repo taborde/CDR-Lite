@@ -85,25 +85,39 @@ environments {
 }
 
 
+//pmh this is required for emails etc..
+
+environments {
+    development {
+        grails.logging.jul.usebridge = true
+        grails.mail.host = "mailfwd.nih.gov"
+        grails.mail.port="25"
+        grails.mail.default.from="pushpa.hariharan@nih.gov"
+    }
+    production {
+        grails.logging.jul.usebridge = false
+        // TODO: grails.serverURL = "http://www.changeme.com" : not sure about this yet 
+        //TODO: pmh: set up mail.host info for PROD
+    }
+}
 
 
-//pmh testing added more here . will remove later
 
 grails.plugin.springsecurity.ui.register.emailFrom = 'pushpa.hariharan@nih.gov'
-grails.plugin.springsecurity.ui.register.emailSubject = 'caHUB CDR-DS Password Reset'
+grails.plugin.springsecurity.ui.forgotPassword.emailFrom ='pushpa.hariharan@nih.gov'
+grails.plugin.springsecurity.ui.register.emailSubject = 'CDR-Lite Password Reset'
 
-grails.plugin.springsecurity.ui.forgotPassword.emailBody = 'Dear $user.username,<br/><br/>You recently requested that your caHUB CDR account password be reset.<br/><br/>Please click <a href="$url">here</a> to reset your password, if you did request a password change. Otherwise, ignore this email and no change will be applied to your account.<br/><br/>caHUB CDR Administrator'
+grails.plugin.springsecurity.ui.forgotPassword.emailBody = 'Dear $user.username,<br/><br/>You recently requested that your CDR-Lite password be reset.<br/><br/>Please click <a href="$url">here</a> to reset your password, if you did request a password change. Otherwise, ignore this email and no change will be applied to your account.<br/><br/>CDR-Lite Administrator'
 grails.plugin.springsecurity.ui.forgotPassword.emailFrom = 'pushpa.hariharan@nih.gov'
-grails.plugin.springsecurity.ui.forgotPassword.emailSubject = 'caHUB CDR Account Password Reset'
+grails.plugin.springsecurity.ui.forgotPassword.emailSubject = 'CDR-Lite Account Password Reset'
 
-grails.plugin.springsecurity.ui.expiredPassword.emailBody = 'Dear $username,<br/><br/>Your caHUB CDR account password is expired.<br/><br/>Please click <a href="$url">here</a> to change your password.<br/><br/>caHUB CDR Administrator'
+grails.plugin.springsecurity.ui.expiredPassword.emailBody = 'Dear $username,<br/><br/>Your CDR-Lite account password is expired.<br/><br/>Please click <a href="$url">here</a> to change your password.<br/><br/>CDR-Lite Administrator'
 grails.plugin.springsecurity.ui.expiredPassword.emailFrom = 'pushpa.hariharan@nih.gov'
-grails.plugin.springsecurity.ui.expiredPassword.emailSubject = 'caHUB CDR Account Password Expired'
+grails.plugin.springsecurity.ui.expiredPassword.emailSubject = 'CDR-Lite Account Password Expired'
 
-grails.plugin.springsecurity.ui.expiredPassword.reminder.emailBody = 'Dear $username,<br/><br/>Your caHUB CDR account password expires on $expireDate, which is $daysRemain from today.<br/><br/>Please click <a href="$url">here</a> to change your password before it expires.<br/><br/>caHUB CDR Administrator'
+grails.plugin.springsecurity.ui.expiredPassword.reminder.emailBody = 'Dear $username,<br/><br/>Your CDR-Lite account password expires on $expireDate, which is $daysRemain from today.<br/><br/>Please click <a href="$url">here</a> to change your password before it expires.<br/><br/>CDR-Lite Administrator'
 grails.plugin.springsecurity.ui.expiredPassword.reminder.emailFrom = 'pushpa.hariharan@nih.gov'
-grails.plugin.springsecurity.ui.expiredPassword.reminder.emailSubject = 'Reminder: caHUB CDR Account Password Expiration'
-
+grails.plugin.springsecurity.ui.expiredPassword.reminder.emailSubject = 'Reminder: CDR-Lite Account Password Expiration'
 //pessimistic lockdown setting, so you need to ALLOW all roles on URLs
 grails.plugin.springsecurity.rejectIfNoRule = true
 

@@ -24,4 +24,4 @@ stacktrace.log
 
 *Db.script 
 
-src/templates
+#src/templates

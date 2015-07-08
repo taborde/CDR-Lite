@@ -2,41 +2,57 @@ package nci.bbrb.cdr.authservice
 
 class CdrUser {
 
-	transient springSecurityService
+    transient springSecurityService
 
-	String username
-	String password
-	boolean enabled = true
-	boolean accountExpired
-	boolean accountLocked
-	boolean passwordExpired
+    
+    String email
+    String fname
+    String lname
 
-	static transients = ['springSecurityService']
+    def org //Save for later: hidden from user admin screens, set during security filter based on authenticated role
+    Date lastLoginDate //Save for later
+    Date passwordChangeDate
+    
+    
+    String username
+    String password
+    boolean enabled = true
+    boolean accountExpired
+    boolean accountLocked
+    boolean passwordExpired
 
-	static constraints = {
-		username blank: false, unique: true
-		password blank: false
-	}
+    static transients = ['springSecurityService']
 
-	static mapping = {
-		password column: '`password`'
-	}
+    static constraints = {
+        username blank: false, unique: true
+        password blank: false
+        fname blank:true, nullable:true
+        lname blank:true, nullable:true
+        org blank:true, nullable:true
+        lastLoginDate blank:true, nullable:true
+        passwordChangeDate blank:true, nullable:true
+        email blank:true, nullable:true
+    }
 
-	Set<CdrRole> getAuthorities() {
-		CdrUserRole.findAllByCdrUser(this).collect { it.cdrRole }
-	}
+    static mapping = {
+        password column: '`password`'
+    }
 
-	def beforeInsert() {
-		encodePassword()
-	}
+    Set<CdrRole> getAuthorities() {
+        CdrUserRole.findAllByCdrUser(this).collect { it.cdrRole }
+    }
 
-	def beforeUpdate() {
-		if (isDirty('password')) {
-			encodePassword()
-		}
-	}
+    def beforeInsert() {
+        encodePassword()
+    }
 
-	protected void encodePassword() {
-		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
-	}
+    def beforeUpdate() {
+        if (isDirty('password')) {
+            encodePassword()
+        }
+    }
+
+    protected void encodePassword() {
+        password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
+    }
 }
