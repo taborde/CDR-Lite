@@ -1,7 +1,7 @@
 <g:set var="env" value="${grails.util.GrailsUtil.environment}"/>
 <g:set var="appMilestone" value="${nci.bbrb.cdr.util.AppSetting.findByCode('APP_RELEASE_MILESTONE')?.bigValue}"/>
 
-<g:if test="${homeLink == null || homeLink == ''}" ><g:if test="${session.org?.code == 'OBBR'}" ><g:set var="homeLink" value="/cdrlite/home/" /><g:set var="homeTitle" value="caHUB" /></g:if> <g:else><g:set var="homeLink" value="/cdrlite/home" /><g:set var="homeTitle" value="caHUB" /></g:else></g:if>
+<g:if test="${homeLink == null || homeLink == ''}" ><g:if test="${session.org?.code == 'OBBR'}" ><g:set var="homeLink" value="/cdrlite/home/" /><g:set var="homeTitle" value="CDR-Lite" /></g:if> <g:else><g:set var="homeLink" value="/cdrlite/home" /><g:set var="homeTitle" value="CDR-Lite" /></g:else></g:if>
 <g:if test="${env != 'production'}"><%-- cache buster--%><g:set var="d" value="${new Date()}" /><g:set var="ts" value="${d.format('yyyy-MM-dd:HH')}" /></g:if>
 <!DOCTYPE html>
 <html>

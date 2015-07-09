@@ -105,7 +105,7 @@ dl.formdetails dd {float:left; margin-right:20px;}
 
 #header {padding-top:0;height:100px; font-size:11px; width: 970px;}
 #header li.activeSession a { font-weight:bold; color:#336699;}
-#header #grailsLogoLink {float:left; background: url('../images/logo_caHUB_cdr.jpg') no-repeat 0 20px; width:335px; font-weight:bold; height:60px; padding-top:15px; margin-top:4px; margin-right:5px;}
+#header #grailsLogoLink {float:left; background: url('../images/CDR_logo2.png') no-repeat 0 20px; width:335px; font-weight:bold; height:60px; padding-top:15px; margin-top:4px; margin-right:5px;}
 #header #grailsLogoLink a{ text-indent:-9999px;  width:335px; height:60px; float: left; }
 #header #activityEvent {float:right; margin-top:11px;padding-left:5px; color: #336699; height:77px; padding-right:5px; border:solid 1px #eeefff; border-right:solid 1px #eeeeee; padding-top:5px; display:none;}
 #header #activityEvent.display {display: block;}
