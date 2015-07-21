@@ -10,7 +10,7 @@ import nci.bbrb.cdr.study.*
 class HomeController {
 
     def studyHome = {
-         def  studyInstanceList = Study.findAll()     
+        def  studyInstanceList = Study.findAll()     
         return [studyInstanceList:studyInstanceList]
     }
     
