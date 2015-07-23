@@ -1,12 +1,11 @@
 
-<%@ page import="nci.bbrb.cdr.study.Study" %>
+<%@ page import="nci.bbrb.cdr.staticmembers.Study" %>
 <!DOCTYPE html>
 <html>
 	<head>
-            
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'study.label', default: 'Study')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
 		<a href="#list-study" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -31,12 +30,6 @@
 					
 						<g:sortableColumn property="description" title="${message(code: 'study.description.label', default: 'Description')}" />
 					
-						<th><g:message code="study.caseRecord.label" default="Case Record" /></th>
-					
-						<th><g:message code="study.studyType.label" default="Study Type" /></th>
-					
-						<th><g:message code="study.biospecimenType.label" default="Biospecimen Type" /></th>
-					
 					</tr>
 				</thead>
 				<tbody>
@@ -48,12 +41,6 @@
 						<td>${fieldValue(bean: studyInstance, field: "code")}</td>
 					
 						<td>${fieldValue(bean: studyInstance, field: "description")}</td>
-					
-						<td>${fieldValue(bean: studyInstance, field: "caseRecord")}</td>
-					
-						<td>${fieldValue(bean: studyInstance, field: "studyType")}</td>
-					
-						<td>${fieldValue(bean: studyInstance, field: "biospecimenType")}</td>
 					
 					</tr>
 				</g:each>

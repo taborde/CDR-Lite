@@ -20,7 +20,7 @@ class AppSetting {
     }
       static mapping = {
       table 'st_appsetting'
-      id generator:'identity', params:[sequence:'st_appsetting_pk']
+      id generator:'sequence', params:[sequence:'st_appsetting_pk']
     }    
     
     static auditable = true

@@ -1,81 +1,79 @@
-
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="nci.bbrb.cdr.datarecords.CandidateRecord" %>
+<%@ page import="nci.bbrb.cdr.datarecords.CaseRecord" %>
+<%@ page import="nci.bbrb.cdr.util.AppSetting" %> 
 <g:set var="bodyclass" value="choosehome" scope="request"/>
-
 <html>
-  <head>
-    <title><g:message code="CDR-Lite"/></title>
-    <meta name="layout" content="cahubTemplate" />
-    <asset:stylesheet src="cdrLite.css"/>      
-  </head>
-  <body>
+    <head>
+        <title><g:message code="default.page.title"/></title>
+        <meta name="layout" content="cahubTemplate" />
+        <script type="text/javascript" src="${resource(dir:'js',file:'reflection.js')}" ></script>
+    </head>
+    <body>     
+       <div id="nav" class="clearfix">
+          <div id="navlist">
+            <g:if test="${session.authorities?.contains('ROLE_NCI-FREDERICK_CAHUB_SUPER') || session.authorities?.contains('ROLE_ADMIN')}">
+                <g:link controller="backoffice" class="list" action="index">Back Office</g:link>             
+            </g:if> 
+            <g:if test="${session.authorities?.contains('ROLE_NCI-FREDERICK_CAHUB_DM') || session.DM}">
+               <g:link controller="query" class="list" action="list">Query Tracker</g:link>
+                <g:link controller="deviation" class="list" action="list">Deviation List</g:link>               
+            </g:if> 
 
-  <!-- this is for the section above the  nav bar list  -->
-  <div class="headerDiv">
-    <g:if test="${controllerName != 'login' && controllerName != 'logout' }">
-      <div id="userInfo" class="clearfix">
-      <div class="small"><span class="welcome">Welcome, ${session.SPRING_SECURITY_CONTEXT?.authentication?.principal?.getUsername()}</span> <a href="javascript:redirectToLogin();">Logout</a></div>
-      <div class="small">Org: ${session.org?.name}</div>   
-      <div id="countdown" class="countdown hasCountdown">Session expires in: <b><span class="minutesleft"></span>:<span class="secondsleft"></span></b></div>
+          </div>
       </div>
-    </g:if>
-  </div>
-  <!-- end of section above nav bar list -->
-
-  <div class="clear"></div>
-
-  <div  class="navbarcontainer">
-      
-      <div id="nav" class="clearfix">
-      <div id="navlist" >back office</div>
-      </div>
-        <div class="containerDiv">
-            <div class="rowDivHeader">
-                <div class="rowspanned"><span>&nbsp;</span></div>
-                
-                  <div class="rowspanned"><h4>Choose your Destination</h4></div>
-                  <div class="rowspanned"><span>&nbsp;</span></div>
-                 
-                </div>
-            
+      <div id="container" class="clearfix">
+	<div id="homemenu">
+          <g:if test="${flash.message}">
+          <div class="message">${flash.message}</div>
+          </g:if>
+          <div class="inner ui-corner-all">
+            <h1>Choose your Destination</h1>
+            <div class="clearfix">
                
-                <div class="rowDivHeader">
-             
-                    <div class="cellDivHeader homeimg"><g:link controller="home" action="normalhome"><img src="../assets/normalthumb.jpg" alt="Normal"  ></g:link><br><span>Normal Home</span></div>
-                    <div class="cellDivHeader homeimg"><g:link controller="home" action="diseaseHome"><img src="../assets/diseasethumb.jpg" alt="Disease" ></g:link><br> <span>Disease Home</span></div>
-                    <div class="cellDivHeader homeimg"><img src="../assets/ctcthumb.jpg" alt="Plasma" > <br><span>Plasma Home</span></div>
-                </div>
-                
-                <div class="rowDivHeader">
-                <div class="rowspanned"><span>&nbsp;</span></div>
-                
-                  <div class="rowspanned"><span>&nbsp;</span></div>
-                <div class="rowspanned"><span>&nbsp;</span></div>
+              <div class="cahubthumbmenu">
+                <g:if test="${'BPV' in blockedStudyList}">
+                  <img src="${resource(dir:'images',file:'brnthumb.jpg')}" class="reflect rheight33" /><span>Project Home</span>
+                  <span>Study Home</span>         
+                </g:if>
+                <g:else>
+                  <g:link controller="home" action="projecthome"><img src="${resource(dir:'images',file:'brnthumb.jpg')}" class="reflect rheight33" /><span>Project Home</span></g:link>
                  
-                </div>    
-        </div><!--end containerDiv-->
-<div id="footer">
-    <div id="vers"><div id="verstext">caHUB CDR Lite Version 1
-        <ul class="footerlogos ">
-        <li class="footer_cahub"><a target="_blank" href="http://cahub.cancer.gov" title="caHUB" >caHUB</a></li>
-        <li class="footer_nci"><a target="_blank" href="http://www.cancer.gov/" title="NCI - National Cancer Institute">National Cancer Institute</a></li>
-        <li class="footer_leidos"><a target="_blank" href="http://www.leidos.com/about/companies/leidos-biomedical-research" title="Leidos Biomedical Research Inc.">Leidos Biomedical Research Inc.</a></li>        
-        <li class="footer_nih"><a target="_blank" href="http://www.nih.gov/" title="NIH - National Institutes of Health">National Institutes of Health</a></li>
-        <li class="footer_dop"><a target="_blank" href="http://www.hhs.gov/" title="HHS - U.S. Department of Health &amp; Human Services">U.S. Department of Health &amp; Human Services</a></li>
-        <li class="footer_usagov"><a target="_blank" href="http://www.usa.gov/" title="USA.gov">USA.gov</a></li>
-        
-      </ul>
-        
-        
-        
-        </div></div>
-    
-    
-    </div>
-  
-   </div><!--end navbarcontainer-->
-        
-  
-   
-</body>
+                </g:else>
+              </div>
+              
+              
+              
+               <div class="cahubthumbmenu">
+               <g:if test="${session.PRC == true}">
+                  <g:link controller="home" action="prchome"><img src="${resource(dir:'images',file:'prcthumb2.jpg')}" class="reflect rheight33" /><span>PRC Home</span></g:link>
+               </g:if>
+               <g:else>
+                  <img src="${resource(dir:'images',file:'prcthumb2.jpg')}" class="reflect rheight33" /><span>PRC Home</span>                          
+               </g:else>
+              </div>      
+              
+              
+              <div class="cahubthumbmenu">
+              <g:if test="${session.DM == true}">
+                 <g:link controller="home" action="opshome"><img src="${resource(dir:'images',file:'opsthumb2.jpg')}" class="reflect rheight33" /><span>DM Home</span></g:link>
+              </g:if>
+              <g:else>
+                 <img src="${resource(dir:'images',file:'opsthumb1.jpg')}" class="reflect rheight33" /><span>DM Home</span>
+              </g:else>                            
+              </div>
+             
+              
+              <div class="cahubthumbmenu">
+                <g:if test="${session.QM == true}">
+                 <g:link controller="home" action="qmhome"><img src="${resource(dir:'images',file:'qmthumb2.jpg')}" class="reflect rheight33" /><span>QM Home</span></g:link>
+              </g:if>
+              <g:else>
+                 <img src="${resource(dir:'images',file:'qmthumb1.jpg')}" class="reflect rheight33" /><span>QM Home</span>
+              </g:else>    
+              </div>
+            </div>
+            
+     </div>
+   </div>
+  </body>
 </html>

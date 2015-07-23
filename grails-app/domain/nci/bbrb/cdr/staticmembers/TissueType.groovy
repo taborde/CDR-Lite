@@ -4,7 +4,7 @@ class TissueType extends StaticMemberBaseClass{
  
         static mapping = {
         table 'st_tissue_type'
-        id generator:'identity', params:[sequence:'st_tissue_type_pk']
+        id generator:'sequence', params:[sequence:'st_tissue_type_pk']
     }
     
     static searchable ={

@@ -12,6 +12,6 @@ class CaseStatus extends StaticMemberBaseClass{
 
      static mapping = {
       table 'st_case_status'
-      id generator:'identity', params:[sequence:'st_case_status_pk']
+      id generator:'sequence', params:[sequence:'st_case_status_pk']
     }
 }

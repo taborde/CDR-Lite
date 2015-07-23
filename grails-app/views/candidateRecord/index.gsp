@@ -24,17 +24,17 @@
 			<thead>
 					<tr>
 					
-						<g:sortableColumn property="internalComments" title="${message(code: 'candidateRecord.internalComments.label', default: 'Internal Comments')}" />
-					
-						<g:sortableColumn property="publicComments" title="${message(code: 'candidateRecord.publicComments.label', default: 'Public Comments')}" />
-					
 						<th><g:message code="candidateRecord.bss.label" default="Bss" /></th>
 					
 						<g:sortableColumn property="candidateId" title="${message(code: 'candidateRecord.candidateId.label', default: 'Candidate Id')}" />
 					
-						<th><g:message code="candidateRecord.caseRecord.label" default="Case Record" /></th>
+						<g:sortableColumn property="dateCreated" title="${message(code: 'candidateRecord.dateCreated.label', default: 'Date Created')}" />
 					
-						<th><g:message code="candidateRecord.collectionType.label" default="Collection Type" /></th>
+						<g:sortableColumn property="isConsented" title="${message(code: 'candidateRecord.isConsented.label', default: 'Is Consented')}" />
+					
+						<g:sortableColumn property="isEligible" title="${message(code: 'candidateRecord.isEligible.label', default: 'Is Eligible')}" />
+					
+						<g:sortableColumn property="lastUpdated" title="${message(code: 'candidateRecord.lastUpdated.label', default: 'Last Updated')}" />
 					
 					</tr>
 				</thead>
@@ -42,17 +42,17 @@
 				<g:each in="${candidateRecordInstanceList}" status="i" var="candidateRecordInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${candidateRecordInstance.id}">${fieldValue(bean: candidateRecordInstance, field: "internalComments")}</g:link></td>
-					
-						<td>${fieldValue(bean: candidateRecordInstance, field: "publicComments")}</td>
-					
-						<td>${fieldValue(bean: candidateRecordInstance, field: "bss")}</td>
+						<td><g:link action="show" id="${candidateRecordInstance.id}">${fieldValue(bean: candidateRecordInstance, field: "bss")}</g:link></td>
 					
 						<td>${fieldValue(bean: candidateRecordInstance, field: "candidateId")}</td>
 					
-						<td>${fieldValue(bean: candidateRecordInstance, field: "caseRecord")}</td>
+						<td><g:formatDate date="${candidateRecordInstance.dateCreated}" /></td>
 					
-						<td>${fieldValue(bean: candidateRecordInstance, field: "collectionType")}</td>
+						<td><g:formatBoolean boolean="${candidateRecordInstance.isConsented}" /></td>
+					
+						<td><g:formatBoolean boolean="${candidateRecordInstance.isEligible}" /></td>
+					
+						<td><g:formatDate date="${candidateRecordInstance.lastUpdated}" /></td>
 					
 					</tr>
 				</g:each>

@@ -9,9 +9,15 @@ import nci.bbrb.cdr.study.*
 
 class HomeController {
 
-    def studyHome = {
-        def  studyInstanceList = Study.findAll()     
-        return [studyInstanceList:studyInstanceList]
+ String maxView ='10'
+    
+     def choosehome = {
+       // session.study = null 
+       // session.chosenHome = null 
+       // def blockedStudyList = nihUserStudyAccessCheck()
+        def blockedStudyList=[]
+        return [blockedStudyList:blockedStudyList]
+      // render "choose home page"
     }
     
     def homedispatcher = {
@@ -22,9 +28,18 @@ class HomeController {
         } 
               
         else if(!session.chosenHome || session.serviceAccount != true){
-            redirect(action: "studyHome", params: params)                
+            //redirect(action: "studyHome", params: params) 
+            redirect(action: "choosehome", params: params)
         }
     }
    
-    
+    def projecthome={
+        def candidateList = CandidateRecord.findAllByStudy(Study.findByCode('BPVLIKE'), [max:maxView])
+        println("size: " + candidateList.size())
+  
+       // def caseList = CaseRecord.findAllByStudy(Study.findByCode('BPVLIKE'), [max:maxView])
+       
+        def caseList = CaseRecord.executeQuery("from CaseRecord c where c.candidateRecord.study.code= 'BPVLIKE'", [max:maxView])
+        return [caseRecordInstanceList:caseList, candidateRecordInstanceList:candidateList]
+    }
 }

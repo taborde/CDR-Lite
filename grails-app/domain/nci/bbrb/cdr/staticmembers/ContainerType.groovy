@@ -7,6 +7,6 @@ class ContainerType extends StaticMemberBaseClass {
     
     static mapping = {
       table 'st_container'
-      id generator:'identity', params:[sequence:'container_pk']
+      id generator:'sequence', params:[sequence:'container_pk']
     }
 }

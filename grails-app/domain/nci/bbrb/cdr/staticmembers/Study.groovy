@@ -1,9 +1,10 @@
 package nci.bbrb.cdr.staticmembers
 
-class StudyType extends StaticMemberBaseClass{
+class Study  extends StaticMemberBaseClass{
+    
     static mapping = {
-      table 'st_study_type'
-      id generator:'identity', params:[sequence:'st_study_type_pk']
+      table 'st_study'
+      id generator:'sequence', params:[sequence:'st_study_pk']
     }
     
      static searchable ={
@@ -11,5 +12,8 @@ class StudyType extends StaticMemberBaseClass{
         'name' name:'studyType'
         'code' name:'studyTypeCode'
         root false
+    }
+
+    static constraints = {
     }
 }

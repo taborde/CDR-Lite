@@ -86,7 +86,8 @@ class BSSController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'BSS.label', default: 'BSS'), BSSInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action:"index"
+				
             }
             '*'{ render status: NO_CONTENT }
         }
@@ -96,7 +97,8 @@ class BSSController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'BSS.label', default: 'BSS'), params.id])
-                redirect action: "index", method: "GET"
+                redirect action:"index"
+				
             }
             '*'{ render status: NOT_FOUND }
         }
