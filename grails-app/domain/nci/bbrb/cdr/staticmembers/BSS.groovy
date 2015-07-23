@@ -1,5 +1,5 @@
 package nci.bbrb.cdr.staticmembers
-import nci.bbrb.cdr.study.Study
+
 /*
  * BSS = Biospecimen Source Site
  *
@@ -7,19 +7,13 @@ import nci.bbrb.cdr.study.Study
 class BSS extends StaticMemberBaseClass{
 
     BSS parentBss
-    Study study
     String IRBprotocol
-    String shippingAddress
-    //Date dateIRBApproved
-    //Date dateIRBExpires
     String timeZone // selected from enum TimeZones
     String toString(){"$code"}
 
     static constraints = {
         parentBss(blank:true,nullable:true)
-        study(blank:false,nullable:false)
         IRBprotocol(blank:true,nullable:true)
-        shippingAddress(blank:true,nullable:true,widget:'textarea')
         timeZone(blank:true,nullable:true)
        // dateIRBApproved(blank:true, nullable:true)
        // dateIRBExpires(blank:true, nullable:true)
@@ -62,6 +56,6 @@ class BSS extends StaticMemberBaseClass{
     }
       static mapping = {
       table 'st_bss'
-      id generator:'identity', params:[sequence:'st_bss_pk']
+      id generator:'sequence', params:[sequence:'st_bss_pk']
     }
 }
