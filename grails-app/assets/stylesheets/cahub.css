@@ -474,7 +474,7 @@ body.show .hasDatepicker, body.show .ui-datepicker-trigger {color:#777; cursor: 
 .hasDatepicker {width: 105px;}
 
 .choosehome #homemenu {margin-top:30px;}
-.choosehome .inner { width:490px; height:390px;}
+.choosehome .inner { width:490px; height:200px;}
 .choosehome .ui-widget .ui-state-highlight {width:600px;}
 .choosehome #homemenu .inner .cahubthumbmenu {  float: left; width: 100px; height:150px; text-align: center; margin: 5px 10px 10px 10px; font-weight:bold; font-size: 12px;}
 .choosehome .cahubthumbmenu img { width: 100px; height: 100px; border:1px solid #cccccc;}
