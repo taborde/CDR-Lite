@@ -1,93 +1,46 @@
-
-<%@ page import="nci.bbrb.cdr.study.Study" %>
-<%--<g:render template="caseDetails" bean="${bpvSixMonthFollowUpInstance.caseRecord}" var="caseRecord"/> --%>
-<g:set var="labelNumber" value="${1}"/>
-
-<div class="list">
-  <div  class="div-t">
-   
-    <div class="div-t-r clearfix">
-      <div >
-
-        <div class="left width-30"><label for="name">Name: </label></div>
-
-        <div class="left width-30 value ${hasErrors(bean: studyInstance, field: 'name',  'errors')}">
-          <div>
-           <g:textField name="name" required="" value="${studyInstance?.name}"/>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    
-   
-<%-- removed
-    <div class="div-t-r clearfix">
-      <div >
-
-        <div class="left width-30"><label for="name">Code: </label></div>
-
-        <div class="left width-30 value ${hasErrors(bean: studyInstance, field: 'code',  'errors')}">
-          <div>
-           <g:textField name="code" required="" value="${studyInstance?.code}"/>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-       --%>
-    
-    <div class="div-t-r clearfix">
-    <div class="${hasErrors(bean: studyInstance, field: 'description:', 'errors')}"><label for="visit">Description: </label><br>
-
-     <g:textArea class="textwide" name="description" cols="40" rows="5" value="${studyInstance?.description}" />
-    </div>
-  </div>
-
-    <%-- comment out for now 
-     <div class="div-t-r clearfix">
-      <div >
-
-        <div class="left width-30"><label for="name">Case Record: </label></div>
-
-        <div class="left width-30 value ${hasErrors(bean: studyInstance, field: 'caseRecord',  'errors')}">
-          <div>
-           <g:select id="caseRecord" name="caseRecord.id" from="${nci.bbrb.cdr.datarecords.CaseRecord.list()}" optionKey="id" value="${studyInstance?.caseRecord?.id}"  noSelection="['null': '']"/>
-          </div>
-        </div>
-      </div>
-    </div>
-    --%>
-     <div class="div-t-r clearfix">
-      <div >
-
-        <div class="left width-30"><label for="name">Study Type: </label></div>
-
-        <div class="left width-30 value ${hasErrors(bean: studyInstance, field: 'studyType',  'errors')}">
-          <div>
-         <g:select id="studyType" name="studyType.id" from="${nci.bbrb.cdr.staticmembers.StudyType.list()}" optionKey="id" value="${studyInstance?.studyType?.id}" class="many-to-one" noSelection="['null': '']"/>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    
-     <div class="div-t-r clearfix">
-      <div >
-
-        <div class="left width-30"><label for="name">Biospecimen Type: </label></div>
-
-        <div class="left width-30 value ${hasErrors(bean: studyInstance, field: 'biospecimenType',  'errors')}">
-          <div>
-          <g:select id="biospecimenType" name="biospecimenType.id" from="${nci.bbrb.cdr.staticmembers.BiospecimenType.list()}" optionKey="id" required="" value="${studyInstance?.biospecimenType?.id}" class="many-to-one" noSelection="['null': '']"/>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-
-</div>
-</div>
+<%@ page import="nci.bbrb.cdr.staticmembers.Study" %>
 
 
+<div class="dialog">
+    <table>
+        <tbody>
 
+            
+        <tr class="prop">
+            <td valign="top" class="name">
+                <label for="name"><g:message code="study.name.label" default="Name" /></label>
+            </td>
+            <td valign="top" class="value ${hasErrors(bean: studyInstance, field: 'name', 'error')}">
+                <g:textField name="name" required="" value="${studyInstance?.name}"/>
+
+            </td>
+        </tr>
+
+        
+        <tr class="prop">
+            <td valign="top" class="name">
+                <label for="code"><g:message code="study.code.label" default="Code" /></label>
+            </td>
+            <td valign="top" class="value ${hasErrors(bean: studyInstance, field: 'code', 'error')}">
+                <g:textField name="code" value="${studyInstance?.code}"/>
+
+            </td>
+        </tr>
+
+        
+        <tr class="prop">
+            <td valign="top" class="name">
+                <label for="description"><g:message code="study.description.label" default="Description" /></label>
+            </td>
+            <td valign="top" class="value ${hasErrors(bean: studyInstance, field: 'description', 'error')}">
+                <g:textArea name="description" cols="40" rows="5" maxlength="4000" value="${studyInstance?.description}"/>
+
+            </td>
+        </tr>
+
+        
+        
+
+        </tbody>
+    </table>
+</div>  
