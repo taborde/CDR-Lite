@@ -139,7 +139,9 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/home/**': ['IS_AUTHENTICATED_FULLY'],
     '/appSetting/**': ['IS_AUTHENTICATED_FULLY'],
     '/caseRecord/**': ['IS_AUTHENTICATED_FULLY'],
+    '/candidateRecord/**': ['IS_AUTHENTICATED_FULLY'],
     '/study/**': ['IS_AUTHENTICATED_FULLY'],
+    '/bss/**': ['IS_AUTHENTICATED_FULLY'],
     '/user/**': ['IS_AUTHENTICATED_FULLY'],
     '/role/**': ['IS_AUTHENTICATED_FULLY']
 ]
