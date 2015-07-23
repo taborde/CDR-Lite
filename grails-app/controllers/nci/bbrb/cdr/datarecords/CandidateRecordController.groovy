@@ -7,7 +7,8 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class CandidateRecordController {
-
+     def hubIdGenService
+     
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -30,10 +31,12 @@ class CandidateRecordController {
             return
         }
 
-        if (candidateRecordInstance.hasErrors()) {
+        candidateRecordInstance.candidateId = hubIdGenService.genCandidateId(candidateRecordInstance.bss.code)
+        
+      /**  if (candidateRecordInstance.hasErrors()) {
             respond candidateRecordInstance.errors, view:'create'
             return
-        }
+        }**/
 
         candidateRecordInstance.save flush:true
 
@@ -86,7 +89,8 @@ class CandidateRecordController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'CandidateRecord.label', default: 'CandidateRecord'), candidateRecordInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action:"index"
+				
             }
             '*'{ render status: NO_CONTENT }
         }
@@ -96,7 +100,8 @@ class CandidateRecordController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'candidateRecord.label', default: 'CandidateRecord'), params.id])
-                redirect action: "index", method: "GET"
+                redirect action:"index"
+				
             }
             '*'{ render status: NOT_FOUND }
         }

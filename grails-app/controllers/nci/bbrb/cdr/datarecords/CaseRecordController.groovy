@@ -8,7 +8,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class CaseRecordController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -20,7 +20,11 @@ class CaseRecordController {
     }
 
     def create() {
-        respond new CaseRecord(params)
+        def caseRecord = new CaseRecord(params)
+        caseRecord.bss=caseRecord.candidateRecord?.bss
+        caseRecord.study=caseRecord.candidateRecord?.study
+       // respond new CaseRecord(params)
+       respond caseRecord
     }
 
     @Transactional
@@ -86,7 +90,8 @@ class CaseRecordController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'CaseRecord.label', default: 'CaseRecord'), caseRecordInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action:"index"
+				
             }
             '*'{ render status: NO_CONTENT }
         }
@@ -96,7 +101,8 @@ class CaseRecordController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'caseRecord.label', default: 'CaseRecord'), params.id])
-                redirect action: "index", method: "GET"
+                redirect action:"index"
+				
             }
             '*'{ render status: NOT_FOUND }
         }
