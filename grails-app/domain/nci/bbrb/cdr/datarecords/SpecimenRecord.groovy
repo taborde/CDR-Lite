@@ -11,6 +11,16 @@ class SpecimenRecord extends DataRecordBaseClass{
     ContainerType containerType
     TissueType tissueType
     TissueLocation tissueLocation
+    
+    
+    static mapping = {
+
+        table 'dr_specimen'
+        id generator:'sequence', params:[sequence:'dr_specimen_pk']
+        //tissueLocations column:'dr_specimen_st_acquis_loc'
+        
+   
+    }    
 
     static constraints = {
     }

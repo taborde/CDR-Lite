@@ -1,18 +1,28 @@
 package nci.bbrb.cdr.datarecords
 
 import nci.bbrb.cdr.staticmembers.*
-import nci.bbrb.cdr.study.Study
 
 class CandidateRecord extends DataRecordBaseClass{
     
     String candidateId
-    CaseRecord caseRecord
     BSS bss 
     Study study
-    BiospecimenType biospecimenType
     boolean isConsented = false
     boolean isEligible = false
+    
+    static hasMany = [caseList:CaseRecord]
 
     static constraints = {
+        
     }
+    
+    
+      static mapping = {
+      table 'dr_candidate'
+      id generator:'sequence', params:[sequence:'dr_candidate_pk']
+      
+      sort dateCreated:"desc"  
+        
+    }
+   
 }
