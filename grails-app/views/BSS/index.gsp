@@ -32,9 +32,9 @@
 					
 						<th><g:message code="BSS.parentBss.label" default="Parent Bss" /></th>
 					
-						<th><g:message code="BSS.study.label" default="Study" /></th>
-					
 						<g:sortableColumn property="IRBprotocol" title="${message(code: 'BSS.IRBprotocol.label', default: 'IRB protocol')}" />
+					
+						<g:sortableColumn property="timeZone" title="${message(code: 'BSS.timeZone.label', default: 'Time Zone')}" />
 					
 					</tr>
 				</thead>
@@ -50,9 +50,9 @@
 					
 						<td>${fieldValue(bean: BSSInstance, field: "parentBss")}</td>
 					
-						<td>${fieldValue(bean: BSSInstance, field: "study")}</td>
-					
 						<td>${fieldValue(bean: BSSInstance, field: "IRBprotocol")}</td>
+					
+						<td>${fieldValue(bean: BSSInstance, field: "timeZone")}</td>
 					
 					</tr>
 				</g:each>
