@@ -1,4 +1,3 @@
-
 /* resets */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address,
 big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i,
@@ -2436,7 +2435,7 @@ div.list tr:hover select{ background: #ffffff;}
 input, select, textarea {background: rgba(255, 255, 255, 0.9); background:-moz-linear-gradient(90deg, #fff, #eee); /* Firefox */
                          background:-webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff), color-stop(0.2, #fff)); /* Webkit */
                          filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
-                         border: 1px solid #dddddd; border-width: 2px 1px 1px 2px;font: 11px verdana, arial, helvetica, sans-serif; margin: 2px 0; padding: 2px 4px;}
+                         border: 1px solid #dddddd; font: 11px verdana, arial, helvetica, sans-serif; margin: 2px 0; padding: 2px 4px;}
 
 input:focus, select:focus, textarea:focus { border: 1px solid #b2d1ff; border-width: 2px 1px 1px 2px;}
 
