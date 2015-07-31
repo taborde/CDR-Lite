@@ -43,7 +43,7 @@ class CdrUserRole implements Serializable {
 		//def instance = new CdrUserRole(cdrUser: cdrUser, cdrRole: cdrRole)
 		//instance.save(flush: flush, insert: true)
 		//instance
-                new CdrUserRole(user: cdrUser, role: cdrRole).save(flush: flush, insert: true)
+                new CdrUserRole(cdrUser: cdrUser, cdrRole: cdrRole).save(flush: flush, insert: true)
 	}
 
 	static boolean remove(CdrUser u, CdrRole r, boolean flush = false) {
