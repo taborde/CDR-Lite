@@ -8,21 +8,21 @@ class BootStrap {
     def adminRole = new nci.bbrb.cdr.authservice.CdrRole(authority: 'ROLE_ADMIN').save(failOnError: false, flush: true)
     def userRole  = new nci.bbrb.cdr.authservice.CdrRole(authority: 'ROLE_USERS').save(failOnError: false, flush: true)
 
-    def testUser = new nci.bbrb.cdr.authservice.CdrUser(username: 'admin', enabled: true, password: 'admin')
-    testUser.save(failOnError: false, flush: true)
-
-    CdrUserRole.create(testUser, adminRole, true)
+    def adminUser = new nci.bbrb.cdr.authservice.CdrUser(username: 'admin', enabled: true, password: 'admin')
+    adminUser.save(failOnError: false, flush: true)
     
-       testUser = new nci.bbrb.cdr.authservice.CdrUser(username: 'testDUser', enabled: true, password: 'pmhtest')
+    CdrUserRole.create(adminUser, adminRole, true)
+        
+    def testUser = new nci.bbrb.cdr.authservice.CdrUser(username: 'testUser', enabled: true, password: 'pmhtest')
     testUser.save(failOnError: false, flush: true)
 
-     CdrUserRole.create(testUser, userRole, true)
-
+    CdrUserRole.create(testUser, userRole, true)
+    
     //assert CdrUser.count() == 2
     //assert CdrRole.count() == 2
     //assert CdrUserRole.count() == 2
     
-       println "cdrUser count ="+CdrUser.count()
+    println "cdrUser count ="+CdrUser.count()
     println "cdrRole count ="+CdrRole.count()
     println "cdrUserRole count ="+CdrUserRole.count()
     
@@ -31,15 +31,15 @@ class BootStrap {
         
         
         //pmh 05/13/15 
-      /**   new StudyType(code: "DISEASE", name: "Disease", description:  "DISEASE").save(failOnError: false, flush: true)
-         new StudyType(code: "NORMAL", name: "Normal", description:  "NORMAL").save(failOnError: false, flush: true)
+        /**   new StudyType(code: "DISEASE", name: "Disease", description:  "DISEASE").save(failOnError: false, flush: true)
+        new StudyType(code: "NORMAL", name: "Normal", description:  "NORMAL").save(failOnError: false, flush: true)
          
         new BiospecimenType(code: "TAB", name: "Tissue And Blood", description:  "Tissue And Blood collected").save(failOnError: false, flush: true)
-         new BiospecimenType(code: "BO", name: "Blood Only", description:  "Blood Only collected").save(failOnError: false, flush: true)
-          new BiospecimenType(code: "TO", name: "Tissue Only", description:  "Tissue Only collected").save(failOnError: false, flush: true)**/
+        new BiospecimenType(code: "BO", name: "Blood Only", description:  "Blood Only collected").save(failOnError: false, flush: true)
+        new BiospecimenType(code: "TO", name: "Tissue Only", description:  "Tissue Only collected").save(failOnError: false, flush: true)**/
           
-         new AppSetting(code: "HELP_EMAIL", name: "HELP_EMAIL", , value: "pushpa.hariharan@nih.gov", bigValue: "").save(failOnError: false, flush: true)
-         new AppSetting(code: "loginbulletin", name: "loginbulletin", , value: "see big value", bigValue: "this is the login bulletin message").save(failOnError: false, flush: true)
+        new AppSetting(code: "HELP_EMAIL", name: "HELP_EMAIL", , value: "pushpa.hariharan@nih.gov", bigValue: "").save(failOnError: false, flush: true)
+        new AppSetting(code: "loginbulletin", name: "loginbulletin", , value: "see big value", bigValue: "this is the login bulletin message").save(failOnError: false, flush: true)
          
         new Study(code: 'BPVLIKE', name:'BPVLIKE').save(failOnError: false, flush: true)
         
@@ -50,11 +50,10 @@ class BootStrap {
         new CaseCollectionType(code: 'OPO', name:'Organ Donor (OPO)').save(failOnError: false, flush: true)
         new CaseCollectionType(code: 'SURGI', name:'Surgical').save(failOnError: false, flush: true)
         
-        
         new CaseStatus(code:'COLL', name:'Collected', description: 'Tissue collection complete').save(failOnError: false, flush: true)
         new CaseStatus(code:'DATA', name:'Data Entry Underway', description: 'Data entry underway at BSS.').save(failOnError: false, flush: true)
         new CaseStatus(code:'DATACOMP', name:'Data Entry Complete', description: 'Data Entry Complete').save(failOnError: false, flush: true)
-        new CaseStatus(code:'QA', name:'QA Review', description: 'Case under caHUB QA review.').save(failOnError: false, flush: true)
+        new CaseStatus(code:'QA', name:'QA Review', description: 'Case under QA review.').save(failOnError: false, flush: true)
         new CaseStatus(code:'COMP', name:'Complete', description: 'Case is done processing.').save(failOnError: false, flush: true)
         new CaseStatus(code:'RELE', name:'Released', description: 'Case has been validated and released to data warehouse.').save(failOnError: false, flush: true)
         new CaseStatus(code:'REMED', name:'Remediation', description: 'Issues exist, case under remediation, data entry screens unlocked for BSS.').save(failOnError: false, flush: true)
@@ -69,8 +68,16 @@ class BootStrap {
         new TissueType(code:'LUNG', name:'Lung' ).save(failOnError: false, flush: true)
         new TissueType(code:'OVARY', name:'Ovary' ).save(failOnError: false, flush: true)
         
+        /* Tabor: Add generic Data Coordinating Center and University */
+        new Organization(code:'DCC', name:'Data Coordinating Center').save(failOnError: false, flush: true)
+        new Organization(code:'UUU', name:'Some University').save(failOnError: false, flush: true)
+        /*
+        def  orgUUU = new CdrRole(authority: 'ROLE_ORG_UUU').save(failOnError: false, flush: true)
+        def  orgDCC = new CdrRole(authority: 'ROLE_ORG_DCC').save(failOnError: false, flush: true)
         
-       
+        CdrUserRole.create(testUser, orgUUU, true)            
+        CdrUserRole.create(adminUser, orgDCC, true)   
+        */
     }
     def destroy = {
     }

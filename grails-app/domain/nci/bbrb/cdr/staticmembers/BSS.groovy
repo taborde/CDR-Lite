@@ -15,8 +15,7 @@ class BSS extends StaticMemberBaseClass{
         parentBss(blank:true,nullable:true)
         IRBprotocol(blank:true,nullable:true)
         timeZone(blank:true,nullable:true)
-       // dateIRBApproved(blank:true, nullable:true)
-       // dateIRBExpires(blank:true, nullable:true)
+       
     }
     
     static searchable ={

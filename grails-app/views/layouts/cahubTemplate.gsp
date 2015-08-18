@@ -139,7 +139,9 @@
     <div id="footer">
       <div id="vers"><div id="verstext"> CDR-Lite DS v<g:meta name="app.version"/>${appMilestone?".$appMilestone":""}</div></div>
       <ul class="footerlogos clearfix">
+        %{-- 
         <li class="footer_cahub"><a target="_blank" href="http://cahub.cancer.gov" title="caHUB" >caHUB</a></li>
+        --}%
         <li class="footer_nci"><a target="_blank" href="http://www.cancer.gov/" title="NCI - National Cancer Institute">National Cancer Institute</a></li>
         <li class="footer_leidos"><a target="_blank" href="http://www.leidos.com/about/companies/leidos-biomedical-research" title="Leidos Biomedical Research Inc.">Leidos Biomedical Research Inc.</a></li>        
         <li class="footer_nih"><a target="_blank" href="http://www.nih.gov/" title="NIH - National Institutes of Health">National Institutes of Health</a></li>

@@ -162,7 +162,7 @@ grails.plugin.springsecurity.authority.className = 'nci.bbrb.cdr.authservice.Cdr
 grails.plugin.springsecurity.fii.rejectPublicInvocations = false
 
 
-//grails.plugin.springsecurity.useSecurityEventListener = true
+grails.plugin.springsecurity.useSecurityEventListener = true
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
 grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/home'
 // log4j configuration

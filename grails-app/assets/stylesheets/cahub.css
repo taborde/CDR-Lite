@@ -158,9 +158,8 @@ dl.formdetails dd {float:left; margin-right:20px;}
 #container .ui-tabs .ui-tabs-nav li {height:30px;}
 
 #footer {width: 980px;}
-#footer .footerlogos { width: 565px; height: 50px; margin: 0 auto; padding:0 0 20px 0;border-top: 1px solid #eeeeee;}
+#footer .footerlogos { width: 455px; height: 50px; margin: 0 auto; padding:0 0 20px 0;border-top: 1px solid #eeeeee;}
 #footer .footerlogos li { padding:5px; margin:0; float: left;}
-#footer .footer_cahub a{ background: url(../images/cahub-logo-c.gif) no-repeat; width:110px;  height: 50px; text-indent:-9999px; float: left;}
 #footer .footer_nci a{ background: url(../images/nci-logo-c.gif) no-repeat; width:60px; height: 50px; text-indent:-9999px; float: left;}
 #footer .footer_leidos a{ background: url(../images/leidos-logo-c.jpg) no-repeat; width:110px; height: 50px; text-indent:-9999px; float: left;}
 #footer .footer_dop a{ background: url(../images/hhs-logo-c.gif) no-repeat; width:50px; height: 50px; text-indent:-9999px; float: left;}
@@ -1228,7 +1227,7 @@ dl.formdetails dd {float:left; margin-right:20px;}
 #container .ui-tabs .ui-tabs-nav li {height:30px;}
 
 #footer {width: 980px;}
-#footer .footerlogos { width: 565px; height: 50px; margin: 0 auto; padding:0 0 20px 0;border-top: 1px solid #eeeeee;}
+#footer .footerlogos { width: 455px; height: 50px; margin: 0 auto; padding:0 0 20px 0;border-top: 1px solid #eeeeee;}
 #footer .footerlogos li { padding:5px; margin:0; float: left;}
 #footer .footer_cahub a{ background: url(../images/cahub-logo-c.gif) no-repeat; width:110px;  height: 50px; text-indent:-9999px; float: left;}
 #footer .footer_nci a{ background: url(../images/nci-logo-c.gif) no-repeat; width:60px; height: 50px; text-indent:-9999px; float: left;}
@@ -2297,7 +2296,7 @@ dl.formdetails dd {float:left; margin-right:20px;}
 #container .ui-tabs .ui-tabs-nav li {height:30px;}
 
 #footer {width: 980px;}
-#footer .footerlogos { width: 565px; height: 50px; margin: 0 auto; padding:0 0 20px 0;border-top: 1px solid #eeeeee;}
+#footer .footerlogos { width: 455px; height: 50px; margin: 0 auto; padding:0 0 20px 0;border-top: 1px solid #eeeeee;}
 #footer .footerlogos li { padding:5px; margin:0; float: left;}
 #footer .footer_cahub a{ background: url(../images/cahub-logo-c.gif) no-repeat; width:110px;  height: 50px; text-indent:-9999px; float: left;}
 #footer .footer_nci a{ background: url(../images/nci-logo-c.gif) no-repeat; width:60px; height: 50px; text-indent:-9999px; float: left;}
@@ -2437,7 +2436,7 @@ input, select, textarea {background: rgba(255, 255, 255, 0.9); background:-moz-l
                          filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
                          border: 1px solid #dddddd; font: 11px verdana, arial, helvetica, sans-serif; margin: 2px 0; padding: 2px 4px;}
 
-input:focus, select:focus, textarea:focus { border: 1px solid #b2d1ff; border-width: 2px 1px 1px 2px;}
+input:focus, select:focus, textarea:focus { border: 1px solid #b2d1ff; }
 
 .ynradiobutton {margin-left: 20px;}
 

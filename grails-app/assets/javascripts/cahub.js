@@ -505,7 +505,7 @@ function fetchActivities(){
         if(data.length > 0){
             var message = "";
             var linkText;
-            if (sessionOrg.toLowerCase() == "obbr" && sessionStudy.length > 0){
+            if (sessionOrg.toLowerCase() == "dcc" && sessionStudy.length > 0){
                 message = "<h6>Most recent CDR activity for " + sessionStudy + "</h6><ul>";
             } else {
                 message = "<h6>Most recent CDR activity</h6><ul>";
@@ -1642,7 +1642,7 @@ function addPrintLink(){
             }   
             if ((sessionDM)||(sessionAuthDM))//||(sessionAuthSuper)||(sessionAuthAdmin))
             {
-                if ((sessionOrg == "OBBR")||(sessionOrg == "BBRB")) {}
+                if ((sessionOrg == "DCC")||(sessionOrg == "BBRB")) {}
                 else  { break }
             }
             else

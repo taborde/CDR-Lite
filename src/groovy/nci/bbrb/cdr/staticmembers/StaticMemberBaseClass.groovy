@@ -13,7 +13,7 @@ abstract class StaticMemberBaseClass {
     static constraints = {
 
         name(blank:false,nullable:false,unique:true)
-        code(blank:true,nullable:true,unique:true)
+        code(blank:true,nullable:false,unique:true)
         description(blank:true,nullable:true,widget:'textarea',maxSize:4000)
 
     }    

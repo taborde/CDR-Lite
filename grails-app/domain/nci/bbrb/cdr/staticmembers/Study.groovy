@@ -2,6 +2,9 @@ package nci.bbrb.cdr.staticmembers
 
 class Study  extends StaticMemberBaseClass{
     
+    Date dateIRBApproved
+    Date dateIRBExpires
+    
     static mapping = {
       table 'st_study'
       id generator:'sequence', params:[sequence:'st_study_pk']
@@ -15,5 +18,7 @@ class Study  extends StaticMemberBaseClass{
     }
 
     static constraints = {
+        dateIRBApproved(blank:true, nullable:true)
+        dateIRBExpires(blank:true, nullable:true)
     }
 }
