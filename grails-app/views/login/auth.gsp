@@ -25,7 +25,7 @@
     <g:if test ="${loginbulletin?.bigValue}">
         <div class="message"><%=loginbulletin?.bigValue%></div>
     </g:if>
-    <g:if test='${flash.message}'><div id="message" class="redtext">${flash.message}</div></g:if>
+    <div id="message" class="redtext"><g:if test='${flash.message}'>${flash.message}</g:if></div>
     <div class="inner ui-corner-all">
       <h1>CDR-Lite Data Services Login</h1>
       <form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='on'>

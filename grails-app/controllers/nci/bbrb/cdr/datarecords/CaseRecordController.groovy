@@ -8,11 +8,27 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class CaseRecordController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond CaseRecord.list(params), model:[caseRecordInstanceCount: CaseRecord.count()]
+        params.max = Math.min(max ?: 25, 100)
+        
+       // println("max: " + max + " params.max: " + params.max)
+        
+       // params.max='3'
+          def caseList = CaseRecord.list(params)
+        
+        def specimenCount=[:]
+        if(caseList){
+             def count_result = SpecimenRecord.executeQuery("select c.id, count(*) from SpecimenRecord s inner join s.caseRecord c where c in (:list) group by c.id",  [list: caseList])
+            count_result.each(){
+                specimenCount.put(it[0], it[1])
+             
+            }
+        }
+        
+        
+        respond CaseRecord.list(params), model:[caseRecordInstanceCount: CaseRecord.count(), specimenCount:specimenCount]
     }
 
     def show(CaseRecord caseRecordInstance) {
@@ -56,6 +72,7 @@ class CaseRecordController {
 
     @Transactional
     def update(CaseRecord caseRecordInstance) {
+       
         if (caseRecordInstance == null) {
             notFound()
             return

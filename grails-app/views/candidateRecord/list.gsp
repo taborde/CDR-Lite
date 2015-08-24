@@ -1,6 +1,6 @@
 
 <%@ page import="nci.bbrb.cdr.datarecords.CandidateRecord" %>
-<g:set var="bodyclass" value="new_page_enter_lowercase_folder_name_here list" scope="request"/>
+<g:set var="bodyclass" value="caserecord list" scope="request"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +15,7 @@
                 <a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
                    <g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link>
                        </div>
-                       </div>
+         </div>
                        <div id="container" class="clearfix"> 
                        <h1><g:message code="default.list.label" args="[entityName]" /></h1>
                     <g:if test="${flash.message}">

@@ -23,5 +23,9 @@ class SpecimenRecord extends DataRecordBaseClass{
     }    
 
     static constraints = {
+        fixative(nullable:true,blank:true)
+        containerType(nullable:true,blank:true)
+        tissueLocation(nullable:true,blank:true)
+        parentSpecimen(nullable:true,blank:true)
     }
 }

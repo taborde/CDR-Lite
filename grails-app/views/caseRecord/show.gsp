@@ -12,24 +12,35 @@
         <div id="nav" class="clearfix">
             <div id="navlist">
                 <a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
-                   <g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link>
-                   <g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link>
                        </div>
                        </div>
 
                    <div id="container" class="clearfix">
-                   <h1><g:message code="default.show.label" args="[entityName]" /></h1>
+                   <h1>Show Case Record Details for ${caseRecordInstance.caseId} </h1>
                     <g:if test="${flash.message}">
                         <div class="message" role="status">${flash.message}</div>
                     </g:if>
                     <div class="dialog">
                         <table>
                             <tbody>
-                                
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="caseRecord.id.label" default="Id" /></td>
+                          <tr class="prop">
+                            <td valign="top" class="name"><g:message code="caseRecord.caseId.label" default="Case Id" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: caseRecordInstance, field: "id")}</td>
+                            <td valign="top" class="value">${fieldValue(bean: caseRecordInstance, field: "caseId")}</td>
+                            
+                        </tr>       
+                    
+                          <tr class="prop">
+                            <td valign="top" class="name"><g:message code="caseRecord.caseCollectionType.label" default="Collection Type" /></td>
+                            
+                            <td valign="top" class="value">${caseRecordInstance?.caseCollectionType?.encodeAsHTML()}</td>
+                            
+                        </tr>
+                        
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="caseRecord.caseStatus.label" default="Case Status" /></td>
+                            
+                            <td valign="top" class="value">${caseRecordInstance?.caseStatus?.encodeAsHTML()}</td>
                             
                         </tr>
                     
@@ -40,33 +51,30 @@
                             
                         </tr>
                     
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="caseRecord.candidateRecord.label" default="Candidate Record" /></td>
+                          <tr class="prop">
+                            <td valign="top" class="name"><g:message code="caseRecord.primaryTissueType.label" default="Primary Organ" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="candidateRecord" action="show" id="${caseRecordInstance?.candidateRecord?.id}">${caseRecordInstance?.candidateRecord?.encodeAsHTML()}</g:link></td>
+                            <td valign="top" class="value">${caseRecordInstance?.primaryTissueType?.encodeAsHTML()}</td>
+                            
+                        </tr>
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="caseRecord.candidateRecord.label" default="Candidate Record ID" /></td>
+                            
+                            <td valign="top" class="value"><g:link controller="candidateRecord" action="show" id="${caseRecordInstance?.candidateRecord?.id}">${caseRecordInstance?.candidateRecord?.candidateId}</g:link></td>
                             
                         </tr>
                     
+                      
+                    
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="caseRecord.caseCollectionType.label" default="Case Collection Type" /></td>
+                            <td valign="top" class="name"><g:message code="caseRecord.study.label" default="Study" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="caseCollectionType" action="show" id="${caseRecordInstance?.caseCollectionType?.id}">${caseRecordInstance?.caseCollectionType?.encodeAsHTML()}</g:link></td>
+                            <td valign="top" class="value">${caseRecordInstance?.study?.encodeAsHTML()}</td>
                             
                         </tr>
                     
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="caseRecord.caseId.label" default="Case Id" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: caseRecordInstance, field: "caseId")}</td>
-                            
-                        </tr>
                     
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="caseRecord.caseStatus.label" default="Case Status" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="caseStatus" action="show" id="${caseRecordInstance?.caseStatus?.id}">${caseRecordInstance?.caseStatus?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
+                       
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="caseRecord.dateCreated.label" default="Date Created" /></td>
@@ -82,33 +90,45 @@
                             
                         </tr>
                     
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="caseRecord.primaryTissueType.label" default="Primary Tissue Type" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="tissueType" action="show" id="${caseRecordInstance?.primaryTissueType?.id}">${caseRecordInstance?.primaryTissueType?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
+                      
                     
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="caseRecord.specimens.label" default="Specimens" /></td>
-                            
-                            <td valign="top" style="text-align: left;" class="value">
-                                <ul>
-                                <g:each in="${caseRecordInstance.specimens}" var="s">
-                                    <li><g:link controller="specimenRecord" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></li>
-                                </g:each>
-                                </ul>
-                            </td>
-                            
-                        </tr>
+                       
                     
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="caseRecord.study.label" default="Study" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="study" action="show" id="${caseRecordInstance?.study?.id}">${caseRecordInstance?.study?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
+                          <tr class="prop"><td valign="top" class="name formheader" colspan="3">Specimens (${caseRecordInstance.specimens.size()}):  
+                          </td></tr>
+      <tr>
+        <td valign="top" class="value" colspan="3"> 
+          <div class="list">
+         <table class="nowrap">
+           <thead>
+           <tr>
+            <th>Specimen Id</th>              
+            <th>Tissue Type</th>        
+            <th>Fixative</th>
+           </tr>
+         </thead>
+         <tbody>
+          <g:each in="${caseRecordInstance.specimens}" status="i" var="s">
+          <tr class="${(i % 2) == 0 ? 'odd' : 'even'}" id="${s.specimenId.toUpperCase()}">
+
+            <td class="itemid"><g:link action="show" controller="specimenRecord" id="${s.id}">${s.specimenId}</g:link></td>
+          
+          <td>${s.tissueType}</td>
+
+         
+
+          <td>${s.fixative}</td>
+
+          </tr>
+         </g:each>
+        </tbody>
+      </table>
+    </div>
+     </td>
+
+</tr>
+        
+                       
                             </tbody>
                         </table>
                     </div>
@@ -116,9 +136,11 @@
                         <g:form url="[resource:caseRecordInstance, action:'delete']" method="POST" >
                             <g:hiddenField name="id" value="${caseRecordInstance?.id}" />
                             <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                            <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                         </g:form>
                     </div>
             </div>
+            
+         
+            
     </body>
 </html>
