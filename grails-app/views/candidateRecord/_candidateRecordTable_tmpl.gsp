@@ -33,7 +33,17 @@
                 <td><span class="ca-tooltip-nobg" data-msg="<b>${candidateRecordInstance.bss.name}</b>">${candidateRecordInstance.bss}</span></td>
                 <td>${fieldValue(bean: candidateRecordInstance, field: "study.name")}</td>
                 <td>
-                    
+                   <g:if test="${candidateRecordInstance.caseList}">
+                         <g:each in="${candidateRecordInstance.caseList}" status="j" var="caseRecord">
+                            <g:if test="${j==0}"> 
+                            <a href="/cdrlite/caseRecord/show/${caseRecord.id}"> ${caseRecord.caseId}</a>
+                            </g:if>
+                            <g:else>
+                               <br/> <a href="/cdrlite/caseRecord/show/${caseRecord.id}"> ${caseRecord.caseId}</a>
+                            </g:else>
+                         </g:each>
+                       
+                   </g:if>
                 </td>
                
                
@@ -45,7 +55,7 @@
                     <g:if test="${candidateRecordInstance.isConsented}"><span class="yes">Yes</span></g:if>
                     <g:else><span class="no">No</span></g:else>
                 </td>
-                <td><g:formatDate date="${candidateRecordInstance.dateCreated}" /></td>
+                <td style="white-space:nowrap"><g:formatDate date="${candidateRecordInstance.dateCreated}" /></td>
             </tr>
         </g:each>
       </g:if>

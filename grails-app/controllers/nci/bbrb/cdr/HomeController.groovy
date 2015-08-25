@@ -12,34 +12,38 @@ class HomeController {
  String maxView ='10'
     
      def choosehome = {
-       // session.study = null 
-       // session.chosenHome = null 
-       // def blockedStudyList = nihUserStudyAccessCheck()
-        def blockedStudyList=[]
-        return [blockedStudyList:blockedStudyList]
-      // render "choose home page"
+        
+     
     }
     
-    def homedispatcher = {
-
-        if(session.serviceAccount == true){
-            redirect(controller:"login", action:"notauth")
-            return //needed for Grails 2
-        } 
-              
-        else if(!session.chosenHome || session.serviceAccount != true){
-            //redirect(action: "studyHome", params: params) 
-            redirect(action: "choosehome", params: params)
+    def homedispatcher = {      
+     
+         if(session.chosenHome=="projecthome"){
+            
+              redirect(action: "projecthome")
+         
+        }else {
+            redirect(action: "choosehome")
         }
     }
    
     def projecthome={
+        session.chosenHome="projecthome"
         def candidateList = CandidateRecord.findAllByStudy(Study.findByCode('BPVLIKE'), [max:maxView])
-        println("size: " + candidateList.size())
   
        // def caseList = CaseRecord.findAllByStudy(Study.findByCode('BPVLIKE'), [max:maxView])
        
         def caseList = CaseRecord.executeQuery("from CaseRecord c where c.candidateRecord.study.code= 'BPVLIKE'", [max:maxView])
-        return [caseRecordInstanceList:caseList, candidateRecordInstanceList:candidateList]
+        
+        def specimenCount=[:]
+        if(caseList){
+             def count_result = SpecimenRecord.executeQuery("select c.id, count(*) from SpecimenRecord s inner join s.caseRecord c where c in (:list) group by c.id",  [list: caseList])
+            count_result.each(){
+                specimenCount.put(it[0], it[1])
+             
+            }
+        }
+        
+        return [caseRecordInstanceList:caseList, candidateRecordInstanceList:candidateList, specimenCount:specimenCount]
     }
 }

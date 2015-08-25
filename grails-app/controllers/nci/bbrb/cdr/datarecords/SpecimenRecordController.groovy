@@ -86,7 +86,8 @@ class SpecimenRecordController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'SpecimenRecord.label', default: 'SpecimenRecord'), specimenRecordInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action:"index"
+				
             }
             '*'{ render status: NO_CONTENT }
         }
@@ -96,7 +97,8 @@ class SpecimenRecordController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'specimenRecord.label', default: 'SpecimenRecord'), params.id])
-                redirect action: "index", method: "GET"
+                redirect action:"index"
+				
             }
             '*'{ render status: NOT_FOUND }
         }

@@ -1,32 +1,26 @@
 <g:set var="env" value="${grails.util.GrailsUtil.environment}"/>
 <g:set var="appMilestone" value="${nci.bbrb.cdr.util.AppSetting.findByCode('APP_RELEASE_MILESTONE')?.bigValue}"/>
 
-<g:if test="${homeLink == null || homeLink == ''}" ><g:if test="${session.org?.code == 'OBBR'}" ><g:set var="homeLink" value="/cdrlite/home/" /><g:set var="homeTitle" value="CDR-Lite" /></g:if> <g:else><g:set var="homeLink" value="/cdrlite/home" /><g:set var="homeTitle" value="CDR-Lite" /></g:else></g:if>
+<g:set var="homeLink" value="/cdrlite/home/choosehome" /><g:set var="homeTitle" value="caHUB" /><g:set var="homeTitle" value="CDRLite" />
 <g:if test="${env != 'production'}"><%-- cache buster--%><g:set var="d" value="${new Date()}" /><g:set var="ts" value="${d.format('yyyy-MM-dd:HH')}" /></g:if>
 <!DOCTYPE html>
 <html>
   <head>
-     <title>CDR-Lite</title>
+     <title><g:message code="default.page.title"/></title>
       <g:if test="${bodyclass?.indexOf('tissuerecoverygtex') > -1}"><meta http-equiv="X-UA-Compatible" content="IE=8" /></g:if>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <g:if test="${extjs ?: false == true}"><asset:javascript src="ext/ext-all.js"/>
-    <asset:stylesheet href="ext/resources/css/ext-all.css"/>
-      </g:if>
-    
-      <asset:javascript src="jquery-1.10.2.min.js"/>
-      <asset:javascript src="jquery-migrate-1.2.1.min.js"/>
-      <asset:javascript src="jquery-ui-1.8.23.custom.js"/>
-      
-      <asset:javascript src="jquery-ui-timepicker-addon"/><asset:javascript src="timeentry/jquery.timeentry.min"/><asset:javascript src="countdown/jquery.countdown.min"/><asset:javascript src="application" /><asset:javascript src="cdrcustom"/>
-      
-     <asset:stylesheet href="theme/jquery-ui-1.8.23.custom.css">?v<g:meta name='app.version'/>-${ts ?: ''}"</asset:stylesheet>
-      <asset:stylesheet href="cahub.css">?v<g:meta name='app.version'/>-${ts ?: ''}"</asset:stylesheet>
-     <link rel="apple-touch-icon" type="image/ico" href="${assetPath(src: 'favicon.ico')}">
-       <asset:javascript src="cahub.js"> ?v<g:meta name='app.version'/>-${ts ?: ''}"></asset:javascript>
-     
-      <%--
+      <g:if test="${extjs ?: false == true}"><script type="text/javascript" src="${resource(dir:'js',file:'ext/ext-all.js')}"></script>
+      <link rel="stylesheet" href="${resource(dir:'css',file:'ext/resources/css/ext-all.css')}" /></g:if>
+      <script type="text/javascript" src="${resource(dir:'js',file:'jquery-1.10.2.min.js')}" ></script>
+      <script type="text/javascript" src="${resource(dir:'js',file:'jquery-migrate-1.2.1.min.js')}" ></script>      
+      <script type="text/javascript" src="${resource(dir:'js',file:'jquery-ui-1.8.23.custom.js')}" ></script>
+      <g:javascript library="jquery-ui-timepicker-addon"/><g:javascript library="timeentry/jquery.timeentry.min"/><g:javascript library="countdown/jquery.countdown.min"/><g:javascript library="application" /><g:javascript library="cdrcustom"/>
+      <link href="${resource(dir:'css',file:'theme/jquery-ui-1.8.23.custom.css')}?v<g:meta name='app.version'/>-${ts ?: ''}" type="text/css" rel="stylesheet" media="screen, projection" id="jquery-ui-theme" /> 
+      <link rel="stylesheet" href="${resource(dir:'css',file:'cahub.css')}?v<g:meta name='app.version'/>-${ts ?: ''}" />
+      <link rel="shortcut icon" type="image/ico" href="/cdrlite/images/favicon.ico"/>
+      <script type="text/javascript" src="${resource(dir:'js',file:'cahub.js')}?v<g:meta name='app.version'/>-${ts ?: ''}"></script>  
       <script type="text/javascript">
-        var vocabJsnLoc = "${nci.obbr.cahub.util.AppSetting.findByCode('VOCAB_SOLR_LOC')?.bigValue}";
+        var vocabJsnLoc = "${nci.bbrb.cdr.util.AppSetting.findByCode('VOCAB_SOLR_LOC')?.bigValue}";
         var sessionStudy = "${session.study?.name}";
         var sessionAuthDM = ${session.authorities ? session.authorities.contains("ROLE_NCI-FREDERICK_CAHUB_DM") : false };
         var sessionAuthSuper = ${session.authorities ? session.authorities.contains("ROLE_NCI-FREDERICK_CAHUB_SUPER") : false };
@@ -36,17 +30,11 @@
         var sessionOrg = "${session.org?.code}";
         <g:if test='${session.authorities?.contains("ROLE_NCI-FREDERICK_CAHUB_PRC")}'>var timeOutMilliSecs = 3601000;</g:if>
         <g:else>var timeOutMilliSecs = 1801000;</g:else> 
---%>
         <%-- Below variable only applies to Activity Center  --%>
-      <%--
         <g:if test="${session.org?.code in ['BROAD', 'NDRI', 'RPCI', 'UPMC', 'UNM', 'BMC', 'EU']}">deidentified = true;</g:if>
       </script>
---%>
       <g:layoutHead />  
   </head>
-  
-  
-  
   <body class="${bodyclass ?: ''}">
     <div id="body_wrapper">    
       <div id="sitemessage">
@@ -70,8 +58,7 @@
                   <div class="small">Org: ${session.org?.name}</div>   
                   <div class="small">
                   <g:if test="${session.org?.code == 'OBBR'}">
-                  <h6>Privileges:</h6>
-<%--
+                  <h6>Privileges:</h6> 
                   <ul class="gray">
                     <g:if test='${session.authorities?.contains("ROLE_NCI-FREDERICK_CAHUB_DM") || session.authorities?.contains("ROLE_NCI-FREDERICK_CAHUB_SUPER") || session.authorities?.contains("ROLE_ADMIN")}'>
                         <g:if test="${session.DM == true}">
@@ -111,7 +98,6 @@
                     </g:else>
                     
                   </ul>
-                  --%>
                   </g:if> 
                </div>
                <div class="clear"></div>
@@ -119,7 +105,7 @@
                   <g:if test="${session.org?.code != 'MBB' && session.study?.code != 'BPVELSI' && session.study?.code != 'CTC'}">
 		  <ul>
                     <li class="first"><g:link controller="textSearch" action="searchhome">Search</g:link></li>
-                    <li class="last"><g:link controller="help" action="helphome">Help</g:link></li>
+                    <li class="last">Help</li>
 		  </ul>
                   </g:if>
               </div>
@@ -128,20 +114,14 @@
                   <div id="countdown" class="countdown hasCountdown">Session expires in: <b><span class="minutesleft"></span>:<span class="secondsleft"></span></b></div>
                </g:if>
          </div>
-         <%--
-        <g:if test="${session.org?.code in ['OBBR','NDRI','SC','RPCI','VUMC','UNM','BMC','UPMC','EU','VARI']}"><div id="activityEvent"></div></g:if>
---%>
-</g:if>
+        <g:if test="${session.org?.code in ['OBBR','NDRI','SC','RPCI','VUMC','UNM','BMC','UPMC','EU','VARI']}"><div id="activityEvent"></div></g:if></g:if>
       </div><!--end header-->
       <div class="clear"></div>
       <g:layoutBody />
     </div><!--end body-wrapper-->     
     <div id="footer">
-      <div id="vers"><div id="verstext"> CDR-Lite DS v<g:meta name="app.version"/>${appMilestone?".$appMilestone":""}</div></div>
+      <div id="vers"><div id="verstext">CDR-Lite v<g:meta name="app.version"/>${appMilestone?".$appMilestone":""}</div></div>
       <ul class="footerlogos clearfix">
-        %{-- 
-        <li class="footer_cahub"><a target="_blank" href="http://cahub.cancer.gov" title="caHUB" >caHUB</a></li>
-        --}%
         <li class="footer_nci"><a target="_blank" href="http://www.cancer.gov/" title="NCI - National Cancer Institute">National Cancer Institute</a></li>
         <li class="footer_leidos"><a target="_blank" href="http://www.leidos.com/about/companies/leidos-biomedical-research" title="Leidos Biomedical Research Inc.">Leidos Biomedical Research Inc.</a></li>        
         <li class="footer_nih"><a target="_blank" href="http://www.nih.gov/" title="NIH - National Institutes of Health">National Institutes of Health</a></li>
