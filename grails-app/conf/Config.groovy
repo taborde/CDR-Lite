@@ -126,8 +126,17 @@ grails.plugin.springsecurity.securityConfigType = "Annotation"
 
 grails.assets.bundle=true
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-
- //leave these alone.  these rules are needed for everyting to work properly
+    //system setting controllers
+    '/user/**': ['ROLE_ADMIN','ROLE_SUPER'],
+    '/role/**': ['ROLE_ADMIN','ROLE_SUPER'],
+    '/userRole/**': ['ROLE_ADMIN','ROLE_SUPER'],
+    '/securityInfo/**': ['ROLE_ADMIN','ROLE_SUPER'],
+    '/controllers.gsp':['ROLE_ADMIN','ROLE_SUPER'],
+    '/backoffice/**':['ROLE_ADMIN','ROLE_SUPER'],
+    '/auditLogEvent/**':['ROLE_ADMIN','ROLE_SUPER'],
+    '/userLogin/**': ['ROLE_ADMIN','ROLE_SUPER','ROLE_DM'],
+    
+    //leave these alone.  these rules are needed for everyting to work properly
     '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
     '/logout/**': ['IS_AUTHENTICATED_FULLY'],
     '/register/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
@@ -140,6 +149,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/appSetting/**': ['IS_AUTHENTICATED_FULLY'],
     '/caseRecord/**': ['IS_AUTHENTICATED_FULLY'],
     '/candidateRecord/**': ['IS_AUTHENTICATED_FULLY'],
+    '/specimenRecord/**': ['IS_AUTHENTICATED_FULLY'],
     '/study/**': ['IS_AUTHENTICATED_FULLY'],
     '/bss/**': ['IS_AUTHENTICATED_FULLY'],
     '/user/**': ['IS_AUTHENTICATED_FULLY'],

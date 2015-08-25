@@ -7,6 +7,7 @@ class BootStrap {
     def init = { servletContext ->
     def adminRole = new nci.bbrb.cdr.authservice.CdrRole(authority: 'ROLE_ADMIN').save(failOnError: false, flush: true)
     def userRole  = new nci.bbrb.cdr.authservice.CdrRole(authority: 'ROLE_USERS').save(failOnError: false, flush: true)
+    def prcRole   = new nci.bbrb.cdr.authservice.CdrRole(authority:   'ROLE_PRC').save(failOnError: false, flush: true)
 
     def adminUser = new nci.bbrb.cdr.authservice.CdrUser(username: 'admin', enabled: true, password: 'admin')
     adminUser.save(failOnError: false, flush: true)
@@ -67,6 +68,23 @@ class BootStrap {
         new TissueType(code:'COLON', name:'Colon' ).save(failOnError: false, flush: true)
         new TissueType(code:'LUNG', name:'Lung' ).save(failOnError: false, flush: true)
         new TissueType(code:'OVARY', name:'Ovary' ).save(failOnError: false, flush: true)
+        
+        new ContainerType(code:'SST',       name:'SST Vacutainer' ).save(failOnError: false, flush: true)
+        new ContainerType(code:'LAVEDTA',   name:'Lavender EDTA' ).save(failOnError: false, flush: true)
+        new ContainerType(code:'CRYOV',     name:'Cryovial' ).save(failOnError: false, flush: true)
+        new ContainerType(code:'CONCENT',   name:'Concentric Tube' ).save(failOnError: false, flush: true)
+        new ContainerType(code:'CASSETTE',  name:'Tissue Cassette' ).save(failOnError: false, flush: true)
+        new ContainerType(code:'TRAY',      name:'Tray' ).save(failOnError: false, flush: true)
+        new ContainerType(code:'CONICT',    name:'Conical Tube' ).save(failOnError: false, flush: true)
+        new ContainerType(code:'CRYOSETTE', name:'Cryosette' ).save(failOnError: false, flush: true)
+        new ContainerType(code:'DNAPAX',    name:'PAXgene DNA Vacutainer').save(failOnError: false, flush: true)
+        new ContainerType(code:'RNAPAX',    name:'PAXgene RNA Vacutainer').save(failOnError: false, flush: true)
+        new ContainerType(code:'MODULE',    name:'Module' ).save(failOnError: false, flush: true)
+        new ContainerType(code:'ACD',       name:'ACD Vacutainer' ).save(failOnError: false, flush: true)
+        new ContainerType(code:'BUCKET',    name:'Bucket' ).save(failOnError: false, flush: true)
+        new ContainerType(code:'ENVELOPE',  name:'Envelope' ).save(failOnError: false, flush: true)
+        
+        new Fixative(code:"OCT", name:"OCT Embedded").save(failOnError: false, flush: true)
         
         /* Tabor: Add generic Data Coordinating Center and University */
         new Organization(code:'DCC', name:'Data Coordinating Center').save(failOnError: false, flush: true)
