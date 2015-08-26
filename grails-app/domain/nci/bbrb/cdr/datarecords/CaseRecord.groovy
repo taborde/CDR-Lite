@@ -27,4 +27,8 @@ class CaseRecord extends DataRecordBaseClass {
        
         sort dateCreated:"desc"  
     }
+    
+     static searchable = {
+          only=['caseId']
+     }
 }
