@@ -1,4 +1,5 @@
 package nci.bbrb.cdr.datarecords
+import nci.bbrb.cdr.staticmembers.ActivityType
 
 
 
@@ -7,20 +8,20 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class CaseRecordController {
-
+def ActivityEventService
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 25, 100)
         
-       // println("max: " + max + " params.max: " + params.max)
+        // println("max: " + max + " params.max: " + params.max)
         
-       // params.max='3'
-          def caseList = CaseRecord.list(params)
+        // params.max='3'
+        def caseList = CaseRecord.list(params)
         
         def specimenCount=[:]
         if(caseList){
-             def count_result = SpecimenRecord.executeQuery("select c.id, count(*) from SpecimenRecord s inner join s.caseRecord c where c in (:list) group by c.id",  [list: caseList])
+            def count_result = SpecimenRecord.executeQuery("select c.id, count(*) from SpecimenRecord s inner join s.caseRecord c where c in (:list) group by c.id",  [list: caseList])
             count_result.each(){
                 specimenCount.put(it[0], it[1])
              
@@ -39,8 +40,8 @@ class CaseRecordController {
         def caseRecord = new CaseRecord(params)
         caseRecord.bss=caseRecord.candidateRecord?.bss
         caseRecord.study=caseRecord.candidateRecord?.study
-       // respond new CaseRecord(params)
-       respond caseRecord
+        // respond new CaseRecord(params)
+        respond caseRecord
     }
 
     @Transactional
@@ -56,6 +57,15 @@ class CaseRecordController {
         }
 
         caseRecordInstance.save flush:true
+        
+        println "pmh created new case "+caseRecordInstance.id
+        
+        def activityType = ActivityType.findByCode("CASECREATE")
+        def caseId = caseRecordInstance.caseId
+        def study = caseRecordInstance.study
+        def bssCode = caseRecordInstance.bss?.parentBss?.code
+        def username = session.SPRING_SECURITY_CONTEXT?.authentication?.principal?.getUsername()
+        activityEventService.createEvent(activityType, caseId, study, bssCode, username, null, null)
 
         request.withFormat {
             form multipartForm {
@@ -84,6 +94,14 @@ class CaseRecordController {
         }
 
         caseRecordInstance.save flush:true
+        
+        def activityType = ActivityType.findByCode("CASEUPDATE")
+        def caseId = caseRecordInstance.caseId
+        def study = caseRecordInstance.study
+        def bssCode = caseRecordInstance.bss?.parentBss?.code
+        def username = session.SPRING_SECURITY_CONTEXT?.authentication?.principal?.getUsername()
+        activityEventService.createEvent(activityType, caseId, study, bssCode, username, null, null)
+
 
         request.withFormat {
             form multipartForm {

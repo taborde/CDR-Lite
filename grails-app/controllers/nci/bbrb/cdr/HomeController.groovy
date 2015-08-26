@@ -46,4 +46,14 @@ class HomeController {
         
         return [caseRecordInstanceList:caseList, candidateRecordInstanceList:candidateList, specimenCount:specimenCount]
     }
+    
+    
+    def generic={
+       def  title = "Activity Center"
+        def    bodyclass = "recentactivity"
+         def   navigation = "/cdrlite;home;Home"
+         def   divs = "recentactivity"
+         def   h1studysession = true
+         return[title:title,bodyclass:bodyclass,navigation:navigation,divs:divs,h1studysession:h1studysession]
+    }
 }

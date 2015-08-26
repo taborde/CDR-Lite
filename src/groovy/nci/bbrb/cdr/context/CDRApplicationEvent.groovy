@@ -27,7 +27,7 @@ class CDRApplicationEvent extends SecurityEventListener {
     @Override
     public void onApplicationEvent(final ApplicationEvent e) {
         log.info("1. onApplicationEvent")
-        println ("2. onApplicationEvent: " + e )
+        //println ("2. onApplicationEvent: " + e )
         if(e instanceof AuthenticationSuccessEvent) {
             logUser(e.source)
             loadUserSession(e.source)
