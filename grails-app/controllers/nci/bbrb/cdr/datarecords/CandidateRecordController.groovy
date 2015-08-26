@@ -4,15 +4,17 @@ package nci.bbrb.cdr.datarecords
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import nci.bbrb.cdr.staticmembers.Study
 
 @Transactional(readOnly = true)
 class CandidateRecordController {
      def hubIdGenService
+     def candidateService
      
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        params.max = Math.min(max ?: 25, 100)
         respond CandidateRecord.list(params), model:[candidateRecordInstanceCount: CandidateRecord.count()]
     }
 
@@ -32,6 +34,7 @@ class CandidateRecordController {
         }
 
         candidateRecordInstance.candidateId = hubIdGenService.genCandidateId(candidateRecordInstance.bss.code)
+        candidateRecordInstance.study= Study.findByCode('BPVLIKE')
         
       /**  if (candidateRecordInstance.hasErrors()) {
             respond candidateRecordInstance.errors, view:'create'
@@ -65,7 +68,10 @@ class CandidateRecordController {
             return
         }
 
-        candidateRecordInstance.save flush:true
+        
+        //candidateRecordInstance.save flush:true
+        
+        candidateService.updateCandidate(candidateRecordInstance)
 
         request.withFormat {
             form multipartForm {

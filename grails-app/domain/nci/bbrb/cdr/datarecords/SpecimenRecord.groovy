@@ -18,7 +18,6 @@ class SpecimenRecord extends DataRecordBaseClass{
         table 'dr_specimen'
         id generator:'sequence', params:[sequence:'dr_specimen_pk']
         //tissueLocations column:'dr_specimen_st_acquis_loc'
-        
    
     }    
 

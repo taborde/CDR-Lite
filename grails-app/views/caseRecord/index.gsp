@@ -1,65 +1,73 @@
 
 <%@ page import="nci.bbrb.cdr.datarecords.CaseRecord" %>
+<g:set var="bodyclass" value="gtexbsshome home" scope="request"/>
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="cahubTemplate">
 		<g:set var="entityName" value="${message(code: 'caseRecord.label', default: 'CaseRecord')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#list-caseRecord" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="list-caseRecord" class="content scaffold-list" role="main">
+            
+            <div id="nav" class="clearfix">
+          <div id="navlist">
+            <a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>  
+          </div>
+      </div>
+		
+		 <div id="container" class="clearfix"> 
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-			<thead>
-					<tr>
-					
-						<th><g:message code="caseRecord.bss.label" default="Bss" /></th>
-					
-						<th><g:message code="caseRecord.candidateRecord.label" default="Candidate Record" /></th>
-					
-						<th><g:message code="caseRecord.caseCollectionType.label" default="Case Collection Type" /></th>
-					
-						<g:sortableColumn property="caseId" title="${message(code: 'caseRecord.caseId.label', default: 'Case Id')}" />
-					
-						<th><g:message code="caseRecord.caseStatus.label" default="Case Status" /></th>
-					
-						<g:sortableColumn property="dateCreated" title="${message(code: 'caseRecord.dateCreated.label', default: 'Date Created')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${caseRecordInstanceList}" status="i" var="caseRecordInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${caseRecordInstance.id}">${fieldValue(bean: caseRecordInstance, field: "bss")}</g:link></td>
-					
-						<td>${fieldValue(bean: caseRecordInstance, field: "candidateRecord")}</td>
-					
-						<td>${fieldValue(bean: caseRecordInstance, field: "caseCollectionType")}</td>
-					
-						<td>${fieldValue(bean: caseRecordInstance, field: "caseId")}</td>
-					
-						<td>${fieldValue(bean: caseRecordInstance, field: "caseStatus")}</td>
-					
-						<td><g:formatDate date="${caseRecordInstance.dateCreated}" /></td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${caseRecordInstanceCount ?: 0}" />
+                        
+                        <table>
+  <thead>
+   
+    <tr>
+  
+  
+  <g:sortableColumn property="caseId" title="${message(code: 'caseRecord.caseId.label', default: 'Case ID')}" />                          
+  <g:sortableColumn property="primaryTissueType" title="${message(code: 'caseRecord.caseId.label', default: 'Primary Organ')}" />                                      
+  <g:sortableColumn property="bss" title="${message(code: 'caseRecord.BSS.label', default: 'BSS')}" />
+  <th>Candidate ID</th>
+  <th class="specimencount">Specimens</th>                            
+  <g:sortableColumn property="caseStatus" title="${message(code: 'caseRecord.dateCreated.label', default: 'Case Status')}" /> 
+  <g:sortableColumn property="dateCreated" class="dateentry" title="${message(code: 'caseRecord.dateCreated.label', default: 'Date Created')}" />
+   
+</tr>
+</thead>
+<tbody>
+<g:if test="${caseRecordInstanceList}">
+  <g:each in="${caseRecordInstanceList}" status="i" var="caseRecordInstance">
+    <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+   
+    <td>
+    <a href="/cdrlite/caseRecord/show/${caseRecordInstance.id}">${caseRecordInstance.caseId}</a>
+    </td>                    
+    <td>${caseRecordInstance.primaryTissueType}</td>                    
+    <td><span class="ca-tooltip-nobg" data-msg="<b>${caseRecordInstance.bss.name}</b>">${caseRecordInstance.bss}</span></td>
+    <td><a href="/cahubdataservices/candidateRecord/view/${caseRecordInstance.candidateRecord?.id}">${caseRecordInstance.candidateRecord?.candidateId}</a></td>
+    <td>
+       <g:if test="${specimenCount.get(caseRecordInstance.id)}">${specimenCount.get(caseRecordInstance.id)}</g:if><g:else>0</g:else> 
+    </td>
+    <td><span class="ca-tooltip-nobg home-case-status" data-msg="<b>${caseRecordInstance.caseStatus}</b>. ${caseRecordInstance.caseStatus.description}">${caseRecordInstance.caseStatus}</span>
+    </td>
+    
+   
+   
+    <td style="white-space:nowrap"><g:formatDate date="${caseRecordInstance.dateCreated}" /></td>
+    </tr>
+  </g:each></g:if>
+<g:else><tr><td colspan="7">No cases exist</td></tr></g:else>
+</tbody>
+</table>
+                    
+ 
+			
+			<div class="paginateButtons">
+				<g:paginate total="${caseRecordInstanceCount ?: 0}" /> | Total: ${caseRecordInstanceCount}
 			</div>
 		</div>
 	</body>

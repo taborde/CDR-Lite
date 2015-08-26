@@ -26,14 +26,14 @@
     <td><span class="ca-tooltip-nobg" data-msg="<b>${caseRecordInstance.bss.name}</b>">${caseRecordInstance.bss}</span></td>
     <td><a href="/cahubdataservices/candidateRecord/view/${caseRecordInstance.candidateRecord?.id}">${caseRecordInstance.candidateRecord?.candidateId}</a></td>
     <td>
-        
+        <g:if test="${specimenCount.get(caseRecordInstance.id)}">${specimenCount.get(caseRecordInstance.id)}</g:if><g:else>0</g:else> 
     </td>
     <td><span class="ca-tooltip-nobg home-case-status" data-msg="<b>${caseRecordInstance.caseStatus}</b>. ${caseRecordInstance.caseStatus.description}">${caseRecordInstance.caseStatus}</span>
     </td>
     
    
    
-    <td><g:formatDate date="${caseRecordInstance.dateCreated}" /></td>
+    <td style="white-space:nowrap"><g:formatDate date="${caseRecordInstance.dateCreated}" /></td>
     </tr>
   </g:each></g:if>
 <g:else><tr><td colspan="7">No cases exist</td></tr></g:else>

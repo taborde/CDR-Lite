@@ -76,24 +76,7 @@
         </tr>
 
         
-        <tr class="prop">
-            <td valign="top" class="name">
-                <label for="specimens"><g:message code="caseRecord.specimens.label" default="Specimens" /></label>
-            </td>
-            <td valign="top" class="value ${hasErrors(bean: caseRecordInstance, field: 'specimens', 'error')}">
-                
-<ul class="one-to-many">
-<g:each in="${caseRecordInstance?.specimens?}" var="s">
-    <li><g:link controller="specimenRecord" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="specimenRecord" action="create" params="['caseRecord.id': caseRecordInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'specimenRecord.label', default: 'SpecimenRecord')])}</g:link>
-</li>
-</ul>
-
-
-            </td>
-        </tr>
+      
 
         
         <tr class="prop">

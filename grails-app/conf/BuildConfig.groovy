@@ -44,10 +44,6 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
-        // The change in grails sponsorship from Pivotal to Apache means that the grails repositories have a new URL.
-        // mavenRepo "http://repo.grails.org/grails/core"
-        // mavenRepo "http://repo.grails.org/grails/plugins"
-
     }
 
     dependencies {
@@ -75,10 +71,8 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         compile ":asset-pipeline:2.1.5"
         //added on 03/30/15 pmh
-        compile ':spring-security-core:2.0-RC4'
+        compile ':spring-security-core:2.0-RC5'
         compile ":spring-security-acl:2.0-RC2"
-        
-        compile ":spring-security-eventlog:0.4"
         
         //pmh 05/27/15 added this for user and role interface (  USER/ROLE CRUD pages)
         compile ":spring-security-ui:1.0-RC2"
@@ -86,7 +80,7 @@ grails.project.dependency.resolution = {
         // Tabor 8/19/2015:
         compile ":audit-logging:1.0.5"
         // plugins needed at runtime but not for compilation
-        runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
+        runtime ":hibernate:3.6.10.18" // or ":hibernate4:4.3.6.1" 
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
 
