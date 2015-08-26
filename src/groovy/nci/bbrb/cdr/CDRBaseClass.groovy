@@ -1,7 +1,7 @@
-package nci.bbrb.cdr.datarecords
+package nci.bbrb.cdr
 
-abstract class DataRecordBaseClass {
-    
+abstract class CDRBaseClass {
+
     String internalGUID = java.util.UUID.randomUUID().toString()
     String internalComments
     String publicComments
@@ -10,6 +10,7 @@ abstract class DataRecordBaseClass {
     Date lastUpdated
     
     static auditable = true
+
     
     static constraints = {
         internalComments(blank:true,nullable:true,widget:'textarea',maxSize:4000)

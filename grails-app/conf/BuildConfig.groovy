@@ -60,6 +60,7 @@ grails.project.dependency.resolution = {
        
 
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+//        compile ":audit-logging:1.0.5"
         
         //pmh 05/07/15: as per grails 2.4.4 release notes, this is required for auto timestamping to work
        // compile "javax.validation:validation-api:1.1.0.Final"
@@ -82,7 +83,8 @@ grails.project.dependency.resolution = {
         //pmh 05/27/15 added this for user and role interface (  USER/ROLE CRUD pages)
         compile ":spring-security-ui:1.0-RC2"
         //compile ":spring-security-role-generator:0.2"
-
+        // Tabor 8/19/2015:
+        compile ":audit-logging:1.0.5"
         // plugins needed at runtime but not for compilation
        // runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
         runtime ":hibernate:3.6.10.18"

@@ -18,14 +18,17 @@ class SpecimenRecord extends DataRecordBaseClass{
         table 'dr_specimen'
         id generator:'sequence', params:[sequence:'dr_specimen_pk']
         //tissueLocations column:'dr_specimen_st_acquis_loc'
-        
    
     }    
 
     static constraints = {
-        fixative(nullable:true,blank:true)
-        containerType(nullable:true,blank:true)
-        tissueLocation(nullable:true,blank:true)
-        parentSpecimen(nullable:true,blank:true)
+        caseRecord(blank:false,nullable:false)
+        parentSpecimen(blank:true,nullable:true)
+        specimenId(blank:false,nullable:false)
+        fixative(blank:false,nullable:false)
+        containerType(blank:false,nullable:false)
+        tissueType(blank:false,nullable:false)
+        tissueLocation(blank:false,nullable:false)
+        
     }
 }
