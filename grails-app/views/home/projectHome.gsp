@@ -11,6 +11,7 @@
  <div id="nav" class="clearfix">
     <div id="navlist">
      <a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>   
+     <g:link controller="textSearch" class="list" action="searchhome">Search</g:link> 
     <g:link controller="candidateRecord" class="list" action="create">Add a Candidate</g:link>  
     </div>
  </div>

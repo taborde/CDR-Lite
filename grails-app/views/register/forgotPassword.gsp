@@ -26,8 +26,8 @@
                     <g:textField name="username" size="25" />
                   </fieldset>
                   <fieldset class="submit">
-                    <input class="button ui-button ui-widget ui-state-default ui-corner-all" id="reset" type="submit" value="<g:message code='spring.security.ui.forgotPassword.submit'/>">
-                    <input class="button ui-button ui-widget ui-state-default ui-corner-all" id="cancel" value="<g:message code='spring.security.ui.forgotPassword.cancel'/>" type="button">
+                    <input class="button ui-button ui-widget ui-state-default ui-corner-all" id="reset" type="submit" value="Reset">
+                    <input class="button ui-button ui-widget ui-state-default ui-corner-all" id="cancel" value="Cancel" type="button">
                   </fieldset>
               </g:form>
               <p><g:message code='spring.security.ui.forgotPassword.description'/></p>

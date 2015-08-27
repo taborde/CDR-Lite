@@ -96,6 +96,10 @@ class BootStrap {
         CdrUserRole.create(testUser, orgUUU, true)            
         CdrUserRole.create(adminUser, orgDCC, true)   
         */
+       
+        //pmh added this on 08/26/15 for alert service activiy type
+        new ActivityType(code:'CASECREATE', name:'NEW CASE' ).save(failOnError: false, flush: true)
+        new ActivityType(code:'CASEUPDATE', name:'CASE UPDATED' ).save(failOnError: false, flush: true)
     }
     def destroy = {
     }
