@@ -31,7 +31,7 @@
         <g:if test='${session.authorities?.contains("ROLE_NCI-FREDERICK_CAHUB_PRC")}'>var timeOutMilliSecs = 3601000;</g:if>
         <g:else>var timeOutMilliSecs = 1801000;</g:else> 
         <%-- Below variable only applies to Activity Center  --%>
-        <g:if test="${session.org?.code in ['BROAD', 'NDRI', 'RPCI', 'UPMC', 'UNM', 'BMC', 'EU']}">deidentified = true;</g:if>
+        <g:if test="${session.org?.code in ['DCC','BROAD', 'NDRI', 'RPCI', 'UPMC', 'UNM', 'BMC', 'EU']}">deidentified = true;</g:if>
       </script>
       <g:layoutHead />  
   </head>
@@ -114,7 +114,7 @@
                   <div id="countdown" class="countdown hasCountdown">Session expires in: <b><span class="minutesleft"></span>:<span class="secondsleft"></span></b></div>
                </g:if>
          </div>
-        <g:if test="${session.org?.code in ['OBBR','NDRI','SC','RPCI','VUMC','UNM','BMC','UPMC','EU','VARI']}"><div id="activityEvent"></div></g:if></g:if>
+        <g:if test="${session.org?.code in ['DCC','OBBR','NDRI','SC','RPCI','VUMC','UNM','BMC','UPMC','EU','VARI']}"><div id="activityEvent"></div></g:if></g:if>
       </div><!--end header-->
       <div class="clear"></div>
       <g:layoutBody />
