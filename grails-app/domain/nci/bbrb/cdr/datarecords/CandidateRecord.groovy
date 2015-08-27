@@ -25,4 +25,12 @@ class CandidateRecord extends DataRecordBaseClass{
         
     }
    
+    
+    
+      static searchable = {
+         only=['candidateId', 'id', 'dateCreated']
+          'dateCreated'  name:'candidateDateCreated', format: "yyyy-MM-dd HH:mm"
+         root false
+       
+    }
 }

@@ -12,8 +12,8 @@ class Study  extends StaticMemberBaseClass{
     
      static searchable ={
         only= ['name', 'code']
-        'name' name:'studyType'
-        'code' name:'studyTypeCode'
+        'name' name:'studyName'
+        'code' name:'studyCode'
         root false
     }
 

@@ -29,6 +29,16 @@ class CaseRecord extends DataRecordBaseClass {
     }
     
      static searchable = {
-          only=['caseId']
+          only=['caseId', 'id', 'dateCreated']
+          
+         'dateCreated'  name:'caseDateCreated', format: "yyyy-MM-dd HH:mm"
+        
+        caseStatus component: true
+        caseCollectionType component: true
+        bss component: true
+        study component: true
+        primaryTissueType component: true
+        candidateRecord component: true
+      
      }
 }
