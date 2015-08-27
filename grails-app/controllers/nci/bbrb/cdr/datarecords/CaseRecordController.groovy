@@ -58,14 +58,13 @@ def ActivityEventService
 
         caseRecordInstance.save flush:true
         
-        println "pmh created new case "+caseRecordInstance.id
-        
         def activityType = ActivityType.findByCode("CASECREATE")
         def caseId = caseRecordInstance.caseId
         def study = caseRecordInstance.study
         def bssCode = caseRecordInstance.bss?.parentBss?.code
         def username = session.SPRING_SECURITY_CONTEXT?.authentication?.principal?.getUsername()
-        activityEventService.createEvent(activityType, caseId, study, bssCode, username, null, null)
+        def additionalInfo =caseId+ " created by "+username
+        activityEventService.createEvent(activityType, caseId, study, bssCode, username, additionalInfo, null)
 
         request.withFormat {
             form multipartForm {
@@ -100,7 +99,8 @@ def ActivityEventService
         def study = caseRecordInstance.study
         def bssCode = caseRecordInstance.bss?.parentBss?.code
         def username = session.SPRING_SECURITY_CONTEXT?.authentication?.principal?.getUsername()
-        activityEventService.createEvent(activityType, caseId, study, bssCode, username, null, null)
+        def additionalInfo =caseId+ " updated by "+username 
+        activityEventService.createEvent(activityType, caseId, study, bssCode, username,null , null)
 
 
         request.withFormat {

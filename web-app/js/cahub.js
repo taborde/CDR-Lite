@@ -483,6 +483,10 @@ function getTimeStamp(jsdateobject) {
     return timeStamp;
 }
 
+
+
+
+
 function fetchActivities() {
 
     var numResults;
@@ -781,7 +785,7 @@ function createActivitiesPge(data) {
                 message += "<li>Case " + caseText + " was created by <span class=\"activityInitiator\">" + data[i].initiator + " on </span> <span class=\"activityTime\">" + getTimeStamp(data[i].dateCreated) + "</span></li>";
                 break;
             case 'CASEUPDATE':
-                message += "<li>Case " + caseText + " was updated by <span class=\"activityInitiator\">" + data[i].initiator + " on </span> <span class=\"activityTime\">" + getTimeStamp(data[i].dateCreated) + "</span></li>";
+                message += "<li>Case " + caseText + " was updated by <span class=\"activityInitiator\">" + data[i].initiator + " on </span> <span class=\"activityTime\">" +getTimeStamp(data[i].dateCreated) + "</span></li>";
                 break;
 
             default:

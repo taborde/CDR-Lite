@@ -39,8 +39,8 @@ class BootStrap {
         new BiospecimenType(code: "BO", name: "Blood Only", description:  "Blood Only collected").save(failOnError: false, flush: true)
         new BiospecimenType(code: "TO", name: "Tissue Only", description:  "Tissue Only collected").save(failOnError: false, flush: true)**/
           
-        new AppSetting(code: "HELP_EMAIL", name: "HELP_EMAIL", , value: "pushpa.hariharan@nih.gov", bigValue: "").save(failOnError: false, flush: true)
-        new AppSetting(code: "loginbulletin", name: "loginbulletin", , value: "see big value", bigValue: "this is the login bulletin message").save(failOnError: false, flush: true)
+        new AppSetting(code: "HELP_EMAIL", name: "HELP_EMAIL", value: "pushpa.hariharan@nih.gov", bigValue: "").save(failOnError: false, flush: true)
+        new AppSetting(code: "loginbulletin", name: "loginbulletin", value: "see big value", bigValue: "this is the login bulletin message").save(failOnError: false, flush: true)
          
         new Study(code: 'BPVLIKE', name:'BPVLIKE').save(failOnError: false, flush: true)
         
@@ -100,6 +100,9 @@ class BootStrap {
         //pmh added this on 08/26/15 for alert service activiy type
         new ActivityType(code:'CASECREATE', name:'NEW CASE' ).save(failOnError: false, flush: true)
         new ActivityType(code:'CASEUPDATE', name:'CASE UPDATED' ).save(failOnError: false, flush: true)
+        
+        
+        new AppSetting(code: "CDRLITE_ADMIN_DISTRO", name: "CDRLITE_ADMIN_DISTRO", value: "see big value", bigValue: "pushpa.hariharan@nih.gov").save(failOnError: false, flush: true)
     }
     def destroy = {
     }

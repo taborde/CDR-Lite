@@ -28,11 +28,11 @@ class ActivityEventService {
             additionalInfo1: additionalInfo1,
             additionalInfo2: additionalInfo2
         ).save(failOnError: false, flush: true)
-        //sendEmail(activityType, caseId, study, bssCode, restEventId, initiator, additionalInfo1, additionalInfo2)
+        
         sendEmail(activityType, caseId, study, bssCode, initiator, additionalInfo1, additionalInfo2)
     }
     
-    //def sendEmail(activityType, caseId, study, bssCode, restEventId, initiator, additionalInfo1, additionalInfo2) {
+    
         def sendEmail(activityType, caseId, study, bssCode, initiator, additionalInfo1, additionalInfo2) {
         def recipient
         def emailSubject
@@ -40,11 +40,10 @@ class ActivityEventService {
 
         switch(activityType.code) {
             case "CASECREATE": 
-               // recipient = AppSetting.findByCode('GTEX_CORE_UNACC_DISTRO')?.bigValue
-               recipient = "pushpa.hariharan@nih.gov"
+                recipient = AppSetting.findByCode('CDRLITE_ADMIN_DISTRO')?.bigValue
+               //recipient = "pushpa.hariharan@nih.gov"
                 emailSubject = "CDR Alert: ${caseId} Created"
-               // emailBody = additionalInfo1
-               emailBody = "pmh test message"
+                emailBody = additionalInfo1
                 break
                        
         }

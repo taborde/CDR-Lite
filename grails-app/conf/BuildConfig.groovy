@@ -41,11 +41,6 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenCentral()
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
-<<<<<<< HEAD
-        //mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
-=======
         mavenRepo "http://repository.codehaus.org"
         mavenRepo "http://download.java.net/maven/2/"
         mavenRepo "http://repository.jboss.com/maven2/"
@@ -53,7 +48,6 @@ grails.project.dependency.resolution = {
         mavenRepo "http://repo.grails.org/grails/core"
         mavenRepo "http://repo.grails.org/grails/plugins"
 
->>>>>>> 35bcd866fd1e58eaaeec5ce1ce11a3e20574fb1e
     }
 
     dependencies {
@@ -92,14 +86,15 @@ grails.project.dependency.resolution = {
         // Tabor 8/19/2015:
         compile ":audit-logging:1.0.5"
         // plugins needed at runtime but not for compilation
-
-        runtime ":hibernate:3.6.10.18" // or ":hibernate4:4.3.6.1" 
-//        runtime ":hibernate4:4.3.6.1" // or  ":hibernate:3.6.10.18"
+       // runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
+        runtime ":hibernate:3.6.10.18"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
         
-        runtime ":searchable:0.6.9"
-        
+         runtime ":searchable:0.6.9"
+         
+              
+
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"
         //compile ":less-asset-pipeline:1.10.0"
