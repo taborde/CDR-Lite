@@ -11,10 +11,10 @@
     <body>     
        <div id="nav" class="clearfix">
           <div id="navlist">
-            <g:if test="${session.authorities?.contains('ROLE_NCI-FREDERICK_CAHUB_SUPER') || session.authorities?.contains('ROLE_ADMIN')}">
+            <g:if test="${session.authorities?.contains('ROLE_SUPER') || session.authorities?.contains('ROLE_ADMIN')}">
                 <g:link controller="backoffice" class="list" action="index">Back Office</g:link>             
             </g:if> 
-            <g:if test="${session.authorities?.contains('ROLE_NCI-FREDERICK_CAHUB_DM') || session.DM}">
+            <g:if test="${session.authorities?.contains('ROLE_DM') || session.DM}">
                <g:link controller="query" class="list" action="list">Query Tracker</g:link>
                 <g:link controller="deviation" class="list" action="list">Deviation List</g:link>               
             </g:if> 

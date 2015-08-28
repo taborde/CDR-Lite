@@ -136,10 +136,10 @@ class SendMailService {
 
     def sendActivityEventEmail(recipient, emailSubject, emailBody) {
         try {
-            println " pmh tryin to send email"
+            
             if(recipient) {
                 mailService.sendMail {
-                    to "pushpa.hariharan@nih.gov"
+                    to recipient
                     from "noreply@cahub.ncifcrf.gov"
                     bcc filterInvalidAddr(recipient).split(',')
                     subject emailSubject

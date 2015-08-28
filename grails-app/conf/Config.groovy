@@ -135,6 +135,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/backoffice/**':['ROLE_ADMIN','ROLE_SUPER'],
     '/auditLogEvent/**':['ROLE_ADMIN','ROLE_SUPER'],
     '/userLogin/**': ['ROLE_ADMIN','ROLE_SUPER','ROLE_DM'],
+    '/privilege/**':['ROLE_ADMIN','ROLE_SUPER','ROLE_DM','ROLE_PRC','ROLE_LDS'],
     
     //leave these alone.  these rules are needed for everyting to work properly
     '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],

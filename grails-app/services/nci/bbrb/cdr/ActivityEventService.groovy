@@ -41,7 +41,9 @@ class ActivityEventService {
         switch(activityType.code) {
             case "CASECREATE": 
                 recipient = AppSetting.findByCode('CDRLITE_ADMIN_DISTRO')?.bigValue
-               //recipient = "pushpa.hariharan@nih.gov"
+                //if(!recipient){
+                  //  recipient = "pushpa.hariharan@nih.gov"
+                //}
                 emailSubject = "CDR Alert: ${caseId} Created"
                 emailBody = additionalInfo1
                 break
