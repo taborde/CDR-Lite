@@ -128,11 +128,9 @@ class ActivityEventController {
            
                 createAlias("activityType", "a")
                 
-                    'in'("a.code", ["CASECREATE", "CASEUPDATE"])
-                    //and {
-                       // eq('a.code', 'QUERY')
-                        //eq('bssCode', 'VARI')
-                    //}
+                  //  'in'("a.code", ["CASECREATE", "CASEUPDATE","STATUSCHG"])
+                 'in'("a.code", ["CASECREATE", "STATUSCHG"])
+                    
                 }
             
             order("dateCreated", "desc")

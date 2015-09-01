@@ -100,6 +100,7 @@ class BootStrap {
         //pmh added this on 08/26/15 for alert service activiy type
         new ActivityType(code:'CASECREATE', name:'NEW CASE' ).save(failOnError: false, flush: true)
         new ActivityType(code:'CASEUPDATE', name:'CASE UPDATED' ).save(failOnError: false, flush: true)
+        new ActivityType(code:'STATUSCHG', name:'CASE STATUS CHANGE' ).save(failOnError: false, flush: true)
         
         
         new AppSetting(code: "CDRLITE_ADMIN_DISTRO", name: "CDRLITE_ADMIN_DISTRO", value: "see big value", bigValue: "pushpa.hariharan@nih.gov").save(failOnError: false, flush: true)

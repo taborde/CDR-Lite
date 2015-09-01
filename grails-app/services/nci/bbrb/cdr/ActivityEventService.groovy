@@ -47,7 +47,11 @@ class ActivityEventService {
                 emailSubject = "CDR Alert: ${caseId} Created"
                 emailBody = additionalInfo1
                 break
-                       
+             case "STATUSCHG": 
+                recipient = AppSetting.findByCode('CDRLITE_ADMIN_DISTRO')?.bigValue
+                emailSubject = "CDR Alert:$env Case status for ${caseId} was changed"
+                emailBody = "Case status for ${caseId} was changed to ${additionalInfo2} by ${initiator}. Previous status was ${additionalInfo1}."
+                break          
         }
         
        sendMailService.sendActivityEventEmail(recipient, emailSubject, emailBody)

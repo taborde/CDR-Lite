@@ -478,9 +478,12 @@ function getTimeStamp(jsdateobject) {
             timeStamp = timeDiff + " hour ago";
         }
     } else {
-        timeStamp = (dateObj.getMonth() + 1) + "/" + dateObj.getDate() + "/" + dateObj.getFullYear();
+        timeStamp = "on "+(dateObj.getMonth() + 1) + "/" + dateObj.getDate() + "/" + dateObj.getFullYear();
     }
-    return timeStamp;
+    
+    
+   return timeStamp; 
+
 }
 
 
@@ -545,8 +548,8 @@ function fetchActivities() {
                             linkText = "<b>" + data[i].caseId + "</b>";
                         else
                             linkText = "<a href=\"/cdrlite/caseRecord/display/" + data[i].caseId + "\">" + data[i].caseId + "</a>";
-                    } else if (data[i].activityType.code == 'CASECREATE' || data[i].activityType.code == 'CASEUPDATE') {
-                        linkText = "<a href=\"/cdrlite/caseRecord/show/" + data[i].caseId + "\">" + data[i].caseId + "</a>";
+                    } else if (data[i].activityType.code == 'CASECREATE' || data[i].activityType.code == 'CASEUPDATE' || data[i].activityType.code == 'STATUSCHG') {
+                        linkText = "<a href=\"/cdrlite/caseRecord/display/" + data[i].caseId + "\">" + data[i].caseId + "</a>";
                     } else {
                         if (((sessionStudy == 'BPV') || (sessionStudy == '')) && (!isLink))
                             linkText = "<b>" + data[i].caseId + "</b>";
@@ -568,8 +571,8 @@ function fetchActivities() {
                     } else if (data[i].activityType.code == 'INTERVIEWSTATUS') {
                         linkText = "<b>" + data[i].additionalInfo1.split(',')[0] + "</b>";
                     }
-                    else if (data[i].activityType.code == 'CASECREATE') {
-                        linkText = "<a href=\"/cdrlite/caseRecord/show/" + data[i].caseId + "\">" + data[i].caseId + "</a>";
+                    else if (data[i].activityType.code == 'CASECREATE'|| data[i].activityType.code == 'CASEUPDATE' || data[i].activityType.code == 'STATUSCHG') {
+                        linkText = "<a href=\"/cdrlite/caseRecord/display/" + data[i].caseId + "\">" + data[i].caseId + "</a>";
                     } else {
                         if (((sessionStudy == 'BPV') || (sessionStudy == '')) && (!isLink))
                             linkText = "<b>" + data[i].caseId + "</b>";
@@ -633,8 +636,8 @@ function createActivitiesPge(data) {
             if (data[i].activityType.code == 'INTERVIEWSTATUS') {
                 interviewText = "<a href=\"/cdrlite/interviewRecord/show/" + data[i].additionalInfo1.split(',')[1] + "\">" + data[i].additionalInfo1.split(',')[0] + "</a>";
             }
-            if (data[i].activityType.code == 'CASECREATE' || data[i].activityType.code == 'CASEUPDATE') {
-                caseText = "<a href=\"/cdrlite/caseRecord/show/" + data[i].caseId + "\">" + data[i].caseId + "</a>";
+            if (data[i].activityType.code == 'CASECREATE' || data[i].activityType.code == 'CASEUPDATE' || data[i].activityType.code == 'STATUSCHG') {
+                caseText = "<a href=\"/cdrlite/caseRecord/display/" + data[i].caseId + "\">" + data[i].caseId + "</a>";
             }
             if (data[i].activityType.code == 'FILEUPLOAD' && !data[i].caseId && data[i].study) {
                 caseText = "<b>" + data[i].study.code + "</b>";
@@ -782,10 +785,10 @@ function createActivitiesPge(data) {
                 message += "<li>Discrepant specimens were reported - Inspection event " + eventText + ". Case ID: " + caseText + "<span class=\"activityTime\">" + getTimeStamp(data[i].dateCreated) + "</span></li>";
                 break;
             case 'CASECREATE':
-                message += "<li>Case " + caseText + " was created by <span class=\"activityInitiator\">" + data[i].initiator + " on </span> <span class=\"activityTime\">" + getTimeStamp(data[i].dateCreated) + "</span></li>";
+                message += "<li>Case " + caseText + " was created by <span class=\"activityInitiator\">" + data[i].initiator + "  </span> <span class=\"activityTime\">" + getTimeStamp(data[i].dateCreated) + "</span></li>";
                 break;
             case 'CASEUPDATE':
-                message += "<li>Case " + caseText + " was updated by <span class=\"activityInitiator\">" + data[i].initiator + " on </span> <span class=\"activityTime\">" +getTimeStamp(data[i].dateCreated) + "</span></li>";
+                message += "<li>Case " + caseText + " was updated by <span class=\"activityInitiator\">" + data[i].initiator + "  </span> <span class=\"activityTime\">" +getTimeStamp(data[i].dateCreated) + "</span></li>";
                 break;
 
             default:

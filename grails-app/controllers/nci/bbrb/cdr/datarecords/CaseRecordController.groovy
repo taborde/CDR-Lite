@@ -1,6 +1,6 @@
 package nci.bbrb.cdr.datarecords
 import nci.bbrb.cdr.staticmembers.ActivityType
-
+import nci.bbrb.cdr.staticmembers.CaseStatus
 
 
 import static org.springframework.http.HttpStatus.*
@@ -8,7 +8,7 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class CaseRecordController {
-def ActivityEventService
+    def ActivityEventService
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
 
     def index(Integer max) {
@@ -81,12 +81,22 @@ def ActivityEventService
 
     @Transactional
     def update(CaseRecord caseRecordInstance) {
-       
+        boolean statusChanged = false
+        def oldStatus
+        def newStatus
         if (caseRecordInstance == null) {
             notFound()
             return
         }
-
+        //pmh  09/01/15: check if case status has changed in this update. If so, send alert email
+        if (caseRecordInstance.caseStatus.id != params.statusId) {
+           
+            statusChanged = true
+            newStatus = caseRecordInstance.caseStatus?.name
+            oldStatus =CaseStatus.get(params.statusId)?.name
+        }
+        
+        
         if (caseRecordInstance.hasErrors()) {
             respond caseRecordInstance.errors, view:'edit'
             return
@@ -94,13 +104,25 @@ def ActivityEventService
 
         caseRecordInstance.save flush:true
         
-        def activityType = ActivityType.findByCode("CASEUPDATE")
-        def caseId = caseRecordInstance.caseId
-        def study = caseRecordInstance.study
-        def bssCode = caseRecordInstance.bss?.parentBss?.code
-        def username = session.SPRING_SECURITY_CONTEXT?.authentication?.principal?.getUsername()
-        def additionalInfo =caseId+ " updated by "+username 
-        activityEventService.createEvent(activityType, caseId, study, bssCode, username,null , null)
+        
+        if(statusChanged) {
+               
+            def activityType = ActivityType.findByCode("STATUSCHG")
+            def caseId = caseRecordInstance.caseId
+            def study = caseRecordInstance.study
+            def bssCode = caseRecordInstance.bss?.parentBss?.code
+            def username = session.SPRING_SECURITY_CONTEXT?.authentication?.principal?.getUsername()
+            activityEventService.createEvent(activityType, caseId, study, bssCode, username, oldStatus, newStatus)
+        }
+        else{
+            def activityType = ActivityType.findByCode("CASEUPDATE")
+            def caseId = caseRecordInstance.caseId
+            def study = caseRecordInstance.study
+            def bssCode = caseRecordInstance.bss?.parentBss?.code
+            def username = session.SPRING_SECURITY_CONTEXT?.authentication?.principal?.getUsername()
+            def additionalInfo =caseId+ " updated by "+username 
+            activityEventService.createEvent(activityType, caseId, study, bssCode, username,null , null)
+        }
 
 
         request.withFormat {
@@ -141,5 +163,33 @@ def ActivityEventService
             }
             '*'{ render status: NOT_FOUND }
         }
+    }
+    
+    
+    def display = {
+        def caseRecordInstance
+        try {
+            Long.parseLong(params.id)
+            caseRecordInstance = CaseRecord.get(params.id)    
+        } catch (Exception e) {}
+
+        if (!caseRecordInstance) {
+            caseRecordInstance = CaseRecord.findByCaseId(params.id)
+        }
+        /*
+        //dispatcher method to figure out who is requesting the caserecord details page
+        flash.message = flash.message
+        if (session.org?.code == 'OBBR') {
+            redirect(action: "show", id: params.id)            
+        } else if ((session.org?.code == 'VARI' || session.org?.code == 'BROAD') && caseRecordInstance.study?.code == 'BMS') {
+            redirect(controller: "login", action: "denied")
+        } else if (session.org?.code == 'VARI' && (caseRecordInstance.study?.code == 'BPV' || caseRecordInstance.study?.code == 'BRN')) {
+            redirect(action: "showbpvdeident", id: params.id)
+        } else {
+            redirect(action: "view", id: params.id)            
+        }
+        */
+       //pmh 09/01/15 for now just apply this without filters..
+       redirect(action: "show", id: caseRecordInstance.id)
     }
 }

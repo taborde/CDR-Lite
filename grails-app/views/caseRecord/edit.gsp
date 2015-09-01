@@ -29,6 +29,7 @@
 			</g:hasErrors>
 			<g:form url="[resource:caseRecordInstance, action:'update']" method="POST" >
 				<g:hiddenField name="version" value="${caseRecordInstance?.version}" />
+                                <g:hiddenField name="statusId" value="${caseRecordInstance?.caseStatus.id}" />
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
