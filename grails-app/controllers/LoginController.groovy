@@ -47,7 +47,7 @@ class LoginController {
 
             def config = SpringSecurityUtils.securityConfig
         
-            println "calling auth method (logout?)"
+//            println "calling auth method (logout?)"
 	
             if (springSecurityService.isLoggedIn()) {
                     
@@ -56,7 +56,7 @@ class LoginController {
                     return
             }
 
-            println "auth params: " + params
+//            println "auth params: " + params
             String view = 'auth'
             String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
             render view: view, model: [postUrl: postUrl, rememberMeParameter: config.rememberMe.parameter]

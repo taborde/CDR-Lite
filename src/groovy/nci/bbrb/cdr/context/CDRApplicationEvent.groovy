@@ -49,18 +49,18 @@ class CDRApplicationEvent extends SecurityEventListener {
     }
 
     protected void logUser(source) {
-        log.info("logUser")
-        println ("logUser")
-        println "source: " + source
-        println "grailsApplication: " + grailsApplication
+//        log.info("logUser")
+//        println ("logUser")
+//        println "source: " + source
+//        println "grailsApplication: " + grailsApplication
         try {
             def username = source.principal.username
             def sessionId = source.details.sessionId
 
-            println "sessionId: " + sessionId
+//            println "sessionId: " + sessionId
             if(sessionId) {
                 UserLogin.withTransaction { status ->
-                    println "status: " + status
+//                    println "status: " + status
                     //if (username != 'ldaccservice')
                     //{
                     
@@ -81,9 +81,9 @@ class CDRApplicationEvent extends SecurityEventListener {
     }
 
     protected void loadUserSession(source) {
-        println "loadUserSession"
-        log.info("loadUserSession")
-        println "grailsApplication: " + grailsApplication
+//        println "loadUserSession"
+//        log.info("loadUserSession")
+//        println "grailsApplication: " + grailsApplication
         try {
             def session = WebUtils.retrieveGrailsWebRequest().session
             session.appVer = grailsApplication.metadata.'app.version'
@@ -184,7 +184,7 @@ class CDRApplicationEvent extends SecurityEventListener {
                 session.serviceAccount = true
             }
 
-            println "authorities: " + authorities
+//            println "authorities: " + authorities
 
             if(authorities.contains('ROLE_ADMIN') ||
                 authorities.contains('ROLE_STUDY_NAME') ||
@@ -193,7 +193,7 @@ class CDRApplicationEvent extends SecurityEventListener {
                 authorities.contains('ROLE_DCC') ||
                 authorities.contains('ROLE_OBBR')) {
 
-                println "authorities: " + authorities
+//                println "authorities: " + authorities
                 
                 def org 
                 Organization.withTransaction{ status ->
@@ -203,8 +203,8 @@ class CDRApplicationEvent extends SecurityEventListener {
                     }
                 }
                 
-                println "session: " + session
-                log.info("session: " + session)
+//                println "session: " + session
+//                log.info("session: " + session)
 
                 if(authorities.contains('ROLE_PRC')) {
                     session.PRC = true
