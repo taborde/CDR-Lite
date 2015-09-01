@@ -62,36 +62,36 @@
                   <ul class="gray">
                     <g:if test='${session.authorities?.contains("ROLE_DM") || session.authorities?.contains("ROLE_SUPER") || session.authorities?.contains("ROLE_ADMIN")}'>
                         <g:if test="${session.DM == true}">
-                          <li class="activeSession"><g:link controller="privilege" action="toggleDM" params="[returnPage: (request.requestURI - request.contextPath)]">DM</g:link></li>
+                          <li class="activeSession"><g:link controller="privilege" action="toggleDM" params="[returnPage: (request.forwardURI - request.contextPath)]">DM</g:link></li>
                         </g:if><g:else>
-                          <li><g:link controller="privilege" action="toggleDM" params="[returnPage: (request.requestURI - request.contextPath)]">DM</g:link></li>
+                          <li><g:link controller="privilege" action="toggleDM" params="[returnPage: (request.forwardURI - request.contextPath)]">DM</g:link></li>
                         </g:else>
                     </g:if><g:else>
                       <li>DM</li>
                     </g:else>
                     <g:if test='${session.authorities?.contains("ROLE_DM") || session.authorities?.contains("ROLE_SUPER") || session.authorities?.contains("ROLE_ADMIN")}'>
                         <g:if test="${session.PRC == true}">
-                          <li class="activeSession"><g:link controller="privilege" action="togglePRC" params="[returnPage: (request.requestURI - request.contextPath)]">PRC</g:link></li>
+                          <li class="activeSession"><g:link controller="privilege" action="togglePRC" params="[returnPage: (request.forwardURI - request.contextPath)]">PRC</g:link></li>
                         </g:if><g:else>
-                          <li><g:link controller="privilege" action="togglePRC" params="[returnPage: (request.requestURI - request.contextPath)]">PRC</g:link></li>
+                          <li><g:link controller="privilege" action="togglePRC" params="[returnPage: (request.forwardURI - request.contextPath)]">PRC</g:link></li>
                         </g:else>
                     </g:if><g:else>
                       <g:if test="${session.PRC == true}"><li class="activeSession">PRC</li></g:if><g:else><li>PRC</li></g:else>
                     </g:else>       
                     <g:if test='${session.authorities?.contains("ROLE_DM") || session.authorities?.contains("ROLE_LDS") || session.authorities?.contains("ROLE_SUPER") || session.authorities?.contains("ROLE_ADMIN")}'>
                         <g:if test="${session.LDS == true}">
-                          <li class="activeSession "><g:link controller="privilege" action="toggleLDS" params="[returnPage: (request.requestURI - request.contextPath)]">LDS</g:link></li>
+                          <li class="activeSession "><g:link controller="privilege" action="toggleLDS" params="[returnPage: (request.forwardURI - request.contextPath)]">LDS</g:link></li>
                         </g:if><g:else>
-                          <li ><g:link controller="privilege" action="toggleLDS" params="[returnPage: (request.requestURI - request.contextPath)]">LDS</g:link></li>
+                          <li ><g:link controller="privilege" action="toggleLDS" params="[returnPage: (request.forwardURI - request.contextPath)]">LDS</g:link></li>
                         </g:else>
                     </g:if><g:else>
                       <g:if test="${session.LDS == true}"><li class="activeSession last">LDS</li></g:if><g:else><li >LDS</li></g:else>
                     </g:else>
                      <g:if test='${session.authorities?.contains("ROLE_QM") || session.authorities?.contains("ROLE_SUPER") || session.authorities?.contains("ROLE_ADMIN")}'>
                         <g:if test="${session.QM == true}">
-                          <li class="activeSession last"><g:link controller="privilege" action="toggleQM" params="[returnPage: (request.requestURI - request.contextPath)]">QM</g:link></li>
+                          <li class="activeSession last"><g:link controller="privilege" action="toggleQM" params="[returnPage: (request.forwardURI - request.contextPath)]">QM</g:link></li>
                         </g:if><g:else>
-                          <li class="last"><g:link controller="privilege" action="toggleQM" params="[returnPage: (request.requestURI - request.contextPath)]">QM</g:link></li>
+                          <li class="last"><g:link controller="privilege" action="toggleQM" params="[returnPage: (request.forwardURI - request.contextPath)]">QM</g:link></li>
                         </g:else>
                     </g:if><g:else>
                       <g:if test="${session.QM == true}"><li class="activeSession last">QM</li></g:if><g:else><li class="last">QM</li></g:else>
