@@ -8,7 +8,7 @@
        <div id="nav" class="clearfix">
           <div id="navlist">
             <a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a> 
-            <g:if test="${session.authorities.contains('ROLE_NCI-FREDERICK_CAHUB_SUPER') || session.authorities.contains('ROLE_ADMIN')}">
+            <g:if test="${session.authorities.contains('ROLE_SUPER') || session.authorities.contains('ROLE_ADMIN')}">
                 <g:link controller="backoffice" class="list" action="index">Back Office</g:link>
             </g:if> 
           </div>
@@ -19,7 +19,6 @@
             <div class="message">${flash.message}</div>
             </g:if>
             <div class="list">
-
                 <table>
                   <thead>
                   <tr>
@@ -28,77 +27,77 @@
                   </thead>
                   <tr class="odd">
                     <td>
-                      <span class="controller"><a href="/cahubdataservices/userLogin/">User Login History</a></span>
+                      <span class="controller"><a href="/cdrlite/userLogin/">User Login History</a></span>
                     </td>
                   </tr>
                   <tr class="even">
                     <td>
-                      <span class="controller"><a href="/cahubdataservices/formMetadata/list">BPV form data</a></span>
+                      <span class="controller"><a href="/cdrlite/formMetadata/list">BPV form data</a></span>
                     </td>
                   </tr>
                   <tr class="odd">
                     <td>
-                      <span class="controller"><a href="/cahubdataservices/SOP/list">SOP's</a></span>
+                      <span class="controller"><a href="/cdrlite/SOP/list">SOP's</a></span>
                     </td>
                   </tr>
                   <tr class="even">
                     <td>
-                      <span class="controller"><a href="/cahubdataservices/sopVersion/list">SOP Version</a></span>
+                      <span class="controller"><a href="/cdrlite/sopVersion/list">SOP Version</a></span>
                     </td>
                   </tr> 
                   <!--
                   <tr class="odd">
                     <td>
-                      <span class="controller"><a href="/cahubdataservices/">More cool features on the way!</a></span>
+                      <span class="controller"><a href="/cdrlite/">More cool features on the way!</a></span>
                     </td>
                   </tr>
                   -->
                   <tr class="odd">
                     <td>
-                      <span class="controller"><a href="/cahubdataservices/accountStatus/acctStatus">Application Users Status Board</a></span>
+                      <span class="controller"><a href="/cdrlite/accountStatus/acctStatus">Application Users Status Board</a></span>
                     </td>
                   </tr>
                   
                   <tr class="even">
                     <td>
-                      <span class="controller"><a class="startLink" href="/cahubdataservices/helpFileUpload/create">Upload help guides for OBBR, GTEx or BPV</a></span>
+                      <span class="controller"><a class="startLink" href="/cdrlite/helpFileUpload/create">Upload help guides for OBBR, GTEx or BPV</a></span>
                     </td>
                   </tr>
                   
                   <tr class="odd">
                     <td>
-                      <span class="controller"><a class="startLink" href="/cahubdataservices/caseWithdraw/wd_cases">Cases Recalled</a></span>
+                      <span class="controller"><a class="startLink" href="/cdrlite/caseWithdraw/wd_cases">Cases Recalled</a></span>
                     </td>
                   </tr>
                   
                   <tr class="even">
                     <td>
-                      <span class="controller"><a class="startLink" href="/cahubdataservices/query/list">Query Tracker</a></span>
+                      <span class="controller"><a class="startLink" href="/cdrlite/query/list">Query Tracker</a></span>
                     </td>
                   </tr>
 
                   <tr class="odd">
                     <td>
-                      <span class="controller"><a class="startLink" href="/cahubdataservices/deviation/list">Deviation List</a></span>
+                      <span class="controller"><a class="startLink" href="/cdrlite/deviation/list">Deviation List</a></span>
                     </td>
                   </tr>
                     <%--
                   <tr class="even">
                     <td>
-                      <span class="controller"><a class="startLink" href="/cahubdataservices/prcUnaccReason/list">Reason For Unacceptable Tissues</a></span>
+                      <span class="controller"><a class="startLink" href="/cdrlite/prcUnaccReason/list">Reason For Unacceptable Tissues</a></span>
                     </td>
                   </tr>
                    --%>
                   <tr class="odd">
                     <td>
-                      <span class="controller"><a class="startLink" href="/cahubdataservices/memo/list">Memo Management</a></span>
+                      <span class="controller"><a class="startLink" href="/cdrlite/memo/list">Memo Management</a></span>
                     </td>
                   </tr>
                    
                   
                   <tr class="even">
                     <td>
-                      <span class="controller"><a class="startLink" href="/cahubdataservices/home/vocabhome">Vocabulary</a></span>
+                      <span class="controller"><a class="startLink" href="/cdrlite/home/vocabhome">Vocabulary</a></span>
                     </td>
                   </tr>
                   
