@@ -34,7 +34,7 @@ class CandidateRecordController {
         }
 
         candidateRecordInstance.candidateId = hubIdGenService.genCandidateId(candidateRecordInstance.bss.code)
-        candidateRecordInstance.study= Study.findByCode('BPVLIKE')
+        candidateRecordInstance.study= Study.findByCode('BPS')
         
       /**  if (candidateRecordInstance.hasErrors()) {
             respond candidateRecordInstance.errors, view:'create'

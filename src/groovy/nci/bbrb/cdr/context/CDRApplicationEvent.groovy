@@ -99,17 +99,7 @@ class CDRApplicationEvent extends SecurityEventListener {
             //This would be better if it wasn't hardcoded.  TODO: make a role list from a constants file
             //These are set from the original bootstrap.groovy and maintained in the Spring Security UI plugin
             //Test if incoming role is an outside organization or BSS:
-            if(authorities.contains("ROLE_BSS_NDRI") ||
-                authorities.contains("ROLE_BSS_RPCI") ||
-                authorities.contains("ROLE_ORG_VARI") ||
-                authorities.contains("ROLE_ORG_BROAD") ||
-                authorities.contains("ROLE_BSS_UNM") ||
-                authorities.contains("ROLE_BSS_BMC") ||
-                authorities.contains("ROLE_BSS_UPMC") ||
-                authorities.contains("ROLE_BSS_EU") ||
-                authorities.contains("ROLE_ORG_MBB") ||
-                authorities.contains("ROLE_BSS_SC") ||
-                authorities.contains("ROLE_BSS_VUMC")) {
+            if(authorities.contains("ROLE_BSS_UUU") || authorities.contains("ROLE_BSS_CCC")) {
 
                 //Get the current role.  
 
@@ -138,46 +128,17 @@ class CDRApplicationEvent extends SecurityEventListener {
                 //Put a seperate user and org object into session.
                 //session.user = user -- taking out because getting unexpected results with session timeout
                 session.org = org
-                if(role in ['VARI','BROAD','MBB']) {
-                    //set session privilege flags
-                    session.DM = false
-                    session.PRC = false
-                    session.LDS = false
-                } else if(role in ['NDRI','RPCI','UNM','BMC','UPMC','EU','SC','VUMC',]) {
+                 if(role in ['UUU', 'CCC']) {
                     //set session privilege flags
                     session.DM = true
                     session.PRC = false
                     session.LDS = true
-                }
-                
-               if(role in ['NDRI','RPCI','SC']) {
-                    def study = Study.findByCode("GTEX")
+                    def study = Study.findByCode("BPS")
                     session.study = study
                 }
-
-                else if(role in ['UNM','BMC','UPMC','EU','VUMC']) {
-
-                    if(authorities.contains("ROLE_BPV_MAIN") && !authorities.contains("ROLE_BPV_ELSI")) {
-                        //if user has ELSI role for their BSS, set study and send to bpv elsi home
-                        def study = Study.findByCode("BPV")                        
-                        session.study = study
-                    }        
-                    else if(authorities.contains("ROLE_BPV_MAIN") && authorities.contains("ROLE_BPV_ELSI")) {
-                        //if user has ELSI role for their BSS, set study and send to bpv elsi home
-                        def study = Study.findByCode("BPV")                        
-                        session.study = study
-                    }               
-                    else if(!authorities.contains("ROLE_BPV_MAIN") && authorities.contains("ROLE_BPV_ELSI")) {
-                        //if user has ELSI role for their BSS, set study and send to bpv elsi home
-                        def study = Study.findByCode("BPVELSI")                        
-                        session.study = study
-                    }                     
-                    else{
-                        def study = Study.findByCode("BPV")
-                        session.study = study
-                    }
-                    
-                }
+                
+             
+               
             }
 
             if(authorities.contains("ROLE_SERVICE")) {
@@ -190,10 +151,8 @@ class CDRApplicationEvent extends SecurityEventListener {
                 authorities.contains('ROLE_STUDY_NAME') ||
                 authorities.contains('ROLE_PRC') ||
                 authorities.contains('ROLE_SUPER') ||
-                authorities.contains('ROLE_DCC') ||
-                authorities.contains('ROLE_OBBR')) {
+                authorities.contains('ROLE_DCC') ) {
 
-//                println "authorities: " + authorities
                 
                 def org 
                 Organization.withTransaction{ status ->
@@ -203,8 +162,7 @@ class CDRApplicationEvent extends SecurityEventListener {
                     }
                 }
                 
-//                println "session: " + session
-//                log.info("session: " + session)
+
 
                 if(authorities.contains('ROLE_PRC')) {
                     session.PRC = true

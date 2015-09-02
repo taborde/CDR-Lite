@@ -12,8 +12,6 @@
         <div id="nav" class="clearfix">
             <div id="navlist">
                 <a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
-                   <g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link>
-                   <g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link>
                        </div>
                        </div>
 
@@ -76,7 +74,12 @@
                             
                         </tr>
                     
-                        
+                         <tr class="prop">
+                            <td valign="top" class="name"><g:message code="candidateRecord.comments.label" default="Comments" /></td>
+                            
+                            <td valign="top" class="value">${candidateRecordInstance?.comments}</td>
+                            
+                        </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="candidateRecord.study.label" default="Study" /></td>

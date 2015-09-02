@@ -18,7 +18,11 @@ class HomeController {
     
     def homedispatcher = {      
      
-         if(session.chosenHome=="projecthome"){
+        def bss = BSS.findByCode(session.org?.code)
+        
+        if(bss){
+            redirect(action: "bsshome")
+        }else if(session.chosenHome=="projecthome"){
             
               redirect(action: "projecthome")
          
@@ -29,11 +33,11 @@ class HomeController {
    
     def projecthome={
         session.chosenHome="projecthome"
-        def candidateList = CandidateRecord.findAllByStudy(Study.findByCode('BPVLIKE'), [max:maxView])
+        def candidateList = CandidateRecord.findAllByStudy(Study.findByCode('BPS'), [max:maxView])
   
        // def caseList = CaseRecord.findAllByStudy(Study.findByCode('BPVLIKE'), [max:maxView])
        
-        def caseList = CaseRecord.executeQuery("from CaseRecord c where c.candidateRecord.study.code= 'BPVLIKE'", [max:maxView])
+        def caseList = CaseRecord.executeQuery("from CaseRecord c where c.candidateRecord.study.code= 'BPS'", [max:maxView])
         
         def specimenCount=[:]
         if(caseList){
@@ -61,5 +65,29 @@ class HomeController {
         
         session.setAttribute("chosenHome", new String("OPS"))
         
+    }
+    
+    
+    def bsshome={
+        
+        def bss = BSS.findByCode(session.org?.code)
+        def candidateList = CandidateRecord.findAllByStudyAndBss(Study.findByCode('BPS'), bss, [max:maxView])
+  
+       // def caseList = CaseRecord.findAllByStudy(Study.findByCode('BPVLIKE'), [max:maxView])
+       
+        def caseList = CaseRecord.findAllByStudyAndBss(Study.findByCode('BPS'), bss, [max:maxView])
+        
+        def specimenCount=[:]
+        if(caseList){
+             def count_result = SpecimenRecord.executeQuery("select c.id, count(*) from SpecimenRecord s inner join s.caseRecord c where c in (:list) group by c.id",  [list: caseList])
+            count_result.each(){
+                specimenCount.put(it[0], it[1])
+             
+            }
+        }
+        
+        return [caseRecordInstanceList:caseList, candidateRecordInstanceList:candidateList, specimenCount:specimenCount]
+        
+      
     }
 }
