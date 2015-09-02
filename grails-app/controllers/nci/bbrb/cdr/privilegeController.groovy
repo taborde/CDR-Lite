@@ -1,14 +1,20 @@
 package nci.bbrb.cdr
 
-// import grails.plugins.springsecurity.annotation.Secured
+import grails.plugin.springsecurity.annotation.Secured
 
 class privilegeController {
 
     def index = { }
     
-//    @Secured(['ROLE_SUPER','ROLE_ADMIN','ROLE_DM'])
-    def toggleDM = {
+    @Secured(['ROLE_SUPER','ROLE_ADMIN','ROLE_DM'])
+    def toggleDM() {
 
+//        println "params: " + params
+//        println "request.forwardURI - request.contextPath: " + (request.forwardURI - request.contextPath)
+//        println "request.requestURI:  " + request.requestURI
+//        println "request.forwardURI:  " + request.forwardURI
+//        println "request.contextPath: " + request.contextPath
+//        params.returnPage = ((request.requestURI - request.contextPath) - "/grails")
      //put flag into session indicating a Data Manager is logged in
         if(session.DM == true){
             session.setAttribute("DM", new Boolean (false))
@@ -24,8 +30,8 @@ class privilegeController {
       }
     }
    
-//    @Secured(['ROLE_SUPER','ROLE_ADMIN','ROLE_DM'])
-    def togglePRC = {
+    @Secured(['ROLE_SUPER','ROLE_ADMIN','ROLE_DM'])
+    def togglePRC() {
         
      //put flag into session indicating a Data Manager is logged in
         if(session.PRC == true){
@@ -43,8 +49,8 @@ class privilegeController {
       }
     }
 
-//    @Secured(['ROLE_SUPER','ROLE_ADMIN','ROLE_LDS','ROLE_DM'])
-    def toggleLDS = {
+    @Secured(['ROLE_SUPER','ROLE_ADMIN','ROLE_LDS','ROLE_DM'])
+    def toggleLDS() {
         
      //put flag into session indicating a Data Manager is logged in
         if(session.LDS == true){
@@ -62,8 +68,8 @@ class privilegeController {
       }
     }    
 
-//     @Secured(['ROLE_SUPER','ROLE_ADMIN','ROLE_QM'])
-    def toggleQM = {
+     @Secured(['ROLE_SUPER','ROLE_ADMIN','ROLE_QM'])
+    def toggleQM() {
 
      //put flag into session indicating a quality Manager is logged in
         if(session.QM == true){

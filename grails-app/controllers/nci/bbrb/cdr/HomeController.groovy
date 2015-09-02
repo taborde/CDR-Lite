@@ -56,4 +56,10 @@ class HomeController {
          def   h1studysession = true
          return[title:title,bodyclass:bodyclass,navigation:navigation,divs:divs,h1studysession:h1studysession]
     }
+    
+    def opshome = {
+        
+        session.setAttribute("chosenHome", new String("OPS"))
+        
+    }
 }
