@@ -134,11 +134,11 @@ class QueryService {
         
         if(idlist){
         
-            
+            println "Select 1."
             sqlString = /* converting to postgreSQL syntax - Tabor */
             " select distinct q.id, round( cast( extract(epoch from  MAX(r.date_created - q.date_created) ) AS  integer ) ) as query_To_FirstRespnse_Days " +
-            "   from cdr.query_response r, " +
-            "        cdr.query q " +
+            "   from query_response r, " +
+            "        query q " +
             "  where q.id=r.query_id  and r.responder not in (" + qrelist + ") " +
             "  group by q.id order by q.id"
             /* old Oracle syntax: 
@@ -150,10 +150,10 @@ class QueryService {
                 */
         }
         else{
-             
+            println "Select 2."
             sqlString =
                 " select distinct q.id, round( cast( extract(epoch from  MAX(r.date_created - q.date_created) ) AS  integer ) ) as query_To_FirstRespnse_Days"+
-                " from cdr.query_response r, cdr.query q "+
+                " from query_response r, query q "+
                 " where q.id=r.query_id  and r.responder not in (" + qrelist + ") "+
                 " group by q.id order by q.id"
             /* old Oracle syntax: 
@@ -195,18 +195,18 @@ class QueryService {
         
         if(idlist){
         
-            
+            println "Select 3."
             sqlString =
                 " select id, date_created, date_closed,  " + 
                 "        round( cast( extract(epoch from (date_closed - date_created) ) AS  integer)) as duration   "+ 
-                "   from cdr.query  where id IN (" + idlist + ") order by id "
+                "   from query  where id IN (" + idlist + ") order by id "
         }
         else{
-             
+            println " Select 4."
             sqlString =
                   " select id, date_created, date_closed,  "+ 
                   "        round( cast( extract(epoch from (date_closed - date_created) ) AS  integer)) as duration   "+ 
-                  "   from cdr.query  order by id "
+                  "   from query  order by id "
             
         }
         
