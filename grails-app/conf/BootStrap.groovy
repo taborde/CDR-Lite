@@ -6,18 +6,30 @@ class BootStrap {
 
     def init = { servletContext ->
     def adminRole = new nci.bbrb.cdr.authservice.CdrRole(authority: 'ROLE_ADMIN').save(failOnError: false, flush: true)
-    def userRole  = new nci.bbrb.cdr.authservice.CdrRole(authority: 'ROLE_USERS').save(failOnError: false, flush: true)
+   // def userRole  = new nci.bbrb.cdr.authservice.CdrRole(authority: 'ROLE_USERS').save(failOnError: false, flush: true)
     def prcRole   = new nci.bbrb.cdr.authservice.CdrRole(authority:   'ROLE_PRC').save(failOnError: false, flush: true)
+     def uuuRole   = new nci.bbrb.cdr.authservice.CdrRole(authority:   'ROLE_BSS_UUU').save(failOnError: false, flush: true)
+     def cccRole   = new nci.bbrb.cdr.authservice.CdrRole(authority:   'ROLE_BSS_CCC').save(failOnError: false, flush: true)
 
     def adminUser = new nci.bbrb.cdr.authservice.CdrUser(username: 'admin', enabled: true, password: 'admin')
     adminUser.save(failOnError: false, flush: true)
     
-    CdrUserRole.create(adminUser, adminRole, true)
+     CdrUserRole.create(adminUser, adminRole, true)
+     
+    def uuuUser = new nci.bbrb.cdr.authservice.CdrUser(username: 'testeruuu', enabled: true, password: 'Welcome01')
+    uuuUser.save(failOnError: false, flush: true)
+    
+    CdrUserRole.create(uuuUser, uuuRole, true)
+    
+    def cccUser = new nci.bbrb.cdr.authservice.CdrUser(username: 'testerccc', enabled: true, password: 'Welcome01')
+    cccUser.save(failOnError: false, flush: true)
+    
+    CdrUserRole.create(cccUser, cccRole, true)
         
-    def testUser = new nci.bbrb.cdr.authservice.CdrUser(username: 'testUser', enabled: true, password: 'pmhtest')
-    testUser.save(failOnError: false, flush: true)
+   // def testUser = new nci.bbrb.cdr.authservice.CdrUser(username: 'testUser', enabled: true, password: 'pmhtest')
+    //testUser.save(failOnError: false, flush: true)
 
-    CdrUserRole.create(testUser, userRole, true)
+    //CdrUserRole.create(testUser, userRole, true)
     
     //assert CdrUser.count() == 2
     //assert CdrRole.count() == 2
@@ -31,21 +43,16 @@ class BootStrap {
          new AppSetting(code: "CDRLITE_USER_DENY_DISEASE", name: "Deny user access for Disease study. ", value: "see big value", bigValue: "testDUser").save(failOnError: false, flush: true)
         
         
-        //pmh 05/13/15 
-        /**   new StudyType(code: "DISEASE", name: "Disease", description:  "DISEASE").save(failOnError: false, flush: true)
-        new StudyType(code: "NORMAL", name: "Normal", description:  "NORMAL").save(failOnError: false, flush: true)
-         
-        new BiospecimenType(code: "TAB", name: "Tissue And Blood", description:  "Tissue And Blood collected").save(failOnError: false, flush: true)
-        new BiospecimenType(code: "BO", name: "Blood Only", description:  "Blood Only collected").save(failOnError: false, flush: true)
-        new BiospecimenType(code: "TO", name: "Tissue Only", description:  "Tissue Only collected").save(failOnError: false, flush: true)**/
+        
           
         new AppSetting(code: "HELP_EMAIL", name: "HELP_EMAIL", value: "pushpa.hariharan@nih.gov", bigValue: "").save(failOnError: false, flush: true)
         new AppSetting(code: "loginbulletin", name: "loginbulletin", value: "see big value", bigValue: "this is the login bulletin message").save(failOnError: false, flush: true)
          
-        new Study(code: 'BPVLIKE', name:'BPVLIKE').save(failOnError: false, flush: true)
+        new Study(code: 'BPS', name:'BPS').save(failOnError: false, flush: true)
         
-        new BSS(code:'BSS_1', name:'CDRLite sample BSS 1').save(failOnError: false, flush: true)
-        new BSS(code:'BSS_2', name:'CDRLite sample BSS 2').save(failOnError: false, flush: true)
+        new BSS(code:'UUU', name:'UUU').save(failOnError: false, flush: true)
+        new BSS(code:'CCC', name:'CCC').save(failOnError: false, flush: true)
+       
         
         new CaseCollectionType(code: 'POSTM', name:'Postmortem').save(failOnError: false, flush: true)
         new CaseCollectionType(code: 'OPO', name:'Organ Donor (OPO)').save(failOnError: false, flush: true)
@@ -89,6 +96,7 @@ class BootStrap {
         /* Tabor: Add generic Data Coordinating Center and University */
         new Organization(code:'DCC', name:'Data Coordinating Center').save(failOnError: false, flush: true)
         new Organization(code:'UUU', name:'Some University').save(failOnError: false, flush: true)
+        new Organization(code:'CCC', name:'Some Commercial Entity').save(failOnError: false, flush: true)
         /*
         def  orgUUU = new CdrRole(authority: 'ROLE_ORG_UUU').save(failOnError: false, flush: true)
         def  orgDCC = new CdrRole(authority: 'ROLE_ORG_DCC').save(failOnError: false, flush: true)
