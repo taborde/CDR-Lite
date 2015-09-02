@@ -9,7 +9,6 @@
         <div id="nav" class="clearfix">
             <div id="navlist">
                 <a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
-                   <g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link>
                        </div>
                        </div>
                        <div id="container" class="clearfix">

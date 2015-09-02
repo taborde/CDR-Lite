@@ -1,5 +1,6 @@
 <%@ page import="nci.bbrb.cdr.datarecords.CandidateRecord" %>
 <%@ page import="nci.bbrb.cdr.datarecords.CandidateRecord" %>
+<%@ page import="nci.bbrb.cdr.staticmembers.BSS" %>
 
 
 <div class="dialog">
@@ -12,10 +13,27 @@
                 <label for="bss"><g:message code="candidateRecord.bss.label" default="Bss" /></label>
             </td>
             <td valign="top" class="value ${hasErrors(bean: candidateRecordInstance, field: 'bss', 'error')}">
+                <g:set  var="bss" value="${BSS.findByCode(session.org?.code)}"/>
+                <g:if test="${bss}">
+                    <g:select id="bss" name="bss.id" from="${[bss]}" optionKey="id" required="" value="${candidateRecordInstance?.bss?.id}" class="many-to-one"/> 
+                </g:if>
+                <g:else>
                 <g:select id="bss" name="bss.id" from="${nci.bbrb.cdr.staticmembers.BSS.list()}" optionKey="id" required="" value="${candidateRecordInstance?.bss?.id}" class="many-to-one"/>
+                </g:else>
 
             </td>
         </tr>
+        
+        
+          <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="comments">Comments:*</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: candidateRecordInstance, field: 'comments', 'errors')}">
+                                    <g:textArea name="comments" cols="40" rows="5" value="${candidateRecordInstance?.comments}" />
+                                    <br /><span class="no-phi-note">*No PHI allowed in this field</span>
+                                </td>
+                            </tr>                        
 
         <g:if test="${params.action != 'create'}">
         <tr class="prop">

@@ -1,6 +1,6 @@
 <table>
   <thead>
-    <tr><th colspan="10">BPVLIKE Case List</th></tr>
+    <tr><th colspan="10">BPS Case List</th></tr>
     <tr>
   
   
