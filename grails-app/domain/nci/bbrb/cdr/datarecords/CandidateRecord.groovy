@@ -9,11 +9,12 @@ class CandidateRecord extends DataRecordBaseClass{
     Study study
     boolean isConsented = false
     boolean isEligible = false
+    String comments
     
     static hasMany = [caseList:CaseRecord]
 
     static constraints = {
-        
+        comments(nullable:true,blank:true, maxSize:4000)
     }
     
     
