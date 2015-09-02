@@ -27,8 +27,6 @@ class BootStrap {
     println "cdrRole count ="+CdrRole.count()
     println "cdrUserRole count ="+CdrUserRole.count()
     
-        //pmh 05/04/15 
-         new AppSetting(code: "CDRLITE_USER_DENY_DISEASE", name: "Deny user access for Disease study. ", value: "see big value", bigValue: "testDUser").save(failOnError: false, flush: true)
         
         
         //pmh 05/13/15 
@@ -41,6 +39,10 @@ class BootStrap {
           
         new AppSetting(code: "HELP_EMAIL", name: "HELP_EMAIL", value: "pushpa.hariharan@nih.gov", bigValue: "").save(failOnError: false, flush: true)
         new AppSetting(code: "loginbulletin", name: "loginbulletin", value: "see big value", bigValue: "this is the login bulletin message").save(failOnError: false, flush: true)
+        //pmh 05/04/15 
+        new AppSetting(code: "CDRLITE_USER_DENY_DISEASE", name: "Deny user access for Disease study. ", value: "see big value", bigValue: "testDUser").save(failOnError: false, flush: true)
+        new AppSetting(code: "CDRLITE_ADMIN_DISTRO", name: "CDRLITE_ADMIN_DISTRO", value: "see big value", bigValue: "pushpa.hariharan@nih.gov").save(failOnError: false, flush: true)
+        new AppSetting(code: "QUERY_RESPONSE_DCC_DM", name: "QUERY_RESPONSE_DCC_DM", value: "see big value", description: "Exclude responses from local DCC DM users in this list from being counted in the AR query tracker report", bigValue: "admin").save(failOnError: false, flush: true)
          
         new Study(code: 'BPVLIKE', name:'BPVLIKE').save(failOnError: false, flush: true)
         
@@ -103,7 +105,7 @@ class BootStrap {
         new ActivityType(code:'STATUSCHG', name:'CASE STATUS CHANGE' ).save(failOnError: false, flush: true)
         
         
-        new AppSetting(code: "CDRLITE_ADMIN_DISTRO", name: "CDRLITE_ADMIN_DISTRO", value: "see big value", bigValue: "pushpa.hariharan@nih.gov").save(failOnError: false, flush: true)
+        
     }
     def destroy = {
     }
