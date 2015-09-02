@@ -5,6 +5,9 @@ import grails.plugin.springsecurity.authentication.dao.NullSaltSource
 import groovy.text.SimpleTemplateEngine
 import java.util.*;
 import groovy.time.*
+
+//import grails.validation.Validateable
+
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
     
     def forgotPassword() {
@@ -64,15 +67,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         
         String token = params.t
         String fromForm=params.fromForm
-        /*
-        if(fromForm){
-            println " i am coming here from form" 
-        }
-        else{
-            println " i am coming here from email link"
-        }
-        println fromForm
-        */
+      
         def registrationCode = token ? RegistrationCode.findByToken(token) : null
         if (!registrationCode) {
             flash.error = message(code: 'spring.security.ui.resetPassword.badCode')
@@ -111,6 +106,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
             def user = lookupUserClass().findWhere((usernameFieldName): registrationCode.username)
             user.password = springSecurityUiService.encodePassword(command.password, salt)
+            user.passwordChangeDate=new Date()
             user.save()
             registrationCode.delete()
         }
@@ -121,8 +117,20 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         def conf = SpringSecurityUtils.securityConfig
         String postResetUrl = conf.ui.register.postResetUrl ?: conf.successHandler.defaultTargetUrl
-        println "going to "+postResetUrl
+        println "going to this URL after paswd reset: "+postResetUrl
         redirect uri: postResetUrl
     }
     
+}
+
+
+class ResetPasswordCommand {
+	String username
+	String password
+	String password2
+
+	static constraints = {
+		password blank: false, validator: RegisterController.passwordValidator
+		password2 validator: RegisterController.password2Validator
+	}
 }
