@@ -31,10 +31,13 @@ class TextSearchController {
             //def q="+" + params.query
             def q= "(" + params.query + ")"
             def q2='';
-            def q3=' (studyCode:BPVLIKE)'
+            def q3=' (studyCode:BPS)'
             // println("code: " + session.org.code)
           
-
+              def bss = BSS.findByCode(session.org.code)
+              if(bss){
+                  q2="(BSSCode:" + bss.code + ")"
+              }
 
             // println("query string: " + q + q2)
            
