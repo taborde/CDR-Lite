@@ -2,9 +2,9 @@
       <h1>Hints</h1>
       <h3>All Field Search</h3>
         <ul>
-                <li>Search by Case ID</li>
+                <li>Search by Case ID <i>(BPS-00001)</i></li>
                 <li>Search by a <i>linked</i> Candidate ID</li>
-                <li>Search by BSS</li>
+                <li>Search by BSS <li>(uuu)</i></li>
                 <li>Search by Case Collection Type <i>(Postmortem)</i></li>
                 <li>Search by Case Status <i>(Collected)</i></li
                 <li>Wild card Search<i>(Post*)</i></li>
