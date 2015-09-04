@@ -41,15 +41,13 @@ class ActivityEventService {
         switch(activityType.code) {
             case "CASECREATE": 
                 recipient = AppSetting.findByCode('CDRLITE_ADMIN_DISTRO')?.bigValue
-                //if(!recipient){
-                  //  recipient = "pushpa.hariharan@nih.gov"
-                //}
-                emailSubject = "CDR Alert: ${caseId} Created"
+                
+                emailSubject = "CDR-Lite Alert: ${caseId} Created"
                 emailBody = additionalInfo1
                 break
              case "STATUSCHG": 
                 recipient = AppSetting.findByCode('CDRLITE_ADMIN_DISTRO')?.bigValue
-                emailSubject = "CDR Alert:$env Case status for ${caseId} was changed"
+                emailSubject = "CDR-Lite Alert:$env Case status for ${caseId} was changed"
                 emailBody = "Case status for ${caseId} was changed to ${additionalInfo2} by ${initiator}. Previous status was ${additionalInfo1}."
                 break          
         }
@@ -60,7 +58,8 @@ class ActivityEventService {
     def getEmailList(orgCodePayload) {
         def orgCode = BSS.findByCode(orgCodePayload) ? BSS.findByCode(orgCodePayload).parentBss?.code : orgCodePayload
        // def emailList = AppUsersService.getEmailList(orgCode)
-         def emailList = 'pushpa.hariharan@nih.gov'
+       //pmh : change this later. keep this for now
+         def emailList = AppSetting.findByCode('CDRLITE_ADMIN_DISTRO')?.bigValue
         def result = ''
         
         for (i in emailList) {

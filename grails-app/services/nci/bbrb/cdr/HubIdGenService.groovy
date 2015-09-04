@@ -52,5 +52,16 @@ class HubIdGenService {
 
     }
     
-    
+    //FileUpload filename supplemental ID generation
+    def genFilenameKey(){
+        
+        def uuid = genUUID()
+        
+        def crc32id = genCRC32(uuid) 
+        
+        def filenameKey = crc32id
+        
+        return filenameKey
+        
+    }    
 }
