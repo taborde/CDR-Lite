@@ -125,202 +125,6 @@ class QueryController {
         }
     }
 
-    def listByInterview = {
-        if (!params.interviewRecord?.id) {
-            redirect(action: "list", params: params)
-        } else {
-            def queryInstanceList
-            if (session.org?.code == 'DCC') {
-                queryInstanceList = Query.createCriteria().list {
-                    createAlias("interviewRecord", "i")
-                    eq("i.id", Long.parseLong(params.interviewRecord?.id))
-                    order("dateCreated", "desc")
-                } 
-            } else {
-                queryInstanceList = Query.createCriteria().list {
-                    createAlias("interviewRecord", "i")
-                    eq("i.id", Long.parseLong(params.interviewRecord?.id))
-                    createAlias("organization", "o")
-                    like("o.code", session.org?.code + "%")
-                    isNotNull("queryStatus")
-                    order("dateCreated", "desc")
-                }
-            }
-            def queryInstanceTotal=queryInstanceList?.size()
-            render(view: "list", model: [queryInstanceList: queryInstanceList,queryInstanceTotal:queryInstanceTotal])
-        }
-    }
-    /*
-    def search = {
-        def category = params.category
-        def idvalue = params.idvalue
-        def errMsg
-        if (!category) errMsg = 'ID category is not selected.'
-        else if ((!idvalue)||(idvalue.trim().equals(''))) errMsg = 'ID value is null.'
-        else
-        {
-            int idvalueInt = -1
-            try
-            {
-                idvalueInt = Integer.parseInt(idvalue)
-            }
-            catch(Exception ee)
-            {
-                idvalueInt = -1 
-            }
-
-            if (category.trim().equalsIgnoreCase('case'))
-            {
-                def caseRecord
-                if (idvalueInt > 0) caseRecord = CaseRecord.get(idvalueInt)
-                else caseRecord = CaseRecord.findByCaseId(idvalue)
-                if (caseRecord)
-                {
-                    params.durationcheck = 'yes'
-                    params.caseRecord = caseRecord
-                    redirect(action: "listByCase", params: params)
-                    return
-                }
-                else errMsg = 'This case ID is invalid: ' + idvalue
-            }
-            else if (category.trim().equalsIgnoreCase('candidate'))
-            {
-                def candidateRecord
-                if (idvalueInt > 0) candidateRecord = CandidateRecord.get(idvalueInt)
-                else candidateRecord = CandidateRecord.findByCandidateId(idvalue)
-                if (candidateRecord)
-                {
-                    params.durationcheck = 'yes'
-                    params.candidateRecord = candidateRecord
-                    redirect(action: "listByCandidate", params: params)
-                    return
-                }
-                else errMsg = 'This candidate ID is invalid: ' + idvalue
-            }  
-            else if (category.trim().equalsIgnoreCase('interview'))
-            {
-                def interviewRecord
-                if (idvalueInt > 0) interviewRecord = InterviewRecord.get(idvalueInt)
-                else interviewRecord = InterviewRecord.findByInterviewId(idvalue)
-                if (interviewRecord)
-                {
-                    params.durationcheck = 'yes'
-                    params.interviewRecord = interviewRecord
-                    redirect(action: "listByInterview", params: params)
-                    return
-                }
-                else errMsg = 'This interview ID is invalid: ' + idvalue
-            }   
-            else errMsg = 'Invalid category: ' + category
-        }
-        render(view: "list", model: [queryInstanceList:[], queryInstanceTotal:0, errMessage:errMsg])
-    }
-    
-    def traceQryDura = {
-        
-        def errMsg
-        def object_id = params.id
-        if (!object_id)
-        {
-            return [instanceList:[], queryInstance: null, errorMessage:'NULL object ID']
-            //render(view: "list", model: [queryInstanceList:[], queryInstanceTotal:0, errMessage:'NULL object ID'])
-            //return
-        }
-        
-        def q = Query.get(object_id)
-        if (!q)
-        {
-            render(view: "list", model: [queryInstanceList:[], queryInstanceTotal:0, errMessage:'Invalid Query ID:' + object_id ])
-            return
-        }
-        
-        def sqlString = "select actor, event_name, last_updated, new_value, property_name from audit_log a where a.class_name like '%Query' " +
-                  "and a.persisted_object_id="+object_id+" order by id"
-        
-        def outList = []
-        
-        String study
-        String activeActor
-        String addressedActor
-        Date activeDate
-        Date addressedDate
-        SimpleDateFormat sdf = new SimpleDateFormat('MM/dd/yyyy')
-        try
-        {
-            groovy.sql.Sql sql = new groovy.sql.Sql(dataSource)
-            
-            
-            Calendar cal = Calendar.getInstance();
-            boolean isActiveOpen = false
-            //int n = 0
-            sql.eachRow(sqlString, { row ->
-                //n++
-                String actor = row.actor
-                String eventName = row.event_name
-                Date lastUpdate = row.last_updated
-                String newValue = row.new_value
-                String propertyName = row.property_name
-                //println ''+n+' act=' + actor + ', evnt=' + eventName + ', updt=' + sdf.format(lastUpdate) + ', newV=' + newValue + ', pprty=' + propertyName
-                if (propertyName?.equalsIgnoreCase('queryStatus'))
-                {
-                    if ((!isActiveOpen)&&(newValue?.equalsIgnoreCase('active')))
-                    {
-                        activeActor = actor
-                        activeDate = lastUpdate
-                        isActiveOpen = true
-                    }
-                    else if ((isActiveOpen)&&((newValue?.equalsIgnoreCase('addressed'))||(newValue?.equalsIgnoreCase('resolved'))||(newValue?.equalsIgnoreCase('closed'))))
-                    {
-                        long k = -1
-                        if (newValue.equalsIgnoreCase('addressed'))
-                        {
-                            addressedActor = actor
-                            addressedDate = lastUpdate
-                            
-                            for(int i=0;i<2;i++)
-                            {
-                                Date d = activeDate
-                                if (i != 0) d = addressedDate
-                                String dS = sdf.format(d)
-                                Date d2 = sdf.parse(dS)
-                                cal.setTime(d2)
-                                if (k < 0) k = cal.getTimeInMillis()
-                                else k = cal.getTimeInMillis() - k
-                            }
-                        }
-                        outList.add([(study ? study : ''), 
-                                     (activeActor ? activeActor : ''), 
-                                     (addressedActor ? addressedActor : ''), 
-                                     (activeDate ? sdf.format(activeDate) : ''), 
-                                     (addressedDate ? sdf.format(addressedDate) : ''), 
-                                     ((k > 0) ? ('' + ( (int)k / (1000 * 3600 * 24))) : '') ])
-                            
-                        activeActor = null
-                        addressedActor = null
-                        activeDate = null
-                        addressedDate = null  
-                        isActiveOpen = false
-                    }
-                    
-                }
-                else if ((!study)&&(propertyName?.equalsIgnoreCase('study'))) study = newValue
-                    
-                
-            })
-            sql.close()
-        }   
-        catch(Exception e)
-        {
-            errMsg = e.getMessage()
-            e.printStackTrace()
-        }
-        
-        if ((activeActor)&&(activeDate)) outList.add([(study ? study : ''), activeActor, '', sdf.format(activeDate), '', ''])
-             
-        if ((!errMsg)&&(outList.size() == 0)) errMsg = 'Null Result'
-        return [instanceList:outList, queryInstance: q, errorMessage:errMsg]
-    }
-    */
     def create = {
         def queryInstance = new Query()
         queryInstance.properties = params
@@ -328,10 +132,13 @@ class QueryController {
     }
 
     def save = {
+        println "params: " + params
         def queryInstance = new Query(params)
+        println "queryInstance.dueDate: " + queryInstance.dueDate
+        println "queryInstance.formName: " + queryInstance.formName
         queryInstance.caseRecord = CaseRecord.findByCaseId(params.caseId)
         queryInstance.candidateRecord = CandidateRecord.findByCandidateId(params.candidateId)
-        queryInstance.interviewRecord = InterviewRecord.findByInterviewId(params.interviewId)
+//        queryInstance.dueDate = params.dueDate
         
         def errorMap = checkError(queryInstance)
         errorMap.each() {key, value ->
@@ -343,10 +150,10 @@ class QueryController {
                 queryInstance.study = queryInstance.caseRecord.study
             } else if (queryInstance.candidateRecord) {
                 queryInstance.study = queryInstance.candidateRecord.study
-            } else if (queryInstance.interviewRecord) {
-                queryInstance.study = Study.findByCode('BPVELSI')
             } else {
-                queryInstance.study = BSS.findByCode(queryInstance.organization?.code)?.study
+                /* @TODO find a way to look up the Study object.  It was removed from the BSS, but needs to be attached to the user or the session */
+//                queryInstance.study = BSS.findByCode(queryInstance.organization?.code)?.study
+                queryInstance.study = BSS.findByCode('BPS')
             }
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'query.label', default: 'Query'), queryInstance.id])}"
             redirect(action: "show", id: queryInstance.id)
@@ -360,7 +167,6 @@ class QueryController {
         def queryInstance = new Query(params)
         queryInstance.caseRecord = CaseRecord.findByCaseId(params.caseId)
         queryInstance.candidateRecord = CandidateRecord.findByCandidateId(params.candidateId)
-        queryInstance.interviewRecord = InterviewRecord.findByInterviewId(params.interviewId)
         
         def errorMap = checkError(queryInstance)
         errorMap.each() {key, value ->
@@ -372,8 +178,6 @@ class QueryController {
                 queryInstance.study = queryInstance.caseRecord.study
             } else if (queryInstance.candidateRecord) {
                 queryInstance.study = queryInstance.candidateRecord.study
-            } else if (queryInstance.interviewRecord) {
-                queryInstance.study = Study.findByCode('BPVELSI')
             } else {
                 queryInstance.study = BSS.findByCode(queryInstance.organization?.code)?.study
             }
@@ -401,10 +205,10 @@ class QueryController {
             redirect(action: "list")
         }
         else {
-            if (!accessPrivilegeService.checkAccessPrivilegeQuery(queryInstance, session)) {
-                redirect(controller: "login", action: "denied")
-                return
-            }
+//            if (!accessPrivilegeService.checkAccessPrivilegeQuery(queryInstance, session)) {
+//                redirect(controller: "login", action: "denied")
+//                return
+//            }
             
             [queryInstance: queryInstance]
         }
@@ -436,13 +240,10 @@ class QueryController {
             queryInstance.properties = params
             queryInstance.caseRecord = CaseRecord.findByCaseId(params.caseId)
             queryInstance.candidateRecord = CandidateRecord.findByCandidateId(params.candidateId)
-            queryInstance.interviewRecord = InterviewRecord.findByInterviewId(params.interviewId)
             if (queryInstance.caseRecord) {
                 queryInstance.study = queryInstance.caseRecord.study
             } else if (queryInstance.candidateRecord) {
                 queryInstance.study = queryInstance.candidateRecord.study
-            } else if (queryInstance.interviewRecord) {
-                queryInstance.study = Study.findByCode('BPVELSI')
             } else {
                 queryInstance.study = BSS.findByCode(queryInstance.organization?.code)?.study
             }
@@ -800,19 +601,6 @@ class QueryController {
         render studyCode
     }
     
-    def getStudyCodeForInterviewFormList = {
-        def studyCode
-        def interviewRecordInstance = InterviewRecord.findByInterviewId(params.interviewId)
-        
-        if (interviewRecordInstance) {
-            studyCode = "BPVELSI"
-        } else {
-            studyCode = "NOCANDIDATE"
-        }
-        
-        render studyCode
-    }
-    
     def updateDueDate = {
         String result
         Calendar cal = Calendar.getInstance()
@@ -1092,29 +880,11 @@ class QueryController {
                 }
             }
         }
-        if (queryInstance.organization && queryInstance.interviewRecord) {
-            if (queryInstance.organization?.code == 'VARI' || queryInstance.organization?.code == 'BROAD' || queryInstance.organization?.code == 'MBB') {
-                errorMap.put('organization', 'You cannot select VARI, BROAD or MBB for Organization if this Query is for ELSI interview')
-            } else if (BSS.findByCode(queryInstance.organization?.code)) {
-                if (queryInstance.organization?.code?.split('-')[0] != queryInstance.interviewRecord?.orgCode) {
-                    errorMap.put('organization', 'The interview you entered does not belong to this Organization')
-                }
-            }
-        }
         if (queryInstance.isDcf != 'Yes' && queryInstance.isDcf != 'No') {
             errorMap.put('isDcf', 'Please select an option for \"Is this a DCF?\"')
         }
         if (queryInstance.isDcf == 'Yes' && !queryInstance.dcfId) {
             errorMap.put('dcfId', 'Please enter the DCF ID')
-        }
-        if (queryInstance.isPr2 != 'Yes' && queryInstance.isPr2 != 'No') {
-            errorMap.put('isPr2', 'Please select an option for \"Is this a PR2?\"')
-        }
-        if (queryInstance.isPr2 == 'Yes' && !queryInstance.pr2Id) {
-            errorMap.put('pr2Id', 'Please enter the PR2 ID')
-        }
-        if (queryInstance.organization?.code != 'VARI' && queryInstance.isPr2 == 'Yes') {
-            errorMap.put('organization', 'Organization must be VARI if this is a PR2')
         }
         if (!queryInstance.queryType) {
             errorMap.put('queryType', 'Please select a Query type')

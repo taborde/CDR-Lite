@@ -1,6 +1,6 @@
 
 
-<%@ page import="nci.obbr.cahub.util.querytracker.Query" %>
+<%@ page import="nci.bbrb.cdr.util.querytracker.Query" %>
 <g:set var="bodyclass" value="query upload" scope="request"/>
 <html>
   <head>

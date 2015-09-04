@@ -43,7 +43,7 @@
                                     <label for="orgFilter">Organization:</label>
                                 </td>
                                 <td valign="top" class="value">
-                                    <g:select name="orgFilter.id" from="${nci.obbr.cahub.staticmembers.Organization.list()}" optionKey="id" noSelection="['': '']" />
+                                    <g:select name="orgFilter.id" from="${nci.bbrb.cdr.staticmembers.Organization.list()}" optionKey="id" noSelection="['': '']" />
                                 </td>
                             </tr>
                             

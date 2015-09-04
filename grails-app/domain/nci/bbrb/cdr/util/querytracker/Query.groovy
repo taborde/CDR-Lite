@@ -1,5 +1,7 @@
 package nci.bbrb.cdr.util.querytracker
 
+import org.grails.databinding.BindingFormat
+
 import nci.bbrb.cdr.CDRBaseClass
 import nci.bbrb.cdr.datarecords.CaseRecord
 import nci.bbrb.cdr.datarecords.CandidateRecord
@@ -19,9 +21,9 @@ class Query extends CDRBaseClass {
     QueryStatus queryStatus
     String isDcf
     String dcfId
-    String jira
     QueryType queryType
     String description
+    @BindingFormat('MM/dd/yyyy')
     Date dueDate
     String closedBy
     Date dateClosed

@@ -1,6 +1,4 @@
-
-
-<%@ page import="nci.obbr.cahub.util.querytracker.Query" %>
+<%@ page import="nci.bbrb.cdr.util.querytracker.Query" %>
 <g:if test="${env != 'production'}">
     <%-- cache buster--%>
     <g:set var="d" value="${new Date()}" />
@@ -20,12 +18,12 @@
             <a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
             <g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link>
             <g:if test="${queryInstance?.caseRecord}">
-                <a class="list" href="/cahubdataservices/query/listByCase?caseRecord.id=${queryInstance?.caseRecord?.id}">Query List for ${queryInstance?.caseRecord?.caseId}</a>
+                <a class="list" href="/cdrlite/query/listByCase?caseRecord.id=${queryInstance?.caseRecord?.id}">Query List for ${queryInstance?.caseRecord?.caseId}</a>
             </g:if>
             <g:elseif test="${queryInstance?.candidateRecord}">
-                <a class="list" href="/cahubdataservices/query/listByCandidate?candidateRecord.id=${queryInstance?.candidateRecord?.id}">Query List for ${queryInstance?.candidateRecord?.candidateId}</a>
+                <a class="list" href="/cdrlite/query/listByCandidate?candidateRecord.id=${queryInstance?.candidateRecord?.id}">Query List for ${queryInstance?.candidateRecord?.candidateId}</a>
             </g:elseif>
-        </div>
+          </div>
       </div>
       <div id="container" class="clearfix">
             <h1><g:message code="default.create.label" args="[entityName]" /></h1>

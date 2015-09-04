@@ -24,7 +24,7 @@
             <tr class="prop">
                 <td valign="top">
                   <div class="clearfix">
-                    <dl class="formdetails left"><dt>Organization:</dt><dd>${(queryInstance?.organization?.id) ? (nci.obbr.cahub.staticmembers.Organization.get(queryInstance.organization.id) ? (nci.obbr.cahub.staticmembers.Organization.get(queryInstance.organization.id).name) : '') : ''}</dd></dl>
+                    <dl class="formdetails left"><dt>Organization:</dt><dd>${(queryInstance?.organization?.id) ? (nci.bbrb.cdr.staticmembers.Organization.get(queryInstance.organization.id) ? (nci.bbrb.cdr.staticmembers.Organization.get(queryInstance.organization.id).name) : '') : ''}</dd></dl>
                     <g:if test="${queryInstance?.caseRecord}">
                       <dl class="formdetails left"><dt>Case Record:</dt><dd><g:displayCaseRecordLink caseRecord="${queryInstance.caseRecord}" session="${session}"/></dd></dl>
                     </g:if>

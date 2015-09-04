@@ -1,4 +1,4 @@
-<%@ page import="nci.obbr.cahub.util.querytracker.Query" %>
+<%@ page import="nci.bbrb.cdr.util.querytracker.Query" %>
 <g:if test="${env != 'production'}">
     <%-- cache buster--%>
     <g:set var="d" value="${new Date()}" />

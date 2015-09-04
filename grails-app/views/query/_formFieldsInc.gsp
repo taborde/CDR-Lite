@@ -24,13 +24,12 @@
 <div class="list">
     <table class="tdwrap">
         <tbody>
-
             <tr class="prop">
                 <td valign="top" class="name">
                     <label for="organization">Organization:</label>
                 </td>
                 <td valign="top" class="value ${hasErrors(bean: queryInstance, field: 'organization', 'errors')}">
-                    <g:select name="organization.id" from="${nci.obbr.cahub.staticmembers.Organization.list()}" optionKey="id" value="${queryInstance?.organization?.id}" noSelection="['null': '']" />
+                    <g:select name="organization.id" from="${nci.bbrb.cdr.staticmembers.Organization.list()}" optionKey="id" value="${queryInstance?.organization?.id}" noSelection="['null': '']" />
                 </td>
             </tr>
           
@@ -42,7 +41,6 @@
                     <td valign="top" class="value">
                         <g:radio name="association" id="association_case" value="case" checked="${queryInstance?.caseRecord}"/>&nbsp;<label for="association_case">Case Record</label><br/>
                         <g:radio name="association" id="association_candidate" value="candidate" checked="${queryInstance?.candidateRecord}"/>&nbsp;<label for="association_candidate">Candidate Record</label><br/>
-                        <g:radio name="association" id="association_interview" value="interview" checked="${queryInstance?.interviewRecord}"/>&nbsp;<label for="association_interview">Interview Record</label><br/>
                         <g:radio name="association" id="association_other" value="other" checked="${queryInstance?.other}"/>&nbsp;<label for="association_other">Other</label>
                     </td>
                 </tr>
@@ -58,7 +56,7 @@
                         %{-- <g:link controller="caseRecord" action="display" id="${queryInstance?.caseRecord?.id}">${queryInstance?.caseRecord?.caseId}</g:link> --}%
                     </g:if>
                     <g:elseif test="${params.caseRecord?.id}">
-                        ${nci.obbr.cahub.datarecords.CaseRecord.get(params.caseRecord?.id)}
+                        ${nci.bbrb.cdr.datarecords.CaseRecord.get(params.caseRecord?.id)}
                         <g:hiddenField name="caseId" value="${queryInstance?.caseRecord?.caseId}" />
                     </g:elseif>
                     <g:else>
@@ -76,7 +74,7 @@
                         <g:link controller="candidateRecord" action="view" id="${queryInstance?.candidateRecord?.id}">${queryInstance?.candidateRecord?.candidateId}</g:link>
                     </g:if>
                     <g:elseif test="${params.candidateRecord?.id}">
-                        ${nci.obbr.cahub.datarecords.CandidateRecord.get(params.candidateRecord?.id)}
+                        ${nci.bbrb.cdr.datarecords.CandidateRecord.get(params.candidateRecord?.id)}
                         <g:hiddenField name="candidateId" value="${queryInstance?.candidateRecord?.candidateId}" />
                     </g:elseif>
                     <g:else>
@@ -85,24 +83,6 @@
                 </td>
             </tr>
 
-            <tr id="interviewRow" class="prop ${queryInstance?.interviewRecord ? '' : 'hide'}">
-                <td valign="top" class="name">
-                    <label for="interviewRecord">Interview Record:</label>
-                </td>
-                <td valign="top" class="value ${hasErrors(bean: queryInstance, field: 'interviewRecord', 'errors')}">
-                    <g:if test="${params.action == 'show'}">
-                        <g:link controller="interviewRecord" action="show" id="${queryInstance?.interviewRecord?.id}">${queryInstance?.interviewRecord?.interviewId}</g:link>
-                    </g:if>
-                    <g:elseif test="${params.interviewRecord?.id}">
-                        ${nci.obbr.cahub.surveyrecords.InterviewRecord.get(params.interviewRecord?.id)?.interviewId}
-                        <g:hiddenField name="interviewId" value="${queryInstance?.interviewRecord?.interviewId}" />
-                    </g:elseif>
-                    <g:else>
-                        <g:textField name="interviewId" value="${queryInstance?.interviewRecord?.interviewId}" /><div id="noInterviewText" class="redtext"></div>
-                    </g:else>
-                </td>
-            </tr>
-            
             <tr id="otherRow" class="prop ${queryInstance?.other ? '' : 'hide'}">
                 <td valign="top" class="name">
                     <label for="other">Other:</label>
@@ -114,7 +94,7 @@
             
             <tr class="prop">
                 <td valign="top" class="name">
-                    <label for="isDcf">Is this a DCF?</label>
+                    <label for="isDcf">Is this a Data Correction Form (DCF)?</label>
                 </td>
                 <td valign="top" class="value ${hasErrors(bean: queryInstance, field: 'isDcf', 'errors')}">
                     <g:bpvYesNoRadioPicker checked="${queryInstance?.isDcf}"  name="isDcf" />
@@ -130,57 +110,12 @@
                 </td>
             </tr>
             
-            <tr class="prop depends-on" data-id="isDcf_yes">
-                <td valign="top" class="name">
-                    <label for="jira">Corresponding Jira ticket:</label>
-                </td>
-                <td valign="top" class="value ${hasErrors(bean: queryInstance, field: 'jira', 'errors')}">
-                    <g:textField name="jira" value="${queryInstance?.jira}" />
-                </td>
-            </tr>
-            
-            <tr class="prop">
-                <td valign="top" class="name">
-                    <label for="isPr2">Is this a PR2?</label>
-                </td>
-                <td valign="top" class="value ${hasErrors(bean: queryInstance, field: 'isPr2', 'errors')}">
-                    <g:bpvYesNoRadioPicker checked="${queryInstance?.isPr2}"  name="isPr2" />
-                </td>
-            </tr>
-            
-            <tr class="prop depends-on" data-id="isPr2_yes">
-                <td valign="top" class="name">
-                    <label for="pr2Id">PR2 ID:</label>
-                </td>
-                <td valign="top" class="value ${hasErrors(bean: queryInstance, field: 'pr2Id', 'errors')}">
-                    <g:textField name="pr2Id" value="${queryInstance?.pr2Id}" />
-                </td>
-            </tr>
-            
-            <tr class="prop depends-on" data-id="isPr2_yes">
-                <td valign="top" class="name">
-                    <label for="pr2Jira">Corresponding Jira ticket:</label>
-                </td>
-                <td valign="top" class="value ${hasErrors(bean: queryInstance, field: 'pr2Jira', 'errors')}">
-                    <g:textField name="pr2Jira" value="${queryInstance?.pr2Jira}" />
-                </td>
-            </tr>
-            
-            <tr class="prop depends-on" data-id="isPr2_yes">
-                <td valign="top" class="name">
-                    <label for="pr2Dcf">Corresponding DCF ID:</label>
-                </td>
-                <td valign="top" class="value ${hasErrors(bean: queryInstance, field: 'pr2Dcf', 'errors')}">
-                    <g:textField name="pr2Dcf" value="${queryInstance?.pr2Dcf}" />
-                </td>
-            </tr>
-            
             <tr class="prop">
                 <td valign="top" class="name">
                     <label for="queryType">Query type:</label>
                 </td>
                 <td valign="top" class="value ${hasErrors(bean: queryInstance, field: 'queryType', 'errors')}">
-                    <g:select name="queryType.id" from="${nci.obbr.cahub.staticmembers.QueryType.list()}" optionKey="id" value="${queryInstance?.queryType?.id}" noSelection="['null': '']" />
+                    <g:select name="queryType.id" from="${nci.bbrb.cdr.staticmembers.QueryType.list()}" optionKey="id" value="${queryInstance?.queryType?.id}" noSelection="['null': '']" />
                 </td>
             </tr>
 
@@ -193,8 +128,12 @@
 
             <tr class="prop">
                 <td valign="top" class="name">
-                    <label for="gtexCrf">Related form(s):</label>
+                    <label for="formName">Related form(s):</label>
                 </td>
+                <td>
+                    <g:textField name="formName" value="${queryInstance?.formName}" />
+                </td>
+                %{--
                 <td valign="top" class="value ${hasErrors(bean: queryInstance, field: 'gtexCrf', 'errors')}">
                     <div>
                         <g:set var="showFormList" value="${queryInstance?.organization?.code != 'VARI' && queryInstance?.organization?.code != 'BROAD'}" />
@@ -216,10 +155,9 @@
                         <span class="bpvFormCheckBox ${queryInstance?.caseRecord?.study?.code == 'BPV' && showFormList ? '' : 'hide'}"><g:checkBox name="bpvClinical" value="${queryInstance?.bpvClinical}" />&nbsp;<label for="bpvClinical">BPV Clinical Data Entry Form</label><br /></span>
                         <span class="bpvFormCheckBox ${queryInstance?.caseRecord?.study?.code == 'BPV' && showFormList ? '' : 'hide'}"><g:checkBox name="bpvQuality" value="${queryInstance?.bpvQuality}" />&nbsp;<label for="bpvQuality">BPV Case Quality Review Form</label><br /></span>
                         <span class="bpvFormCheckBox ${queryInstance?.caseRecord?.study?.code == 'BPV' && showFormList ? '' : 'hide'}"><g:checkBox name="bpvLocalPath" value="${queryInstance?.bpvLocalPath}" />&nbsp;<label for="bpvLocalPath">BPV Local Pathology Review Form</label><br /></span>
-                        <span class="elsiFormCheckBox ${queryInstance?.interviewRecord && showFormList ? '' : 'hide'}"><g:checkBox name="elsiSurvey" value="${queryInstance?.elsiSurvey}" />&nbsp;<label for="elsiSurvey">ELSI Survey</label><br /></span>
-                        <span class="elsiFormCheckBox ${queryInstance?.interviewRecord && showFormList ? '' : 'hide'}"><g:checkBox name="elsiCrf" value="${queryInstance?.elsiCrf}" />&nbsp;<label for="elsiCrf">ELSI CRF</label></span>
                     </div>
                 </td>
+                --}%
             </tr>
             
             <tr class="prop">
@@ -231,14 +169,18 @@
                 </td>
             </tr>
             
-            <%
-                def queryManagerList = nci.obbr.cahub.util.AppSetting.findByCode("QUERY_MANAGER")?.bigValue?.split(",")?.toList()
-            %>
+            %{--
+                def queryManagerList = nci.bbrb.cdr.util.AppSetting.findByCode("QUERY_MANAGER")?.bigValue?.split(",")?.toList()
+            --}%
             
             <tr class="prop">
                 <td valign="top" class="name">
                     <label for="openedBy">Opened by:</label>
                 </td>
+                <td>
+                    <g:textField name="openedBy" value="${queryInstance?.openedBy}" />
+                </td>
+                %{--
                 <td valign="top" class="value ${hasErrors(bean: queryInstance, field: 'openedBy', 'errors')}">
                     <g:if test="${queryInstance?.openedBy && !(queryInstance?.openedBy in queryManagerList)}">
                         ${queryInstance?.openedBy}
@@ -247,12 +189,13 @@
                         <g:select name="openedBy" from="${queryManagerList}" value="${queryInstance?.openedBy}" noSelection="['':'']" />
                     </g:else>
                 </td>
+                --}%
             </tr>
             
             <g:if test="${queryInstance?.deviation}">
               <!--hide from BSS view per Karna -->
-            <g:if test="${session.authorities?.contains('ROLE_NCI-FREDERICK_CAHUB_DM') || 
-                          session.authorities?.contains('ROLE_NCI-FREDERICK_CAHUB_SUPER') || 
+                <g:if test="${session.authorities?.contains('ROLE_DM') || 
+                          session.authorities?.contains('ROLE_SUPER') || 
                           session.authorities?.contains('ROLE_ADMIN')}">              
                 <tr class="prop">
                     <td valign="top" class="name">
@@ -263,7 +206,7 @@
                         <g:else><span class="ca-tooltip-nobg" data-msg="${queryInstance?.deviation?.description?.replace('\n', '<br />')?.replace('\"', '\'')}"><g:link controller="deviation" action="show" id="${queryInstance?.deviation?.id}">${queryInstance?.deviation?.id}</g:link>${": " + queryInstance?.deviation?.description?.substring(0, 60)}&nbsp;&hellip;</span></g:else><br />
                     </td>
                 </tr>
-            </g:if>                
+                </g:if>                
             </g:if>
 
         </tbody>
