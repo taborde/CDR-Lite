@@ -3,6 +3,7 @@ package nci.bbrb.cdr.util
 import nci.bbrb.cdr.datarecords.CaseRecord
 import nci.bbrb.cdr.staticmembers.CaseAttachmentType
 import nci.bbrb.cdr.staticmembers.Study
+import nci.bbrb.cdr.staticmembers.BSS
 
 class FileUpload {
     CaseRecord caseRecord
@@ -11,7 +12,7 @@ class FileUpload {
     String filePath
     String comments
     String uploadTime    
-    String bssCode
+    BSS bss
     CaseAttachmentType category
     Study study
     Boolean hideFromBss
@@ -32,7 +33,7 @@ class FileUpload {
         filePath(nullable:true, blank:true)
         comments(nullable:true, blank:true, widget:'textarea', maxSize:4000)
         uploadTime(nullable:true, blank:true)       
-        bssCode(nullable:true, blank:true)
+        bss(nullable:true, blank:true)
         category(nullable:true, blank:true)
         study(nullable:true, blank:true)
         hideFromBss(nullable:true, blank:true)
@@ -41,9 +42,8 @@ class FileUpload {
     }
     
     static mapping = {    
-      sort id:"desc"   
-      
-        table 'help_file_upload'
-        id generator:'sequence', params:[sequence:'help_file_upload_pk']
+        table 'file_upload'
+        id generator:'sequence', params:[sequence:'file_upload_pk']
+        sort id:"desc"  
     }
 }

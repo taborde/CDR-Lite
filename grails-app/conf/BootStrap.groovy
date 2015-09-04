@@ -107,12 +107,16 @@ class BootStrap {
         CdrUserRole.create(adminUser, orgDCC, true)   
         */
        
-        //pmh added this on 08/26/15 for alert service activiy type
+        //pmh: added this on 08/26/15 for alert service activiy type
         new ActivityType(code:'CASECREATE', name:'NEW CASE' ).save(failOnError: false, flush: true)
         new ActivityType(code:'CASEUPDATE', name:'CASE UPDATED' ).save(failOnError: false, flush: true)
         new ActivityType(code:'STATUSCHG', name:'CASE STATUS CHANGE' ).save(failOnError: false, flush: true)
+        new ActivityType(code:'FILEUPLOAD', name:'FILEUPLOAD' ).save(failOnError: false, flush: true)
         
-        
+        //pmh: required for fileUpload page categories
+        new CaseAttachmentType(code:'MEMO', name:'MEMO', description:'MEMO' ).save(failOnError: false, flush: true)
+     new CaseAttachmentType(code:'DCF', name:'DCF', description:'DCF' ).save(failOnError: false, flush: true)
+     new CaseAttachmentType(code:'OTHER', name:'OTHER', description:'OTHER' ).save(failOnError: false, flush: true)
         
     }
     def destroy = {
