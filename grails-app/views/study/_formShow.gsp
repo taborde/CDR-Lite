@@ -1,5 +1,5 @@
 
-<%@ page import="nci.bbrb.cdr.study.Study" %>
+<%@ page import="nci.bbrb.cdr.staticmembers.Study" %>
 <%--<g:render template="caseDetails" bean="${bpvSixMonthFollowUpInstance.caseRecord}" var="caseRecord"/> --%>
 <g:set var="labelNumber" value="${1}"/>
 
