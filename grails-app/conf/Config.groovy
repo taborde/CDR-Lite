@@ -101,7 +101,13 @@ environments {
     }
 }
 
+grails.plugin.springsecurity.filterChain.chainMap = [
+   '/rest/**': 'JOINED_FILTERS,-exceptionTranslationFilter',
+   '/**': 'JOINED_FILTERS,-basicAuthenticationFilter,-basicExceptionTranslationFilter'
+]
 
+grails.plugin.springsecurity.useBasicAuth = true
+grails.plugin.springsecurity.basic.realmName = "CDR Data Services"
 
 grails.plugin.springsecurity.ui.register.emailFrom = 'pushpa.hariharan@nih.gov'
 grails.plugin.springsecurity.ui.forgotPassword.emailFrom ='pushpa.hariharan@nih.gov'
@@ -162,7 +168,9 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/textSearch/index_all': ['ROLE_ADMIN'],
     '/query/**': ['ROLE_UUU', 'ROLE_DM','ROLE_SUPER','ROLE_ADMIN','ROLE_ORG_VARI','ROLE_ORG_BROAD','ROLE_ORG_MBB'],
     '/fileUpload/**': ['ROLE_ADMIN'],
-    '/caseAttachmentType/**':['ROLE_ADMIN']
+    '/caseAttachmentType/**':['ROLE_ADMIN'],
+     '/rest/**': ['ROLE_ADMIN']
+
 
     
 ]
