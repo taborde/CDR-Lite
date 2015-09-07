@@ -15,6 +15,7 @@ class PrcReport extends DataRecordBaseClass{
     }
     
     static constraints = {
+        caseRecord(unique:true, nullable:false, blank:false)
         comments(blank:true,nullable:true)
         dateSubmitted(blank:true,nullable:true)
         submittedBy(blank:true,nullable:true)

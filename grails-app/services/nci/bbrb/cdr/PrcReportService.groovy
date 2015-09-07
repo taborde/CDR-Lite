@@ -2,6 +2,8 @@ package nci.bbrb.cdr
 
 import grails.transaction.Transactional
 import nci.bbrb.cdr.datarecords.*
+import nci.bbrb.cdr.prc.*
+import nci.bbrb.cdr.staticmembers.*
 
 @Transactional
 class PrcReportService {
@@ -110,14 +112,14 @@ class PrcReportService {
         def unr_issue_qc_count_result=PrcIssue.executeQuery("select caseRecord.id, count(*) from PrcIssue pi where caseRecord in (:list) and forQc = true and (pi.resolved is null or pi.resolved='P' or  pi.resolved='N') group by caseRecord.id", [list: caseList])
         unr_issue_qc_count_result.each(){
             unr_issue_qc_count_map.put(it[0], it[1])
-        }
+        }**/
         
         def prc_report_result = PrcReport.executeQuery("select p.caseRecord.id, p from PrcReport p where p.caseRecord in (:list)", [list: caseList])
         prc_report_result.each(){
             prc_report_map.put(it[0], it[1])
         }
            
-        def prc_report_fzn_result = PrcReport.executeQuery("select p.caseRecord.id, p from PrcReportFzn p where p.caseRecord in (:list)", [list: caseList])
+       /** def prc_report_fzn_result = PrcReport.executeQuery("select p.caseRecord.id, p from PrcReportFzn p where p.caseRecord in (:list)", [list: caseList])
         prc_report_fzn_result.each(){
             prc_report_fzn_map.put(it[0], it[1])
         }
@@ -178,12 +180,12 @@ class PrcReportService {
             else
             map.put("specimenCount", specimenCount)
             
-           /** def prcReport = prc_report_map.get(id) 
+            def prcReport = prc_report_map.get(id) 
             def issueTotal="&nbsp;"
             int unresolvedCount
             int unresolvedCount4Qc=0
             String qcFlag = 'white'
-            if(prcReport){
+           /** if(prcReport){
                 if (issue_count_map?.get(id)) issueTotal = issue_count_map.get(id)
                 else issueTotal = 0
                  
@@ -225,7 +227,7 @@ class PrcReportService {
           
              
            
-             
+             map.put("prcReport", prcReport)
            
              result.add(map)
         
@@ -236,6 +238,64 @@ class PrcReportService {
 
     
     
+    def createReport(prcReportInstance) { 
+        try{
+            def caseRecord = prcReportInstance.caseRecord
+            prcReportInstance.status='Editing'
+            
+            def  slides= SpecimenRecord.executeQuery("select distinct  sl from SpecimenRecord s inner join s.slides sl inner join sl.imageRecord i  where s.caseRecord.id=?   and sl not in (select pr.slideRecord from PrcReview pr)", [caseRecord.id])
+            
+            slides.each(){
+                def prcReview = new PrcReview()
+                prcReview.slideRecord = it
+                prcReview.acceptability=PrcAcceptability.findByCode('ACCP')
+              
+                prcReview.save(failOnError:true)
+              
+            }
 
+            prcReportInstance.save(failOnError:true)
+        } catch(Exception e) {
+            throw new RuntimeException(e.toString())
+        }
+    }
   
+    
+    def getPrcReviewList4Edit(prcReportInstance) { 
+        try{
+            def result=[]
+            def caseRecord = prcReportInstance.caseRecord
+           
+            
+            result = PrcReview.executeQuery("select pr from PrcReview pr inner join pr.slideRecord sl inner join sl.specimenRecord s where s.caseRecord.id=? order by s.specimenId", [caseRecord.id])
+            // println("case record: " + caseRecord.caseId)
+            //def speciments= SpecimenRecord.executeQuery("select distinct s from SpecimenRecord s inner join s.slides where s.caseRecord.id=? and s not in (select ps.specimenRecord from PrcSpecimen ps) order by s.specimenId", [caseRecord.id])
+           
+            
+            //add new prcSpecimen in case vari loaded slide ship more than once
+            def slides= SlideRecord.executeQuery("select sl from SlideRecord sl inner join sl.imageRecord i  where sl.specimenRecord.caseRecord.id=? and sl not in (select slideRecord from PrcReview)  order by sl.specimenRecord.specimenId", [caseRecord.id])
+            
+            slides.each(){
+                def prcReview = new PrcReview()
+                prcReview.slideRecord = it
+                 prcReview.acceptability=PrcAcceptability.findByCode('ACCP')
+                prcReview.save(failOnError:true)
+                result.add(prcReview)
+              
+            }
+                
+         
+            return result
+       
+        }catch(Exception e){
+            e.printStackTrace()
+           
+            throw new RuntimeException(e.toString())
+        }
+        
+
+    }
+    
+    
+    
 }

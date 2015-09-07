@@ -169,6 +169,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/query/**': ['ROLE_UUU', 'ROLE_DM','ROLE_SUPER','ROLE_ADMIN','ROLE_ORG_VARI','ROLE_ORG_BROAD','ROLE_ORG_MBB'],
     '/fileUpload/**': ['ROLE_ADMIN'],
     '/caseAttachmentType/**':['ROLE_ADMIN'],
+    '/prcReport/**': ['ROLE_PRC','ROLE_ADMIN'],
+    '/prcReport/view': ['ROLE_PRC','ROLE_ADMIN', 'ROLE_DCC'],
      '/rest/**': ['ROLE_ADMIN']
 
 

@@ -1,6 +1,6 @@
 <%@ page import="nci.bbrb.cdr.datarecords.CaseRecord" %>
 <%@ page import="nci.bbrb.cdr.util.AppSetting" %>
-<g:set var="bodyclass" value="prchome home wide" scope="request"/>
+<g:set var="bodyclass" value="prchome home" scope="request"/>
 <html>
     <head>
         <title><g:message code="default.page.title"/></title>
