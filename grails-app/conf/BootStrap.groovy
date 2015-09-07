@@ -119,6 +119,15 @@ class BootStrap {
         new CaseAttachmentType(code:'DCF', name:'DCF', description:'DCF' ).save(failOnError: false, flush: true)
         new CaseAttachmentType(code:'OTHER', name:'OTHER', description:'OTHER' ).save(failOnError: false, flush: true)
         
+         new PrcAcceptability(code:'ACCP', name:'Acceptable' ).save(failOnError: false, flush: true)
+         new PrcAcceptability(code:'UNACC', name:'Unacceptable' ).save(failOnError: false, flush: true)
+         new PrcAcceptability(code:'QUAR', name:'Quarantine/Issues Pending' ).save(failOnError: false, flush: true)
+         new PrcAcceptability(code:'INVAL', name:'Invalidated' ).save(failOnError: false, flush: true)
+        
+         new TissueCategory(code:'Normal', name:'Normal' ).save(failOnError: false, flush: true)
+         new TissueCategory(code:'DISEASED', name:'Diseased' ).save(failOnError: false, flush: true)
+         new TissueCategory(code:'NEOPLASTIC', name:'Neoplastic' ).save(failOnError: false, flush: true)
+         new TissueCategory(code:'OTHER', name:'Other' ).save(failOnError: false, flush: true)
     }
     
     def destroy = {

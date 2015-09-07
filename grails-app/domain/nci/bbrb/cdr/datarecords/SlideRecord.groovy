@@ -5,6 +5,7 @@ class SlideRecord extends DataRecordBaseClass{
     String slideId
     
     static hasMany = [processEvents:ProcessingEvent]
+    static hasOne = [imageRecord:ImageRecord]
 
     String toString(){"$slideId"}
     

@@ -8,6 +8,8 @@ import nci.bbrb.cdr.study.*
 
 
 class HomeController {
+ 
+    def prcReportService
 
  String maxView ='10'
     
@@ -26,6 +28,8 @@ class HomeController {
             
               redirect(action: "projecthome")
          
+        }else if(session.chosenHome=="projecthome"){
+              redirct(action: "prchome")
         }else {
             redirect(action: "choosehome")
         }
@@ -51,6 +55,16 @@ class HomeController {
         return [caseRecordInstanceList:caseList, candidateRecordInstanceList:candidateList, specimenCount:specimenCount]
     }
     
+    
+    def prchome={
+       session.chosenHome="prchome" 
+        def caseList=[]
+        def all = CaseRecord.findAllByStudyAndCaseStatusNotEqual(Study.findByCode('BPS'),CaseStatus.findByCode('WITHDR'),[max:25])
+        
+        caseList = prcReportService.getPrcCaseMaps(all)
+        return [caseList:caseList]
+     
+    }
     
     def generic={
        def  title = "Activity Center"

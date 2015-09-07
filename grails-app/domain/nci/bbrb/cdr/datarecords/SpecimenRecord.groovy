@@ -12,8 +12,8 @@ class SpecimenRecord extends DataRecordBaseClass{
     TissueType tissueType
     TissueLocation tissueLocation
     
-    static hasMany = [processEvents:ProcessingEvent]
-    
+    static hasMany = [slides:SlideRecord, processEvents:ProcessingEvent]
+   
     static mapping = {
 
         table 'dr_specimen'
