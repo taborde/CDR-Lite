@@ -32,6 +32,8 @@ class UrlMappings {
         //pmh 08/24/15 activity events related..
         "/activitycenter"(controller:"home",action:"generic")
         
+        "/rest/processingevent/"(controller:"rest",action:"processingEventRestActions")
+        
         
         
 	}
