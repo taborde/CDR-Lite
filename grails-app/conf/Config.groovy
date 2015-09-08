@@ -48,6 +48,8 @@ grails {
     }
 }
 
+// New for grails 2.4.4 -- output from the jqueryDatePicker tag lib no longer binds to Date attributes on a domain class, unless you update the default binding strategy
+grails.databinding.dateFormats = ['MM/dd/yyyy', 'yyyy-MM-dd HH:mm:ss.S', "yyyy-MM-dd'T'hh:mm:ss'Z'"]
 
 grails.converters.encoding = "UTF-8"
 // scaffolding templates configuration
