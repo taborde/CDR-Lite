@@ -132,10 +132,10 @@ class QueryController {
     }
 
     def save = {
-        println "params: " + params
+//        println "params: " + params
         def queryInstance = new Query(params)
-        println "queryInstance.dueDate: " + queryInstance.dueDate
-        println "queryInstance.formName: " + queryInstance.formName
+//        println "queryInstance.dueDate: " + queryInstance.dueDate
+//        println "queryInstance.formName: " + queryInstance.formName
         queryInstance.caseRecord = CaseRecord.findByCaseId(params.caseId)
         queryInstance.candidateRecord = CandidateRecord.findByCandidateId(params.candidateId)
 //        queryInstance.dueDate = params.dueDate

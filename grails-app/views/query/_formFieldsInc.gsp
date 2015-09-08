@@ -1,3 +1,18 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#tissProcessorMdl_LPRTP").click(function() {
+            if(this.checked) {
+                $("#othTissProcessorMdl").val('')
+                $("#othTissProcessorMdlRow").hide()
+            }
+        });
+        $("#tissProcessorMdl_Other").click(function() {
+            if(this.checked) {
+                $("#othTissProcessorMdlRow").show()
+            }
+        });
+    });
+</script>
 <g:if test="${params.action != 'create' && params.action != 'save'}">
     <table>
         <tbody>
@@ -47,6 +62,7 @@
             </g:if>
             
             <tr id="caseRow" class="prop ${queryInstance?.caseRecord ? '' : 'hide'}">
+            %{-- <g:if test="${  --}%
                 <td valign="top" class="name">
                     <label for="caseRecord">Case Record:</label>
                 </td>

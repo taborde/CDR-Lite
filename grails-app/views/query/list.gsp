@@ -82,7 +82,7 @@
             </g:if>
             <div class="tableheader clearfix">
                 <div class="left">IS = Issue status</div>
-                <br> <br><div class="left">Report in excel format &nbsp;&nbsp;</div><a href="${nci.bbrb.cdr.util.AppSetting.findByCode('CDRAR_HOSTNAME')?.value}/cahubanalytics/report/queryRptExcel" title="Excel Format" target="_blank" class="uibutton borderless removepadding"><span class="ui-icon ui-icon-excel"></span></a>
+                %{-- <br> <br><div class="left">Report in excel format &nbsp;&nbsp;</div><a href="${nci.bbrb.cdr.util.AppSetting.findByCode('CDRAR_HOSTNAME')?.value}/cdrlite/report/queryRptExcel" title="Excel Format" target="_blank" class="uibutton borderless removepadding"><span class="ui-icon ui-icon-excel"></span></a> --}%
             </div>
             <g:if test="${params.caseRecord?.id}">
                 <g:render template="/caseRecord/caseDetails" bean="${CaseRecord.get(params.caseRecord?.id)}" var="caseRecord"/>
