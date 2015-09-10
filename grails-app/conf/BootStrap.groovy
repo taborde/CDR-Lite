@@ -45,7 +45,8 @@ class BootStrap {
         new AppSetting(code: "CDRLITE_USER_DENY_DISEASE", name: "Deny user access for Disease study. ", value: "see big value", bigValue: "testDUser").save(failOnError: false, flush: true)
         new AppSetting(code: "CDRLITE_ADMIN_DISTRO", name: "CDRLITE_ADMIN_DISTRO", value: "see big value", bigValue: "pushpa.hariharan@nih.gov").save(failOnError: false, flush: true)
         new AppSetting(code: "QUERY_RESPONSE_DCC_DM", name: "QUERY_RESPONSE_DCC_DM", value: "see big value", description: "Exclude responses from local DCC DM users in this list from being counted in the AR query tracker report", bigValue: "admin").save(failOnError: false, flush: true)
-
+        new AppSetting(code: "NEW_QUERY_TRACKER_DISTRO", name: "NEW_QUERY_TRACKER_DISTRO", value: "see big value", bigValue: "david.tabor@nih.gov").save(failOnError: false, flush: true)
+        
         new Study(code: 'BPS', name:'BPS').save(failOnError: false, flush: true)
 
         new BSS(code:'UUU', name:'UUU').save(failOnError: false, flush: true)

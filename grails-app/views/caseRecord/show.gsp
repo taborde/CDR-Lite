@@ -46,7 +46,7 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="caseRecord.bss.label" default="Bss" /></td>
+                            <td valign="top" class="name"><g:message code="caseRecord.bss.label" default="BSS" /></td>
                             
                             <td valign="top" class="value"><g:link controller="BSS" action="show" id="${caseRecordInstance?.bss?.id}">${caseRecordInstance?.bss?.encodeAsHTML()}</g:link></td>
                             

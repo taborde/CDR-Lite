@@ -49,7 +49,18 @@ class ActivityEventService {
                 recipient = AppSetting.findByCode('CDRLITE_ADMIN_DISTRO')?.bigValue
                 emailSubject = "CDR-Lite Alert:$env Case status for ${caseId} was changed"
                 emailBody = "Case status for ${caseId} was changed to ${additionalInfo2} by ${initiator}. Previous status was ${additionalInfo1}."
-                break          
+                break
+            case "QUERY":
+//                def bssEmailList = (getEmailList(bssCode).length() > 0) ? ',' + getEmailList(bssCode) : ''
+                recipient = AppSetting.findByCode('NEW_QUERY_TRACKER_DISTRO')?.bigValue /* + bssEmailList */
+//                println "recipient: " + recipient  
+                emailSubject = "CDR Alert:$env New Query Tracker was created"
+                if (caseId) {
+                    emailBody = "New Query Tracker ${additionalInfo1} for ${caseId} was created." 
+                } else {
+                    emailBody = "New Query Tracker ${additionalInfo1} was created." 
+                }
+                break
         }
         
        sendMailService.sendActivityEventEmail(recipient, emailSubject, emailBody)
@@ -57,18 +68,19 @@ class ActivityEventService {
     
     def getEmailList(orgCodePayload) {
         def orgCode = BSS.findByCode(orgCodePayload) ? BSS.findByCode(orgCodePayload).parentBss?.code : orgCodePayload
-       // def emailList = AppUsersService.getEmailList(orgCode)
+       // def emailList = AppUsersService.getEmailList(orgCode)  AppUsersService does not exist (yet) in CDR Lite. 
        //pmh : change this later. keep this for now
-         def emailList = AppSetting.findByCode('CDRLITE_ADMIN_DISTRO')?.bigValue
-        def result = ''
+        def emailList = AppSetting.findByCode('CDRLITE_ADMIN_DISTRO')?.bigValue
+//        def result = ''
+//        println "emailList: " + emailList
+//        for (i in emailList) {
+//            println "i: " + i
+//            result = result + ',' + i    
+//        }
+//        if (result && result.length() > 0) {
+//            result = result.substring(1)
+//        }
         
-        for (i in emailList) {
-            result = result + ',' + i    
-        }
-        if (result && result.length() > 0) {
-            result = result.substring(1)
-        }
-        
-        return result
+        return emailList
     }
 }

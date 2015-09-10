@@ -150,7 +150,7 @@
                                     </td>
                                 </g:if>
                                 <g:elseif test="${queryInstance.candidateRecord}">
-                                    <td><nobr><g:link controller="candidateRecord" action="view" id="${queryInstance.candidateRecord?.id}">${queryInstance.candidateRecord}</g:link></nobr></td>
+                                    <td><nobr><g:link controller="candidateRecord" action="show" id="${queryInstance.candidateRecord?.id}">${queryInstance.candidateRecord.candidateId}</g:link></nobr></td>
                                 </g:elseif>
                                 <g:elseif test="${queryInstance.other}">
                                     <td><nobr>${queryInstance.other}</nobr></td>

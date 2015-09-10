@@ -59,7 +59,7 @@ class CaseRecordLinkTagLib {
         }
         else if (!caseid)
         {
-            def caseRecordInstance = nci.obbr.cahub.datarecords.CaseRecord.get(recordid)
+            def caseRecordInstance = nci.bbrb.cdr.datarecords.CaseRecord.get(recordid)
             if (!caseRecordInstance) caseid = "UNKNOWN_CASE_ID"
             else caseid = caseRecordInstance.caseId
         }
@@ -128,10 +128,10 @@ class CaseRecordLinkTagLib {
             if (redlink)
             {
                 out.println "<span class=\"redlink\">"
-                out.println "<a ${nameAndId}href=\"/cahubdataservices/${controller}/${action}/${recordid}\">${caseid}</a>"
+                out.println "<a ${nameAndId}href=\"/cdrlite/${controller}/${action}/${recordid}\">${caseid}</a>"
                 out.println "</span>"   
             }
-            else out.println "<a ${nameAndId}href=\"/cahubdataservices/${controller}/${action}/${recordid}\">${caseid}</a>"
+            else out.println "<a ${nameAndId}href=\"/cdrlite/${controller}/${action}/${recordid}\">${caseid}</a>"
         }
         else if (study == 'BPV')
         {
@@ -140,18 +140,18 @@ class CaseRecordLinkTagLib {
             {
                 //println 'AAA- ' + status
                 out.println "<span class=\"${ redlink ? 'redlink' : ''}\">"
-                out.println "<a ${nameAndId}href=\"/cahubdataservices/${controller}/${action}/${recordid}\">${caseid}</a>"
+                out.println "<a ${nameAndId}href=\"/cdrlite/${controller}/${action}/${recordid}\">${caseid}</a>"
                 out.println "</span>"
             }
-            else if (authorities?.contains("ROLE_NCI-FREDERICK_CAHUB_DM") ||
-                     authorities?.contains("ROLE_NCI-FREDERICK_CAHUB_SUPER") ||
-                     authorities?.contains("ROLE_NCI-FREDERICK_CAHUB_LDS") ||
+            else if (authorities?.contains("ROLE_DM") ||
+                     authorities?.contains("ROLE_SUPER") ||
+                     authorities?.contains("ROLE_LDS") ||
                      authorities?.contains("ROLE_ADMIN") ||
-                 authorities?.contains("ROLE_NCI-FREDERICK_CAHUB_QM"))
+                 authorities?.contains("ROLE_QM"))
             {
                 //println 'AAB- '
                 out.println "<span class=\"${ redlink ? 'redlink' : ''}\">"
-                out.println "<a ${nameAndId}href=\"/cahubdataservices/${controller}/${action}/${recordid}\">${caseid}</a>"
+                out.println "<a ${nameAndId}href=\"/cdrlite/${controller}/${action}/${recordid}\">${caseid}</a>"
                 out.println "</span>"
             }
             else 
@@ -165,10 +165,10 @@ class CaseRecordLinkTagLib {
             if (redlink)
             {
                 out.println "<span class=\"redlink\">"
-                out.println "<a ${nameAndId}href=\"/cahubdataservices/${controller}/${action}/${recordid}\">${caseid}</a>"
+                out.println "<a ${nameAndId}href=\"/cdrlite/${controller}/${action}/${recordid}\">${caseid}</a>"
                 out.println "</span>"   
             }
-            else out.println "<a ${nameAndId}href=\"/cahubdataservices/${controller}/${action}/${recordid}\">${caseid}</a>"
+            else out.println "<a ${nameAndId}href=\"/cdrlite/${controller}/${action}/${recordid}\">${caseid}</a>"
         }
     }
 }
