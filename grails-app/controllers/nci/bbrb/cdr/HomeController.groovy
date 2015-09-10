@@ -3,6 +3,7 @@ import nci.bbrb.cdr.staticmembers.*
 import nci.bbrb.cdr.datarecords.*
 import nci.bbrb.cdr.util.*
 import nci.bbrb.cdr.study.*
+import nci.bbrb.cdr.util.querytracker.Query
 
 /* created by: pmh 05/12/15*/
 
@@ -52,7 +53,10 @@ class HomeController {
             }
         }
         
-        return [caseRecordInstanceList:caseList, candidateRecordInstanceList:candidateList, specimenCount:specimenCount]
+        def queryCount = getQueryCountMap(caseList)
+        def queryCountCandidate = getQueryCountMapCandidate(candidateList)
+        
+        return [caseRecordInstanceList:caseList, candidateRecordInstanceList:candidateList, specimenCount:specimenCount, queryCount:queryCount, queryCountCandidate:queryCountCandidate]
     }
     
     
@@ -67,12 +71,12 @@ class HomeController {
     }
     
     def generic={
-       def  title = "Activity Center"
+        def  title = "Activity Center"
         def    bodyclass = "recentactivity"
-         def   navigation = "/cdrlite;home;Home"
-         def   divs = "recentactivity"
-         def   h1studysession = true
-         return[title:title,bodyclass:bodyclass,navigation:navigation,divs:divs,h1studysession:h1studysession]
+        def   navigation = "/cdrlite;home;Home"
+        def   divs = "recentactivity"
+        def   h1studysession = true
+        return[title:title,bodyclass:bodyclass,navigation:navigation,divs:divs,h1studysession:h1studysession]
     }
     
     def opshome = {
@@ -100,8 +104,52 @@ class HomeController {
             }
         }
         
-        return [caseRecordInstanceList:caseList, candidateRecordInstanceList:candidateList, specimenCount:specimenCount]
+        def queryCount = getQueryCountMap(caseList)
+        def queryCountCandidate = getQueryCountMapCandidate(candidateList)
+        
+        return [caseRecordInstanceList:caseList, candidateRecordInstanceList:candidateList, specimenCount:specimenCount, queryCount:queryCount, queryCountCandidate: queryCountCandidate]
         
       
+    }
+    
+    def getQueryCountMap(caseRecordInstanceList) {
+        def queryCount = [:]
+        if (caseRecordInstanceList) {
+            
+            def activeStatus = QueryStatus.findByCode("ACTIVE")
+            def countResult
+            if (session.org?.code == 'DCC') {
+//                countResult= Query.executeQuery("select c.id, count(*) from Query i inner join i.caseRecord c inner join i.queryStatus s where c in (:list) and s.id = :activeStatus group by c.id",  [list:caseRecordInstanceList, activeStatus:activeStatus.id])
+                countResult= Query.executeQuery("select c.id, count(*) from Query i inner join i.caseRecord c inner join i.queryStatus s where c in (:list) group by c.id",  [list:caseRecordInstanceList])
+            } else {
+//                countResult= Query.executeQuery("select c.id, count(*) from Query i inner join i.caseRecord c inner join i.queryStatus s inner join i.organization o where c in (:list) and s.id = :activeStatus and o.code like :org group by c.id",  [list:caseRecordInstanceList, activeStatus:activeStatus.id, org:session.org?.code + "%"])
+                countResult= Query.executeQuery("select c.id, count(*) from Query i inner join i.caseRecord c inner join i.queryStatus s inner join i.organization o where c in (:list) and o.code like :org group by c.id",  [list:caseRecordInstanceList, org:session.org?.code + "%"])
+            }
+            countResult.each() {
+                queryCount.put(it[0], it[1]) 
+            }
+        }
+            
+        return queryCount
+    }
+    
+    def getQueryCountMapCandidate(candidateRecordInstanceList) {
+        def queryCountCandidate = [:]
+        if (candidateRecordInstanceList) {
+            def activeStatus = QueryStatus.findByCode("ACTIVE")
+            def countResult
+            if (session.org?.code == 'DCC') {
+//                countResult= Query.executeQuery("select c.id, count(*) from Query i inner join i.candidateRecord c inner join i.queryStatus s where c in (:list) and s.id = :activeStatus group by c.id",  [list:candidateRecordInstanceList, activeStatus:activeStatus.id])
+                countResult= Query.executeQuery("select c.id, count(*) from Query i inner join i.candidateRecord c inner join i.queryStatus s where c in (:list) group by c.id",  [list:candidateRecordInstanceList])
+            } else {
+//                countResult= Query.executeQuery("select c.id, count(*) from Query i inner join i.candidateRecord c inner join i.queryStatus s inner join i.organization o where c in (:list) and s.id = :activeStatus and o.code like :org group by c.id",  [list:candidateRecordInstanceList, activeStatus:activeStatus.id, org:session.org?.code + "%"])
+                countResult= Query.executeQuery("select c.id, count(*) from Query i inner join i.candidateRecord c inner join i.queryStatus s inner join i.organization o where c in (:list) and o.code like :org group by c.id",  [list:candidateRecordInstanceList, org:session.org?.code + "%"])
+            }
+            countResult.each() {
+                queryCountCandidate.put(it[0], it[1]) 
+            }
+        }
+
+        return queryCountCandidate
     }
 }

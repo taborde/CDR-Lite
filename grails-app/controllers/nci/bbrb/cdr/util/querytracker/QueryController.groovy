@@ -92,7 +92,7 @@ class QueryController {
                 }
             }
             def queryInstanceTotal=queryInstanceList?.size()
-            daysMap1=queryService.getDaysElapsedtoOpenQuery(null)
+            daysMap1 = queryService.getDaysElapsedtoOpenQuery(null)
             daysMap2 = queryService.daysElapsedOpenToCloseQuery(null)
             
             render(view: "list", model: [queryInstanceList: queryInstanceList,queryInstanceTotal:queryInstanceTotal,daysMap1:daysMap1,daysMap2:daysMap2])
@@ -153,7 +153,7 @@ class QueryController {
             } else {
                 /* @TODO find a way to look up the Study object.  It was removed from the BSS, but needs to be attached to the user or the session */
 //                queryInstance.study = BSS.findByCode(queryInstance.organization?.code)?.study
-                queryInstance.study = BSS.findByCode('BPS')
+                queryInstance.study = Study.findByCode('BPS')
             }
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'query.label', default: 'Query'), queryInstance.id])}"
             redirect(action: "show", id: queryInstance.id)
@@ -191,7 +191,8 @@ class QueryController {
             def bssCode = queryInstance.organization?.code
             def username = session.SPRING_SECURITY_CONTEXT?.authentication?.principal?.getUsername()
             def orgCode = queryInstance.organization?.code
-            activityEventService.createEvent(activityType, caseId, study, bssCode, null, username, queryInstance.id, orgCode)
+//            activityEventService.createEvent(activityType, caseId, study, bssCode, null, username, queryInstance.id, orgCode)
+            activityEventService.createEvent(activityType, caseId, study, bssCode, username, queryInstance.id, orgCode)
         }
         else {
             render(view: "create", model: [queryInstance: queryInstance])
@@ -507,7 +508,7 @@ class QueryController {
                 def bssCode = queryInstance.organization?.code
                 def username = session.SPRING_SECURITY_CONTEXT?.authentication?.principal?.getUsername()
                 def orgCode = queryInstance.organization?.code
-                activityEventService.createEvent(activityType, caseId, study, bssCode, null, username, queryInstance.id, orgCode)
+                activityEventService.createEvent(activityType, caseId, study, bssCode, username, queryInstance.id, orgCode)
             }
             
             if (!queryInstance.hasErrors() && queryInstance.save(flush: true)) {

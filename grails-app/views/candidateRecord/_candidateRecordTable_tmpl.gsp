@@ -4,6 +4,8 @@
         <tr><th colspan="10">Candidate List</th></tr>
         <tr>
            
+                <th>QT</th>
+            
             <g:sortableColumn property="candidateId" title="${message(code: 'candidateRecord.candidateId.label', default: 'Candidate ID')}"/>
             <g:sortableColumn property="bss" title="${message(code: 'candidateRecord.BSS.label', default: 'BSS')}"/>
             <g:sortableColumn property="study.name" title="${message(code: 'candidateRecord.Study.label', default: 'Study')}"/>
@@ -13,7 +15,7 @@
             <th>Eligible?</th>
             <th>Consented?</th>
               
-                 <g:sortableColumn property="dateCreated" class="dateentry" title="${message(code: 'candidateRecord.lastUpdated.label', default: 'Date Created')}"/>
+            <g:sortableColumn property="dateCreated" class="dateentry" title="${message(code: 'candidateRecord.lastUpdated.label', default: 'Date Created')}"/>
                          
         </tr>
     </thead>
@@ -25,7 +27,9 @@
            
             <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                 
-                <td class="candidate-id">
+                    <td><g:if test="${queryCountCandidate.get(candidateRecordInstance.id)}"><a href="/cdrlite/query/listByCandidate?candidateRecord.id=${candidateRecordInstance.id}"><span class="no">${queryCountCandidate.get(candidateRecordInstance.id)}</span></a></g:if><g:else><span class="yes">0</span></g:else></td>
+                
+                    <td class="candidate-id">
                     
                       <a href="/cdrlite/candidateRecord/show/${candidateRecordInstance.id}">${candidateRecordInstance.candidateId}</a> 
                     

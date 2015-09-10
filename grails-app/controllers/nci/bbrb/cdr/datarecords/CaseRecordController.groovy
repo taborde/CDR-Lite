@@ -28,8 +28,11 @@ class CaseRecordController {
             }
         }
         
+        def queryCount = getQueryCountMap(caseList)
         
-        respond CaseRecord.list(params), model:[caseRecordInstanceCount: CaseRecord.count(), specimenCount:specimenCount]
+        println "queryCount: " + queryCount
+        
+        respond CaseRecord.list(params), model:[caseRecordInstanceCount: CaseRecord.count(), specimenCount:specimenCount, queryCount: queryCount]
     }
 
     def show(CaseRecord caseRecordInstance) {
@@ -192,4 +195,24 @@ class CaseRecordController {
        //pmh 09/01/15 for now just apply this without filters..
        redirect(action: "show", id: caseRecordInstance.id)
     }
+    
+    def getQueryCountMap(caseRecordInstanceList) {
+        
+        def queryCount = [:]
+        if (caseRecordInstanceList) {
+            def activeStatus = QueryStatus.findByCode("ACTIVE")
+            def countResult
+            if (session.org?.code == 'OBBR') {
+                countResult= Query.executeQuery("select c.id, count(*) from Query i inner join i.caseRecord c inner join i.queryStatus s where c in (:list) and s.id = :activeStatus group by c.id",  [list:caseRecordInstanceList, activeStatus:activeStatus.id])
+            } else {
+                countResult= Query.executeQuery("select c.id, count(*) from Query i inner join i.caseRecord c inner join i.queryStatus s inner join i.organization o where c in (:list) and s.id = :activeStatus and o.code like :org group by c.id",  [list:caseRecordInstanceList, activeStatus:activeStatus.id, org:session.org?.code + "%"])
+            }
+            countResult.each() {
+                queryCount.put(it[0], it[1]) 
+            }
+        }
+            
+        return queryCount
+    }
+
 }

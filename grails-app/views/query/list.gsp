@@ -1,4 +1,3 @@
-
 <%@ page import="nci.bbrb.cdr.util.querytracker.Query" %>
 <%@ page import="nci.bbrb.cdr.datarecords.CaseRecord" %>
 <%@ page import="nci.bbrb.cdr.datarecords.CandidateRecord" %>
@@ -46,9 +45,6 @@
                  <a class="home" href="${createLink(uri: '/home/qmhome')}">QM Home</a>
                 </g:elseif>
                 <%--END cdrqa 1576--%>
-            
-            
-            
         </div>
       </div>
       <div id="container" class="clearfix">
@@ -80,10 +76,10 @@
                 </form>
               </div>
             </g:if>
-            <div class="tableheader clearfix">
+            %{-- <div class="tableheader clearfix">
                 <div class="left">IS = Issue status</div>
-                %{-- <br> <br><div class="left">Report in excel format &nbsp;&nbsp;</div><a href="${nci.bbrb.cdr.util.AppSetting.findByCode('CDRAR_HOSTNAME')?.value}/cdrlite/report/queryRptExcel" title="Excel Format" target="_blank" class="uibutton borderless removepadding"><span class="ui-icon ui-icon-excel"></span></a> --}%
-            </div>
+                <br> <br><div class="left">Report in excel format &nbsp;&nbsp;</div><a href="${nci.bbrb.cdr.util.AppSetting.findByCode('CDRAR_HOSTNAME')?.value}/cdrlite/report/queryRptExcel" title="Excel Format" target="_blank" class="uibutton borderless removepadding"><span class="ui-icon ui-icon-excel"></span></a> 
+            </div> --}%
             <g:if test="${params.caseRecord?.id}">
                 <g:render template="/caseRecord/caseDetails" bean="${CaseRecord.get(params.caseRecord?.id)}" var="caseRecord"/>
             </g:if>
@@ -107,7 +103,7 @@
                                 <g:if test="${session.org?.code == 'DCC'}">
                                     <g:sortableColumn property="organization.code" title="Organization" />
                                 </g:if>
-                                <g:sortableColumn property="queryStatus" title="IS" />
+                                <g:sortableColumn property="queryStatus" title="Query Status" />
                                 <g:sortableColumn property="queryType.code" title="Query Type" />
                                 <g:sortableColumn property="dateCreated" title="Date Opened" />
                                 <g:sortableColumn property="openedBy" title="Opened By" />

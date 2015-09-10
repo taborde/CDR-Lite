@@ -51,6 +51,16 @@ class BootStrap {
         new BSS(code:'UUU', name:'UUU').save(failOnError: false, flush: true)
         new BSS(code:'CCC', name:'CCC').save(failOnError: false, flush: true)
 
+        def bss = BSS.findByCode("UUU")
+        if (bss) {
+            bss.parentBss = BSS.findByCode("UUU")
+            bss.save(failOnError: true, flush: true)
+        }
+        bss = BSS.findByCode("CCC")
+        if (bss) {
+            bss.parentBss = BSS.findByCode("CCC")
+            bss.save(failOnError: true, flush: true)
+        }
 
         new CaseCollectionType(code: 'POSTM', name:'Postmortem').save(failOnError: false, flush: true)
         new CaseCollectionType(code: 'OPO', name:'Organ Donor (OPO)').save(failOnError: false, flush: true)
@@ -104,30 +114,42 @@ class BootStrap {
         */
        
         //pmh: added this on 08/26/15 for alert service activiy type
-        new ActivityType(code:'CASECREATE', name:'NEW CASE' ).save(failOnError: false, flush: true)
-        new ActivityType(code:'CASEUPDATE', name:'CASE UPDATED' ).save(failOnError: false, flush: true)
-        new ActivityType(code:'STATUSCHG', name:'CASE STATUS CHANGE' ).save(failOnError: false, flush: true)
-        new ActivityType(code:'FILEUPLOAD', name:'FILEUPLOAD' ).save(failOnError: false, flush: true)
+        new ActivityType(code:'CASECREATE', name:'New Case' ).save(failOnError: false, flush: true)
+        new ActivityType(code:'CASEUPDATE', name:'Case Updated' ).save(failOnError: false, flush: true)
+        new ActivityType(code:'STATUSCHG', name:'Case Status Change' ).save(failOnError: false, flush: true)
+        new ActivityType(code:'FILEUPLOAD', name:'File Upload' ).save(failOnError: false, flush: true)
+
+        new ActivityType(code:'QUERY', name:'New Query Tracker' ).save(failOnError: false, flush: true)
+
         
         new QueryType(code:'MISS',    name:'Missing Data' ).save(failOnError: false, flush: true)
         new QueryType(code:'DISCREP', name:'Discrepant Data' ).save(failOnError: false, flush: true)
         new QueryType(code:'VERIFY',  name:'Verify Data' ).save(failOnError: false, flush: true)
         new QueryType(code:'ACTION',  name:'Action' ).save(failOnError: false, flush: true)
 
+        new QueryStatus(code:'ACTIVE', name:'Active').save(failOnError: false, flush: true)
+        new QueryStatus(code:'ADDRESSED', name:'Addressed').save(failOnError: false, flush: true)
+        new QueryStatus(code:'RESOLVED', name:'Resolved').save(failOnError: false, flush: true)
+        new QueryStatus(code:'CLOSED', name:'Closed').save(failOnError: false, flush: true)
+        new QueryStatus(code:'OPEN', name:'Open').save(failOnError: false, flush: true)
+        new QueryStatus(code:'PROGRESS', name:'In Progress').save(failOnError: false, flush: true)
+        new QueryStatus(code:'INVALID', name:'Invalidated').save(failOnError: false, flush: true)
+        new QueryStatus(code:'UNRESOLVED', name:'Unresolved').save(failOnError: false, flush: true)
+
         //pmh: required for fileUpload page categories
         new CaseAttachmentType(code:'MEMO', name:'MEMO', description:'MEMO' ).save(failOnError: false, flush: true)
         new CaseAttachmentType(code:'DCF', name:'DCF', description:'DCF' ).save(failOnError: false, flush: true)
         new CaseAttachmentType(code:'OTHER', name:'OTHER', description:'OTHER' ).save(failOnError: false, flush: true)
         
-         new PrcAcceptability(code:'ACCP', name:'Acceptable' ).save(failOnError: false, flush: true)
-         new PrcAcceptability(code:'UNACC', name:'Unacceptable' ).save(failOnError: false, flush: true)
-         new PrcAcceptability(code:'QUAR', name:'Quarantine/Issues Pending' ).save(failOnError: false, flush: true)
-         new PrcAcceptability(code:'INVAL', name:'Invalidated' ).save(failOnError: false, flush: true)
+        new PrcAcceptability(code:'ACCP', name:'Acceptable' ).save(failOnError: false, flush: true)
+        new PrcAcceptability(code:'UNACC', name:'Unacceptable' ).save(failOnError: false, flush: true)
+        new PrcAcceptability(code:'QUAR', name:'Quarantine/Issues Pending' ).save(failOnError: false, flush: true)
+        new PrcAcceptability(code:'INVAL', name:'Invalidated' ).save(failOnError: false, flush: true)
         
-         new TissueCategory(code:'Normal', name:'Normal' ).save(failOnError: false, flush: true)
-         new TissueCategory(code:'DISEASED', name:'Diseased' ).save(failOnError: false, flush: true)
-         new TissueCategory(code:'NEOPLASTIC', name:'Neoplastic' ).save(failOnError: false, flush: true)
-         new TissueCategory(code:'OTHER', name:'Other' ).save(failOnError: false, flush: true)
+        new TissueCategory(code:'Normal', name:'Normal' ).save(failOnError: false, flush: true)
+        new TissueCategory(code:'DISEASED', name:'Diseased' ).save(failOnError: false, flush: true)
+        new TissueCategory(code:'NEOPLASTIC', name:'Neoplastic' ).save(failOnError: false, flush: true)
+        new TissueCategory(code:'OTHER', name:'Other' ).save(failOnError: false, flush: true)
     }
     
     def destroy = {
