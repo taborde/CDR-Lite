@@ -1,10 +1,35 @@
 <%@ page import="nci.bbrb.cdr.prc.PrcReport" %>
+<%@ page import="nci.bbrb.cdr.util.AppSetting" %>
 <!DOCTYPE html>
 <html>
 	 <head>
         <meta name="layout" content="cahubTemplate"/>
         <g:set var="entityName" value="${message(code: 'prcReport.label', default: 'PrcReport')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
+        <g:javascript>
+           $(document).ready(function(){
+           $(":input").change(function(){
+                  document.getElementById("changed").value = "Y"
+                  //alert("Changed!")
+                });
+            });
+            
+           function sub(){
+            var changed = document.getElementById("changed").value
+            if(changed == "Y"){
+               alert("Please save the change!")
+               return false
+               }
+            
+          }
+          
+            function openImageWin(image_id){
+             // var w2=window.open('https://microscopy.vai.org/imageserver/@@/@'+image_id + '/view.apml', 'hub_aperio', 'location=1,status=1,scrollbars=1,resizable=1,width=965,height=700');
+              var w2=window.open('${AppSetting.findByCode("APERIO_URL")?.value}'+image_id, 'hub_aperio', 'location=1,status=1,scrollbars=1,resizable=1,width=965,height=700');
+              w2.focus();
+           }
+          
+        </g:javascript>
     </head>
 	<body>
 		<div id="nav" class="clearfix">
@@ -18,38 +43,43 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<g:hasErrors bean="${prcReportInstance}">
-			<ul class="errors" role="alert">
-				<g:eachError bean="${prcReportInstance}" var="error">
-				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-				</g:eachError>
-			</ul>
-			</g:hasErrors>
+			 
+                        <g:hasErrors bean="${prcReportInstance}">
+                        <div class="errors">
+                           <g:renderErrors bean="${prcReportInstance}" as="list" />
+                          </div>
+                         </g:hasErrors>
+                        
 			<g:form url="[resource:prcReportInstance, action:'update']" method="POST" >
+                             <input type="hidden" name="changed" value="N" id="changed"/>
+                             <g:each in="${prcReviewList}" status="i" var="pr">
+                              <input type="hidden" name ="is_pr_id_${pr.id}" value="${pr.id}" />
+                           </g:each>
 		  <h3>Specimens</h3>
                   <table>
                  
                     
                        <tr>
                          <th  style="border-bottom: 1px solid #ccc" colspan="3">Case #</th>
-                         <td style="border-bottom: 1px solid #ccc; border-right: 1px solid #ccc" colspan="5">
+                         <td style="border-bottom: 1px solid #ccc" colspan="4">
                            <g:link controller="caseRecord" action="display" id="${prcReportInstance.caseRecord.id}">${prcReportInstance.caseRecord.caseId}</g:link>
                          </td>
                        </tr>
                    
-                    <tr>
-                        <th>Specimen ID</th>
-                        <th>Slide ID</th>
-                        <th>Image ID</th>
-                        <th>Tissue</th>
-                        <th>Confirm Tissue</th>
-                      <th>Autolysis</th>
-                      <th>Comments</th>
-                      <th style="border-right: 1px solid #ccc"></th>
-                    </tr>
+                   
+                  
                   <g:each in="${prcReviewList}" status="i" var="pr">
                   
-                      
+                       <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                           <td><b>Specimen ID</b></td>
+                           <td><b>Slide ID</b></td>
+                           <td><b>Image ID</b></td>
+                           <td><b>Tissue</b></td>
+                           <td><b>Confirm Tissue</b></td>
+                           <td><b>Tissue Category</b></td>
+                           <td><b>Autolysis</b></td>
+                     
+                    </tr>
                       <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                      
                        
@@ -57,8 +87,8 @@
                          <td  nowrap="nowrap">${pr.slideRecord.slideId}</td>
                          <td ><a href="javascript:openImageWin('${pr.slideRecord.imageRecord?.imageId}')">${pr.slideRecord.imageRecord?.imageId}</a></td>
                         <td >${pr.slideRecord.specimenRecord?.tissueType?.name}</td>
-                         <td> <g:textField name="confirmTissueType"  value="${pr.confirmTissueType}"/></td>
-                        
+                         <td> <g:textField name="${pr.id}_ctype"  value="${pr.confirmTissueType}"/></td>
+                         <td  ><g:select name="${pr.id}_tcat" from="${nci.bbrb.cdr.staticmembers.TissueCategory.list(sort:'id')}" optionKey="name" value="${pr?.tissueCategory?.name}"   class="inv_status" id="tcat_${pr.id}" />
                         <td  nowrap="nowrap">
                           <div>
                             <g:radio name="${pr.id}_autolysis" id="${pr.id}_a0"  value="0" checked="${pr.autolysis =='0'}"/><label for="${pr.id}_a0">0</label>&nbsp;&nbsp;&nbsp;
@@ -68,24 +98,73 @@
                           </div>         
                                     
                         </td>
-                        <td >
-                          <g:textArea style="height:38px;width:250px;" name="${pr.id}_comments" value="${pr.comments}" />
+                     
+                        </tr>
+                          <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                              <td style="border-top: 1px solid #ccc"> <b>Number of Pieces</b></td>
+                              <td style="border-top: 1px solid #ccc" colspan="2"><b>Comments</b></td>
+                              <td style="border-top: 1px solid #ccc"  colspan="1"><b>Acceptability</b></td>
+                              <td style="border-top: 1px solid #ccc"  colspan="2"><b>Issue Description</b></td>
+                              <td style="border-top: 1px solid #ccc" colspan="2"><b>Issue Status</b></td>
+                    </tr>
+                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                            <td> <g:textField name="${pr.id}_piece"  value="${pr.numPieces}" size="4" /></td>
+                        <td colspan="2" class="value ${errorMap.get(pr.id +'_comments')}" >
+                          <g:textArea style="height:38px;width:220px;" name="${pr.id}_comments" value="${pr.comments}" />
                          </td>
-                        <td style="border-right: 1px solid #ccc" ><g:select name="${pr.id}_accp" from="${nci.bbrb.cdr.staticmembers.PrcAcceptability.list(sort:'id')}" optionKey="name" value="${pr?.acceptability?.name}"   class="inv_status" id="accp_${pr.id}" />
+                        <td colspan="1" ><g:select name="${pr.id}_accp" from="${nci.bbrb.cdr.staticmembers.PrcAcceptability.list(sort:'id')}" optionKey="name" value="${pr?.acceptability?.name}"   class="inv_status" id="accp_${pr.id}" />
                           
                           </td>
-                        
-                       
+                         
+                         <td colspan="2" class="value ${errorMap.get(pr.id +'_issue_desc')}" >
+                          <g:textArea style="height:38px;width:220px;" name="${pr.id}_issue_desc" value="${pr.issueDesc}" />
+                         </td>
+                        <td colspan="2" class="value ${errorMap.get(pr.id +'_issue_status')}" >
+                          <g:select name="${pr.id}_issue_status" from="${['Open', 'Pending', 'Resolved']}"  value="${pr?.issueStatus}"   class="inv_status" id="issue_status_${pr.id}" />
+                         </td>
                      
                       </tr>
                       
                         
                     </g:each>
                      <tr>
-                      <td colspan="9" style="border-top: 1px solid #ccc; border-right: 1px solid #ccc"> *Autolysis key: 0 = none &nbsp;&nbsp;  1 = mild &nbsp;&nbsp;  2 = moderate  &nbsp;&nbsp; 3 = severe</td>
+                      <td colspan="7" style="border-top: 1px solid #ccc"> *Autolysis key: 0 = none &nbsp;&nbsp;  1 = mild &nbsp;&nbsp;  2 = moderate  &nbsp;&nbsp; 3 = severe</td>
                     </tr>
                    
                    </table>
+                   
+                    <h3>General Information</h3>
+                  <table>
+                    
+                    <tr>
+                    
+                      <th colspan="2">Any additional comments from PRC</th>
+                    </tr>
+                     <tr>
+                     
+                      <td colspan="2"><g:textArea class="textwide" name="comments" value="${prcReportInstance.comments}" /></td>
+                    </tr>
+                    
+                     
+                    <g:if test="${prcReportInstance.submittedBy}">
+                        <tr>
+                      <th>Report Submitted By</th><th>Date Summary Report Submitted</th>
+                    </tr>
+                    <tr>
+                      <td class="value">${prcReportInstance.submittedBy}</td>
+                     
+                      <td class="value"><g:formatDate format="MM/dd/yyyy" date="${prcReportInstance.dateSubmitted}"/></td>
+                    </tr>
+                    <tr>
+                     </g:if>
+                  </table>
+                  
+                   <div class="buttons">
+                    <span class="button"><g:actionSubmit class="save" action="update" value="Save"  /></span>
+                    <g:if test="${canSub}">
+                         <span class="button"><g:actionSubmit class="delete" action="submit" value="Submit"  onclick="return sub()" /></span>
+                    </g:if>            
+                </div>
                   
 			</g:form>
 		</div>

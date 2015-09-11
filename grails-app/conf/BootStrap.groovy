@@ -128,6 +128,9 @@ class BootStrap {
          new TissueCategory(code:'DISEASED', name:'Diseased' ).save(failOnError: false, flush: true)
          new TissueCategory(code:'NEOPLASTIC', name:'Neoplastic' ).save(failOnError: false, flush: true)
          new TissueCategory(code:'OTHER', name:'Other' ).save(failOnError: false, flush: true)
+         
+         new AppSetting(code: "APERIO_URL", name: "APERIO_URL", value: "https://microscopy.vai.org/ViewImage.php?ImageId=").save(failOnError: false, flush: true)
+        
     }
     
     def destroy = {

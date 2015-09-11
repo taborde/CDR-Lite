@@ -13,6 +13,8 @@ class PrcReview extends DataRecordBaseClass {
     TissueCategory tissueCategory
     Integer numPieces
     String confirmTissueType
+    String issueDesc
+    String issueStatus
     
     static mapping = {
       table 'prc_review'
@@ -27,5 +29,7 @@ class PrcReview extends DataRecordBaseClass {
          tissueCategory(blank:true,nullable:true)
          numPieces(blank:true,nullable:true)
          confirmTissueType(blank:true,nullable:true)
+         issueDesc(blank:true,nullable:true)
+         issueStatus(blank:true,nullable:true)
     }
 }

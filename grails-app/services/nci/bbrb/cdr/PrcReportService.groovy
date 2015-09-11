@@ -297,5 +297,98 @@ class PrcReportService {
     }
     
     
+     def getPrcReviewList(prcReportInstance) { 
+        try{
+            def result=[]
+            def caseRecord = prcReportInstance.caseRecord
+           
+            
+            result = PrcReview.executeQuery("select pr from PrcReview pr inner join pr.slideRecord sl inner join sl.specimenRecord s where s.caseRecord.id=? order by s.specimenId", [caseRecord.id])
+            
+            return result
+       
+        }catch(Exception e){
+            e.printStackTrace()
+           
+            throw new RuntimeException(e.toString())
+        }
+        
+
+    }
+    
+    
+    
+    def saveReport(prcReportInstance, params, request){
+        try{
+          
+            
+          
+          
+            prcReportInstance.save(failOnError:true)
+            
+          
+          
+            params.each(){key,value->
+               
+                def ps_id
+                if(key.startsWith('is_pr_id')){
+                   
+                    def prcReview = PrcReview.get(value)
+                    prcReview.autolysis=params["${value}_autolysis"]
+                    prcReview.comments=params["${value}_comments"]
+                    
+                    def accpName =params["${value}_accp"]
+                    //  println("inventoryStatusName: " + inventoryStatusName)
+                    def prcAcceptability = PrcAcceptability.findByName(accpName)
+                    prcReview.acceptability = prcAcceptability
+   
+                    prcReview.save(failOnError:true)
+            
+                }
+            }
+            
+     
+            
+            
+        }catch(Exception e){
+            e.printStackTrace()
+           
+            throw new RuntimeException(e.toString())
+        }
+    }
+    
+    
+                     
+     def submitReport(prcReportInstance, username) {   
+         
+        println("in submit report")
+        if(prcReportInstance)
+          println("not null")
+        try {
+            prcReportInstance.submittedBy=username
+            prcReportInstance.dateSubmitted= new Date()
+             prcReportInstance.status = "Submitted"
+            prcReportInstance.save(failOnError:true)
+            
+            
+           //activityEventService.createEvent(activityType, caseId, study, bssCode, null, username, null, null)
+        } catch (Exception e) {
+            e.printStackTrace()    
+            throw new RuntimeException(e.toString())
+        }
+    }
+    
+    def startNew(prcReportInstance){
+        try{
+            prcReportInstance.status = 'Editing'
+            prcReportInstance.dateSubmitted=null
+            prcReportInstance.submittedBy = null
+           
+        }catch(Exception e){
+             
+            throw new RuntimeException(e.toString())
+        }
+        
+    }
     
 }

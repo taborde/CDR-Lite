@@ -10,7 +10,7 @@ class PrcReportController {
 
     def prcReportService
     
-    static allowedMethods = [ update: "PUT", delete: "DELETE"]
+    static allowedMethods = [ update: "POST", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -74,7 +74,7 @@ class PrcReportController {
 
     def edit(PrcReport prcReportInstance) {
         
-        println("in edit???????????????????????????????????????????????????")
+     
         
           def prcReviewList
         def prcIssueList
@@ -86,15 +86,15 @@ class PrcReportController {
         
         try{
             
-            println("before call????????????????????")
+          
             prcReviewList=prcReportService.getPrcReviewList4Edit(prcReportInstance)
             
-            println("size: " + prcReviewList.size())
+          
           
              
-           /** if(isStarted(prcReportInstance, prcReviewList)){
+            if(isStarted(prcReportInstance, prcReviewList)){
                
-                def result= checkError(prcReportInstance, prcSpecimenList, prcIssueList)
+                def result= checkError(prcReportInstance, prcReviewList)
                 
                 if(result){
                     result.each(){key,value->
@@ -107,7 +107,7 @@ class PrcReportController {
                     canSub=true
                 }
               
-            }**/
+            }
             
            
             
@@ -129,6 +129,9 @@ class PrcReportController {
 
     @Transactional
     def update(PrcReport prcReportInstance) {
+        
+    
+        
         if (prcReportInstance == null) {
             notFound()
             return
@@ -139,15 +142,15 @@ class PrcReportController {
             return
         }
 
-        prcReportInstance.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'PrcReport.label', default: 'PrcReport'), prcReportInstance.id])
-                redirect prcReportInstance
-            }
-            '*'{ respond prcReportInstance, [status: OK] }
-        }
+      
+        
+        
+          
+         prcReportService.saveReport(prcReportInstance, params, request)
+            
+         redirect(action:"edit", params:[id:prcReportInstance.id])
+           
+            
     }
 
     @Transactional
@@ -180,4 +183,158 @@ class PrcReportController {
             '*'{ render status: NOT_FOUND }
         }
     }
+    
+    
+     static boolean isStarted(prcReportInstance, prcReviewList){
+        def result=false
+        if(prcReportInstance.version > 0)
+        return true;
+          
+        prcReviewList.each() {
+            if(it.version > 0){
+                result=true
+            }
+               
+        }
+       
+         
+      
+           
+        return result
+        
+    }
+    static Map checkError(prcReportInstance, prcReviewList){
+        def studyCode = prcReportInstance.caseRecord.study.code
+        def result = [:]
+        def releaseMap=[:]
+       
+        prcReviewList.each() {
+            def specimenId =it.slideRecord.specimenRecord.specimenId
+            println("specimenId: " + specimenId)
+            def autolysis = it.autolysis
+            def fixativeCode= it.slideRecord.specimenRecord.fixative.code
+            /**if(studyCode=='GTEX' || (studyCode=='BMS' && fixativeCode=='XG')){
+                if(!autolysis){
+                    result.put("${it.id}_autolysis".trim(), "The Autolysis for specimen ${specimenId} is a required field.")
+                }
+            }**/
+             
+          
+          /**  def inventoryStatus=it.inventoryStatus
+            if(inventoryStatus?.name=='Unacceptable'){
+                def reasons = it.unaccReasons
+                boolean selected = false
+                reasons.each(){it2->
+                    if(it2.selected){
+                        selected = true
+                    }
+                    
+                }
+                if(!selected)
+                  result.put("${it.id}_inventoryStatus".trim(), "Please specify at least one unacceptable reason for specimen ${specimenId}.")
+            }**/
+            
+            
+            def comments=it.comments
+            if(!comments){
+                result.put("${it.id}_comments".trim(), "The comments for specimen ${specimenId} is a required field.")
+            }
+            
+        }
+        
+      
+        println("before return")
+        return result
+    }
+
+    
+    def submit = {
+        def prcReportInstance = PrcReport.get(params.id)
+        def prcReviewList
+        
+        def errorMap=[:]
+        def canSub=false
+      
+        try{
+            prcReviewList=prcReportService.getPrcReviewList(prcReportInstance)
+           
+      
+            def result= checkError(prcReportInstance, prcReviewList)
+            if(result){
+                result.each(){key,value->
+                    
+                    prcReportInstance.errors.reject(value, value)
+                    errorMap.put(key, "errors")
+                }//each
+                flash.message="failed to submit"
+                     
+                   
+                render(view: "edit", model: [prcReportInstance: prcReportInstance, prcReviewList:prcReviewList,  errorMap:errorMap, canSub:canSub ] )
+  
+            }else{
+                //prcReportService.submitReport(prcReportInstance)
+                def username= session.SPRING_SECURITY_CONTEXT?.authentication?.principal?.getUsername()
+                
+                prcReportService.submitReport(prcReportInstance, username)
+                 
+               
+                render(view: "view", model: [prcReportInstance: prcReportInstance, prcReviewList:prcReviewList] )
+                
+            }
+              
+        }catch(Exception e){
+            flash.message="Failed: " + e.toString()  
+            // redirect(action:"edit", params:[id:prcReportInstance.id])        
+            def studyCode = prcReportInstance.caseRecord.study.code
+            if(studyCode =='GTEX')
+            redirect(action:"edit", params:[id:prcReportInstance.id])
+            else
+            redirect(action:"editBms", params:[id:prcReportInstance.id])
+            
+        }
+        
+    }
+    
+    
+     def view = {
+       
+        def prcReportInstance = PrcReport.get(params.id)
+        
+       
+        
+      
+        def prcReviewList=prcReportService.getPrcReviewList(prcReportInstance)
+      
+      
+        
+        return [prcReportInstance: prcReportInstance, prcReviewList:prcReviewList]
+       
+        
+        
+    }
+    
+     def startnew ={
+        
+        def prcReportInstance = PrcReport.get(params.id)
+        
+             
+        try{
+           
+            prcReportService.startNew(prcReportInstance)
+          
+            
+          
+            redirect(action:"edit", params:[id:prcReportInstance.id])
+           
+            // redirect(action:"edit", params:[id:prcReportInstance.id])
+        }catch(Exception e){
+            flash.message="Failed: " + e.toString() 
+           
+            redirect(action:"view", params:[id:prcReportInstance.id])
+         
+        }
+        
+        
+    }
+   
 }
