@@ -29,8 +29,8 @@ class HomeController {
             
               redirect(action: "projecthome")
          
-        }else if(session.chosenHome=="projecthome"){
-              redirct(action: "prchome")
+        }else if(session.chosenHome=="prchome"){
+              redirect(action: "prchome")
         }else {
             redirect(action: "choosehome")
         }

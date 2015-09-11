@@ -72,14 +72,13 @@ class PrcReportController {
         }**/
     }
 
-    def edit(PrcReport prcReportInstance) {
+    def edit = {
         
-     
+     def prcReportInstance = PrcReport.get(params.id)
         
           def prcReviewList
         def prcIssueList
-        def prcReportSubList
-        def specimenList
+       
         def errorMap=[:]
         def canSub=false
         
@@ -210,7 +209,7 @@ class PrcReportController {
        
         prcReviewList.each() {
             def specimenId =it.slideRecord.specimenRecord.specimenId
-            println("specimenId: " + specimenId)
+           // println("specimenId: " + specimenId)
             def autolysis = it.autolysis
             def fixativeCode= it.slideRecord.specimenRecord.fixative.code
             /**if(studyCode=='GTEX' || (studyCode=='BMS' && fixativeCode=='XG')){
@@ -238,6 +237,16 @@ class PrcReportController {
             def comments=it.comments
             if(!comments){
                 result.put("${it.id}_comments".trim(), "The comments for specimen ${specimenId} is a required field.")
+            }
+            
+            def issueDesc = it.issueDesc
+            def issueStatus = it.issueStatus
+            if(!issueDesc && issueStatus){
+                result.put("${it.id}_issue_desc".trim(), "The issue description for specimen ${specimenId} is a required field.")
+            }
+            
+            if(issueDesc && !issueStatus){
+                result.put("${it.id}_issue_status".trim(), "The issue status for specimen ${specimenId} is a required field.")
             }
             
         }
@@ -278,7 +287,7 @@ class PrcReportController {
                 prcReportService.submitReport(prcReportInstance, username)
                  
                
-                render(view: "view", model: [prcReportInstance: prcReportInstance, prcReviewList:prcReviewList] )
+                render(view: "view", model: [prcReportInstance: prcReportInstance, prcReviewList:prcReviewList, errorMap:errorMap] )
                 
             }
               
@@ -307,7 +316,7 @@ class PrcReportController {
       
       
         
-        return [prcReportInstance: prcReportInstance, prcReviewList:prcReviewList]
+        return [prcReportInstance: prcReportInstance, prcReviewList:prcReviewList, errorMap:[:]]
        
         
         

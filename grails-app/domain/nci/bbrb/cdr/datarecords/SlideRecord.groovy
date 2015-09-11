@@ -12,7 +12,8 @@ class SlideRecord extends DataRecordBaseClass{
     String toString(){"$slideId"}
     
     static constraints = {
-        
+        imageRecord(blank:true,nullable:true)
+        prcReview(blank:true,nullable:true)
     }
     
     static mapping = {

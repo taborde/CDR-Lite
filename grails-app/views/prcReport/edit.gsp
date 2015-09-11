@@ -12,6 +12,19 @@
                   document.getElementById("changed").value = "Y"
                   //alert("Changed!")
                 });
+                
+            $(".check_int").change(function(){
+            var value= this.value
+             if(!isNaN(value) && parseInt(Number(value)) == value){
+               return true
+             }else{
+             
+               alert ("number of pieces must be an integer")
+               this.focus()
+               return false
+               }
+                });  
+        
             });
             
            function sub(){
@@ -22,6 +35,27 @@
                }
             
           }
+          
+         
+          function checkSave(){
+           var result=true
+          
+            $('.check_int').each(function() { 
+              var value=this.value
+               if(!isNaN(value) && parseInt(Number(value)) == value){
+               
+             }else{
+             
+               alert ("number of pieces must be an integer")
+               result= false
+               }
+            });
+            
+            return result
+         }
+
+         
+          
           
             function openImageWin(image_id){
              // var w2=window.open('https://microscopy.vai.org/imageserver/@@/@'+image_id + '/view.apml', 'hub_aperio', 'location=1,status=1,scrollbars=1,resizable=1,width=965,height=700');
@@ -39,7 +73,7 @@
                        </div>
 
 		 <div id="container" class="clearfix">
-			<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
+			<h1>PRC Case Summary Report</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -60,10 +94,12 @@
                  
                     
                        <tr>
-                         <th  style="border-bottom: 1px solid #ccc" colspan="3">Case #</th>
-                         <td style="border-bottom: 1px solid #ccc" colspan="4">
-                           <g:link controller="caseRecord" action="display" id="${prcReportInstance.caseRecord.id}">${prcReportInstance.caseRecord.caseId}</g:link>
-                         </td>
+                           <th  style="border-bottom: 1px solid #ccc" colspan="2">
+                          Case ID
+                           </th>
+                         <th  style="border-bottom: 1px solid #ccc" colspan="5">
+                          <g:link controller="caseRecord" action="display" id="${prcReportInstance.caseRecord.id}">${prcReportInstance.caseRecord.caseId}</g:link>
+                           </th>
                        </tr>
                    
                    
@@ -71,13 +107,13 @@
                   <g:each in="${prcReviewList}" status="i" var="pr">
                   
                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                           <td><b>Specimen ID</b></td>
-                           <td><b>Slide ID</b></td>
-                           <td><b>Image ID</b></td>
-                           <td><b>Tissue</b></td>
-                           <td><b>Confirm Tissue</b></td>
-                           <td><b>Tissue Category</b></td>
-                           <td><b>Autolysis</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Specimen ID</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Slide ID</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Image ID</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Tissue</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Confirm Tissue</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Tissue Category</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Autolysis</b></td>
                      
                     </tr>
                       <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
@@ -108,7 +144,7 @@
                               <td style="border-top: 1px solid #ccc" colspan="2"><b>Issue Status</b></td>
                     </tr>
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                            <td> <g:textField name="${pr.id}_piece"  value="${pr.numPieces}" size="4" /></td>
+                            <td> <g:textField name="${pr.id}_piece"  value="${pr.numPieces}" size="4" class="check_int" /></td>
                         <td colspan="2" class="value ${errorMap.get(pr.id +'_comments')}" >
                           <g:textArea style="height:38px;width:220px;" name="${pr.id}_comments" value="${pr.comments}" />
                          </td>
@@ -120,7 +156,7 @@
                           <g:textArea style="height:38px;width:220px;" name="${pr.id}_issue_desc" value="${pr.issueDesc}" />
                          </td>
                         <td colspan="2" class="value ${errorMap.get(pr.id +'_issue_status')}" >
-                          <g:select name="${pr.id}_issue_status" from="${['Open', 'Pending', 'Resolved']}"  value="${pr?.issueStatus}"   class="inv_status" id="issue_status_${pr.id}" />
+                          <g:select name="${pr.id}_issue_status" from="${['Open', 'Pending', 'Resolved']}"  value="${pr?.issueStatus}" noSelection="['': '']"    class="inv_status" id="issue_status_${pr.id}" />
                          </td>
                      
                       </tr>
@@ -160,7 +196,8 @@
                   </table>
                   
                    <div class="buttons">
-                    <span class="button"><g:actionSubmit class="save" action="update" value="Save"  /></span>
+                    <span class="button"><g:actionSubmit class="save" action="update" value="Save" onclick="return checkSave()" /></span>
+                    
                     <g:if test="${canSub}">
                          <span class="button"><g:actionSubmit class="delete" action="submit" value="Submit"  onclick="return sub()" /></span>
                     </g:if>            

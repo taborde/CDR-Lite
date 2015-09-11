@@ -43,25 +43,28 @@
                  
                     
                        <tr>
-                         <th  style="border-bottom: 1px solid #ccc" colspan="3">Case #</th>
-                         <td style="border-bottom: 1px solid #ccc; border-right: 1px solid #ccc" colspan="5">
-                           <g:link controller="caseRecord" action="display" id="${prcReportInstance.caseRecord.id}">${prcReportInstance.caseRecord.caseId}</g:link>
-                         </td>
+                           <th  style="border-bottom: 1px solid #ccc" colspan="2">
+                          Case ID
+                           </th>
+                         <th  style="border-bottom: 1px solid #ccc" colspan="5">
+                          <g:link controller="caseRecord" action="display" id="${prcReportInstance.caseRecord.id}">${prcReportInstance.caseRecord.caseId}</g:link>
+                           </th>
                        </tr>
                    
-                    <tr>
-                        <th>Specimen ID</th>
-                        <th>Slide ID</th>
-                        <th>Image ID</th>
-                        <th>Tissue</th>
-                        <th>Confirm Tissue</th>
-                      <th>Autolysis</th>
-                      <th>Comments</th>
-                      <th style="border-right: 1px solid #ccc"></th>
-                    </tr>
+                   
+                  
                   <g:each in="${prcReviewList}" status="i" var="pr">
                   
-                      
+                       <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                           <td style="border-top: 1px solid #ccc" ><b>Specimen ID</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Slide ID</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Image ID</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Tissue</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Confirm Tissue</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Tissue Category</b></td>
+                           <td style="border-top: 1px solid #ccc" ><b>Autolysis</b></td>
+                     
+                    </tr>
                       <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                      
                        
@@ -70,30 +73,45 @@
                          <td ><a href="javascript:openImageWin('${pr.slideRecord.imageRecord?.imageId}')">${pr.slideRecord.imageRecord?.imageId}</a></td>
                         <td >${pr.slideRecord.specimenRecord?.tissueType?.name}</td>
                          <td> ${pr.confirmTissueType}</td>
-                        
+                         <td  >${pr?.tissueCategory?.name}
                         <td  nowrap="nowrap">
                           <div>
                               ${pr.autolysis}
-                          
+                           
                           </div>         
                                     
                         </td>
-                        <td class="value" >
-                            ${pr.comments}
-                         
+                     
+                        </tr>
+                          <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                              <td style="border-top: 1px solid #ccc"> <b>Number of Pieces</b></td>
+                              <td style="border-top: 1px solid #ccc" colspan="2"><b>Comments</b></td>
+                              <td style="border-top: 1px solid #ccc"  colspan="1"><b>Acceptability</b></td>
+                              <td style="border-top: 1px solid #ccc"  colspan="2"><b>Issue Description</b></td>
+                              <td style="border-top: 1px solid #ccc" colspan="2"><b>Issue Status</b></td>
+                    </tr>
+                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                            <td> ${pr.numPieces}</td>
+                        <td colspan="2" class="value ${errorMap.get(pr.id +'_comments')}" >
+                          ${pr.comments}
                          </td>
-                        <td style="border-right: 1px solid #ccc" >${pr?.acceptability?.name}
+                        <td colspan="1" >${pr?.acceptability?.name}
                           
                           </td>
-                        
-                       
+                         
+                         <td colspan="2" class="value ${errorMap.get(pr.id +'_issue_desc')}" >
+                          ${pr.issueDesc}
+                         </td>
+                        <td colspan="2" class="value ${errorMap.get(pr.id +'_issue_status')}" >
+                          ${pr?.issueStatus}
+                         </td>
                      
                       </tr>
                       
                         
                     </g:each>
                      <tr>
-                      <td colspan="9" style="border-top: 1px solid #ccc; border-right: 1px solid #ccc"> *Autolysis key: 0 = none &nbsp;&nbsp;  1 = mild &nbsp;&nbsp;  2 = moderate  &nbsp;&nbsp; 3 = severe</td>
+                      <td colspan="7" style="border-top: 1px solid #ccc"> *Autolysis key: 0 = none &nbsp;&nbsp;  1 = mild &nbsp;&nbsp;  2 = moderate  &nbsp;&nbsp; 3 = severe</td>
                     </tr>
                    
                    </table>

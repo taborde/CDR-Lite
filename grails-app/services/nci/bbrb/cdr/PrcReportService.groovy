@@ -329,6 +329,7 @@ class PrcReportService {
           
           
             params.each(){key,value->
+                println("key: " + key + "  value: " +value)
                
                 def ps_id
                 if(key.startsWith('is_pr_id')){
@@ -336,11 +337,32 @@ class PrcReportService {
                     def prcReview = PrcReview.get(value)
                     prcReview.autolysis=params["${value}_autolysis"]
                     prcReview.comments=params["${value}_comments"]
+                    prcReview.confirmTissueType=params["${value}_ctype"]
                     
                     def accpName =params["${value}_accp"]
                     //  println("inventoryStatusName: " + inventoryStatusName)
                     def prcAcceptability = PrcAcceptability.findByName(accpName)
                     prcReview.acceptability = prcAcceptability
+                    prcReview.issueDesc=params["${value}_issue_desc"]
+                    prcReview.issueStatus=params["${value}_issue_status"]
+                    
+                      def tcatName =params["${value}_tcat"]
+                    //  println("inventoryStatusName: " + inventoryStatusName)
+                    def tissueCategory = TissueCategory.findByName(tcatName)
+                    prcReview.tissueCategory=tissueCategory
+                    
+                    try{
+                       if( params["${value}_piece"]){
+                       def num= Integer.parseInt(params["${value}_piece"])
+                       prcReview.numPieces=num
+                       } else{
+                           prcReview.numPieces=null
+                       }
+                    }catch(Exception e){
+                        
+                    }
+                    
+                   
    
                     prcReview.save(failOnError:true)
             
