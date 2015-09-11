@@ -29,7 +29,7 @@
 
               
               <g:render template="/caseRecord/caseRecordPrcTable_tmpl" />
-              <div class="clearfix tablefooter"><div class="left">Most recently created on top</div><div class="right"><a href="/cahubdataservices/prcReport/caselist?study=BPV">View all Cases &gt;&gt;</a></div></div>
+              <div class="clearfix tablefooter"><div class="left">Most recently created on top</div><div class="right"><a href="/cdrlite/prcReport/caselist?study=BPV">View all Cases &gt;&gt;</a></div></div>
                       
             </div>
 

@@ -32,7 +32,7 @@
                         </tr>
                        
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="candidateRecord.bss.label" default="Bss" /></td>
+                            <td valign="top" class="name"><g:message code="candidateRecord.bss.label" default="BSS" /></td>
                             
                             <td valign="top" class="value">${candidateRecordInstance?.bss.name} (${candidateRecordInstance?.bss?.code})</td>
                             

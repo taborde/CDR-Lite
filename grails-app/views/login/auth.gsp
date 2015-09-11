@@ -6,10 +6,10 @@
 <g:set var="helpemail" value="${AppSetting?.findByCode('HELP_EMAIL')}" />
 <g:set var="homeTitle" value="caHUB" scope="request"/>
 <g:if test="${session.org?.code == 'OBBR'}">
-   <g:set var="homeLink" value="/cahubdataservices/home/choosehome" scope="request"/>
+   <g:set var="homeLink" value="/cdrlite/home/choosehome" scope="request"/>
 </g:if>
 <g:else>
-   <g:set var="homeLink" value="/cahubdataservices/home" scope="request"/>
+   <g:set var="homeLink" value="/cdrlite/home" scope="request"/>
 </g:else>
 <!-- PH testing for bigValue display at the end of the login box -->
 <g:set var="loginbulletin" value="${AppSetting?.findByCode('LOGIN_BULLETIN')}" />

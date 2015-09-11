@@ -18,10 +18,10 @@
             <a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
             <g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link>
             <g:if test="${queryInstance?.caseRecord}">
-                <a class="list" href="/cahubdataservices/query/listByCase?caseRecord.id=${queryInstance?.caseRecord?.id}">Query List for ${queryInstance?.caseRecord?.caseId}</a>
+                <a class="list" href="/cdrlite/query/listByCase?caseRecord.id=${queryInstance?.caseRecord?.id}">Query List for ${queryInstance?.caseRecord?.caseId}</a>
             </g:if>
             <g:elseif test="${queryInstance?.candidateRecord}">
-                <a class="list" href="/cahubdataservices/query/listByCandidate?candidateRecord.id=${queryInstance?.candidateRecord?.id}">Query List for ${queryInstance?.candidateRecord?.candidateId}</a>
+                <a class="list" href="/cdrlite/query/listByCandidate?candidateRecord.id=${queryInstance?.candidateRecord?.id}">Query List for ${queryInstance?.candidateRecord?.candidateId}</a>
             </g:elseif>
             %{-- <g:if test="${queryInstance}"><g:link class="list" action="traceQryDura" id="${queryInstance.id}">Trace Duration</g:link></g:if> --}%
         </div>
@@ -45,7 +45,7 @@
                         <tr class="prop">
                             <td class="name">
                                 <g:render template="responseTable" bean="${queryInstance}" var="queryInstance" />
-                                <g:if test="${(session.org?.code == 'OBBR' && session.DM && queryInstance?.queryStatus?.code != 'CLOSED') || (session.org?.code != 'OBBR' && queryInstance?.queryStatus?.code == 'ACTIVE')}">
+                                <g:if test="${(session.org?.code == 'DCC' && session.DM && queryInstance?.queryStatus?.code != 'CLOSED') || (session.org?.code != 'DCC' && queryInstance?.queryStatus?.code == 'ACTIVE')}">
                                     <div>
                                         <button id="addResponseBtn">Add</button>
                                     </div>
@@ -58,7 +58,7 @@
                         <tr class="prop">
                             <td class="name">
                                 <g:render template="attachmentTable" bean="${queryInstance}" var="queryInstance" />
-                                <g:if test="${(session.org?.code == 'OBBR' && session.DM && queryInstance?.queryStatus?.code != 'CLOSED') || (session.org?.code != 'OBBR' && queryInstance?.queryStatus?.code == 'ACTIVE')}">
+                                <g:if test="${(session.org?.code == 'DCC' && session.DM && queryInstance?.queryStatus?.code != 'CLOSED') || (session.org?.code != 'DCC' && queryInstance?.queryStatus?.code == 'ACTIVE')}">
                                     <div>
                                         <g:link class="uibutton" controller="query" action="upload" id="${queryInstance?.id}">
                                             <span class="ui-icon ui-icon-circle-arrow-n"></span>Upload
@@ -74,30 +74,30 @@
             <div class="buttons">
                 <g:form>
                     <g:hiddenField name="id" value="${queryInstance?.id}" />
-                    <g:if test="${session.org?.code == 'OBBR' && session.DM && queryInstance?.queryStatus?.code != 'CLOSED'}">
+                    <g:if test="${session.org?.code == 'DCC' && session.DM && queryInstance?.queryStatus?.code != 'CLOSED'}">
                         <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
                     </g:if>
-                    <g:if test="${session.org?.code == 'OBBR' && session.DM && !queryInstance?.queryStatus}">
+                    <g:if test="${session.org?.code == 'DCC' && session.DM && !queryInstance?.queryStatus}">
                         <g:hiddenField name="newQuery" value="true" />
                         <span class="button"><g:actionSubmit id="activateBtn" class="save" action="reactivate" value="Activate" /></span>
                     </g:if>
-                    <g:if test="${(session.org?.code != 'OBBR' && queryInstance?.queryStatus?.code == 'ACTIVE') || (session.org?.code == 'OBBR' && session.DM && queryInstance?.queryStatus?.code == 'ACTIVE')}">
+                    <g:if test="${(session.org?.code != 'DCC' && queryInstance?.queryStatus?.code == 'ACTIVE') || (session.org?.code == 'DCC' && session.DM && queryInstance?.queryStatus?.code == 'ACTIVE')}">
                         <span class="button"><g:actionSubmit id="addressBtn" class="save" action="address" value="Mark as Addressed" /></span>
                     </g:if>
-                    <g:if test="${session.org?.code == 'OBBR' && session.DM && queryInstance?.queryStatus?.code == 'ADDRESSED'}">
+                    <g:if test="${session.org?.code == 'DCC' && session.DM && queryInstance?.queryStatus?.code == 'ADDRESSED'}">
                         <span class="button"><g:actionSubmit id="reactivateBtn" class="save" action="reactivate" value="Reactivate" /></span>
                         <span class="button"><g:actionSubmit id="resolveBtn" class="save" action="resolve" value="Resolve" /></span>
                         <span class="button"><g:actionSubmit id="unresolveBtn" class="save" action="unresolve" value="Unresolve" /></span>
                     </g:if>
-                    <g:if test="${session.org?.code == 'OBBR' && session.DM && queryInstance?.queryStatus?.code == 'RESOLVED'}">
+                    <g:if test="${session.org?.code == 'DCC' && session.DM && queryInstance?.queryStatus?.code == 'RESOLVED'}">
                         <span class="button"><g:actionSubmit id="reactivateBtn" class="save" action="reactivate" value="Reactivate" /></span>
                         <span class="button"><g:actionSubmit id="closeBtn" class="save" action="close" value="Close" /></span>
                     </g:if>
-                    <g:if test="${session.org?.code == 'OBBR' && session.DM && queryInstance?.queryStatus?.code == 'UNRESOLVED'}">
+                    <g:if test="${session.org?.code == 'DCC' && session.DM && queryInstance?.queryStatus?.code == 'UNRESOLVED'}">
                         <span class="button"><g:actionSubmit id="reactivateBtn" class="save" action="reactivate" value="Reactivate" /></span>
                         <span class="button"><g:actionSubmit id="closeBtn" class="save" action="close" value="Close" /></span>
                     </g:if>
-                    <g:if test="${session.org?.code == 'OBBR' && session.DM && queryInstance?.queryStatus?.code == 'CLOSED'}">
+                    <g:if test="${session.org?.code == 'DCC' && session.DM && queryInstance?.queryStatus?.code == 'CLOSED'}">
                         <g:hiddenField name="closed" value="true" />
                         <span class="button"><g:actionSubmit id="reactivateBtn" class="save" action="reactivate" value="Reactivate" /></span>
                         <span class="button"><g:actionSubmit id="resolveBtn" class="save" action="resolve" value="Mark as Resolved" /></span>

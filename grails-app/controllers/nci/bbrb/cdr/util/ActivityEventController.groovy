@@ -129,7 +129,7 @@ class ActivityEventController {
                 createAlias("activityType", "a")
                 
                   //  'in'("a.code", ["CASECREATE", "CASEUPDATE","STATUSCHG"])
-                 'in'("a.code", ["CASECREATE", "STATUSCHG"])
+                 'in'("a.code", ["CASECREATE", "STATUSCHG", "QUERY"])
                     
                 }
             
