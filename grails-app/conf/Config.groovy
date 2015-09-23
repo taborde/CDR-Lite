@@ -168,7 +168,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/activitycenter/**': ['IS_AUTHENTICATED_FULLY'],
     '/textSearch/**': ['IS_AUTHENTICATED_FULLY'],
     '/textSearch/index_all': ['ROLE_ADMIN'],
-    '/query/**': ['ROLE_BSS_UUU', 'ROLE_DM','ROLE_SUPER','ROLE_ADMIN','ROLE_ORG_VARI','ROLE_ORG_BROAD','ROLE_ORG_MBB'],
+    '/query/**': ['ROLE_BSS_UUU', 'ROLE_BSS_CCC', 'ROLE_DM','ROLE_SUPER','ROLE_ADMIN','ROLE_ORG_VARI','ROLE_ORG_BROAD','ROLE_ORG_MBB'],
     '/fileUpload/**': ['ROLE_ADMIN'],
     '/caseAttachmentType/**':['ROLE_ADMIN'],
     '/prcReport/**': ['ROLE_PRC','ROLE_ADMIN'],
