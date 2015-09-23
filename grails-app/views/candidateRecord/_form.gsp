@@ -71,7 +71,21 @@
             </td>
         </tr>
 
-       
+        <tr class="prop">
+                            <td valign="top" class="name"> Health History</td>
+                            
+                            <td valign="top" style="text-align: left;" class="value">
+                                <ul>
+                                <g:if test="!${candidateRecordInstance.healthHistory}">
+                                    <li><g:link controller="healthHistory" action="show" id="${candidateRecordInstance.healthHistory.id}">show health history</g:link></li>
+                                    </g:if>
+                                    <g:else>
+                                         <li><g:link controller="healthHistory" action="create" params="['candidateRecord.id': candidateRecordInstance?.id]" >Add health history</g:link></li>
+                                        </g:else>
+                                </ul>
+                                
+                            </td>
+                            
         
         
         <tr class="prop">

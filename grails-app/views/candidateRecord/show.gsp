@@ -32,7 +32,7 @@
                         </tr>
                        
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="candidateRecord.bss.label" default="BSS" /></td>
+                            <td valign="top" class="name"><g:message code="candidateRecord.bss.label" default="Bss" /></td>
                             
                             <td valign="top" class="value">${candidateRecordInstance?.bss.name} (${candidateRecordInstance?.bss?.code})</td>
                             
@@ -47,8 +47,27 @@
                                 <ul>
                                 <g:each in="${candidateRecordInstance.caseList}" var="c">
                                     <li><g:link controller="caseRecord" action="show" id="${c.id}">${c?.caseId}</g:link></li>
+                                    
                                 </g:each>
                                 </ul>
+                                
+                            </td>
+                            
+                        </tr>
+                        
+                        
+                        <tr class="prop">
+                            <td valign="top" class="name"> Health History</td>
+                            
+                            <td valign="top" style="text-align: left;" class="value">
+                                <ul>
+                                <g:if test="${candidateRecordInstance.healthHistory}">
+                                    <li><g:link controller="healthHistory" action="show" id="${candidateRecordInstance.healthHistory.id}">show health history</g:link></li>
+                                    
+                                </g:if>
+                                
+                                </ul>
+                                
                             </td>
                             
                         </tr>

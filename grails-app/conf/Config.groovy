@@ -173,6 +173,10 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/caseAttachmentType/**':['ROLE_ADMIN'],
     '/prcReport/**': ['ROLE_PRC','ROLE_ADMIN'],
     '/prcReport/view': ['ROLE_PRC','ROLE_ADMIN', 'ROLE_DCC'],
+    '/healthHistory/**': ['ROLE_ADMIN', 'ROLE_DCC'],
+     '/generalMedicalHistory/**': ['ROLE_ADMIN', 'ROLE_DCC'],
+     '/cancerHistory/**': ['ROLE_ADMIN', 'ROLE_DCC'],
+     '/medicationHistory/**': ['ROLE_ADMIN', 'ROLE_DCC'],
      '/rest/**': ['ROLE_ADMIN']
 
 

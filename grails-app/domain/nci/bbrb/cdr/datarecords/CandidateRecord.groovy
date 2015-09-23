@@ -1,6 +1,7 @@
 package nci.bbrb.cdr.datarecords
 
 import nci.bbrb.cdr.staticmembers.*
+import nci.bbrb.cdr.bps.history.*
 
 class CandidateRecord extends DataRecordBaseClass{
     
@@ -12,9 +13,11 @@ class CandidateRecord extends DataRecordBaseClass{
     String comments
     
     static hasMany = [caseList:CaseRecord]
-
+    static hasOne = [healthHistory:HealthHistory]
+    
     static constraints = {
         comments(nullable:true,blank:true, maxSize:4000)
+        healthHistory(nullable:true,blank:true)
     }
     
     
